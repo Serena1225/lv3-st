@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>성균어학원 한국어학당 3급 학습</title>
+
+  <!-- Modern Clean Sans-Serif Fonts: Pretendard & Nunito -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAFAFC',
+            espresso: '#5C3D2E',
+            ink: '#2D2226',
+            muted: '#8B7E84',
+            violet: {
+              DEFAULT: '#8B5CF6',
+              hover: '#7C3AED',
+              shadow: '#6D28D9',
+              soft: '#F3F0FF',
+              border: '#E5DEFF',
+            },
+            pinky: {
+              DEFAULT: '#EC4899',
+              hover: '#DB2777',
+              shadow: '#BE185D',
+              soft: '#FDF2F8',
+              border: '#FBCFE8',
+            },
+            line: '#E5E7EB',
+          },
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            num: ['Nunito', 'Pretendard', 'sans-serif'],
+          },
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #FAFAFC;
+      color: #2D2226;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Tactile Duolingo-style 3D Buttons */
+    .btn-3d {
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s ease;
+      user-select: none;
+    }
+
+    .btn-3d:active:not(:disabled) {
+      transform: translateY(3px);
+    }
+
+    .btn-purple {
+      background-color: #8B5CF6;
+      color: #FFFFFF;
+      box-shadow: 0 4px 0 #6D28D9;
+    }
+
+    .btn-purple:hover:not(:disabled) {
+      background-color: #7C3AED;
+    }
+
+    .btn-purple:active:not(:disabled) {
+      box-shadow: 0 1px 0 #6D28D9;
+    }
+
+    .btn-purple:disabled {
+      background-color: #E5E7EB;
+      color: #9CA3AF;
+      box-shadow: 0 4px 0 #D1D5DB;
+      cursor: not-allowed;
+    }
+
+    .btn-pink {
+      background-color: #EC4899;
+      color: #FFFFFF;
+      box-shadow: 0 4px 0 #BE185D;
+    }
+
+    .btn-pink:hover:not(:disabled) {
+      background-color: #DB2777;
+    }
+
+    .btn-pink:active:not(:disabled) {
+      box-shadow: 0 1px 0 #BE185D;
+    }
+
+    .btn-pink:disabled {
+      background-color: #E5E7EB;
+      color: #9CA3AF;
+      box-shadow: 0 4px 0 #D1D5DB;
+      cursor: not-allowed;
+    }
+
+    .btn-white {
+      background-color: #FFFFFF;
+      color: #2D2226;
+      border: 2px solid #E5E7EB;
+      box-shadow: 0 3px 0 #E5E7EB;
+    }
+
+    .btn-white:hover:not(:disabled) {
+      background-color: #FAFAFC;
+      border-color: #D8B4FE;
+    }
+
+    .btn-white:active:not(:disabled) {
+      box-shadow: 0 1px 0 #E5E7EB;
+    }
+
+    /* Clean White Card */
+    .duo-card {
+      background-color: #FFFFFF;
+      border: 2px solid #E5E7EB;
+      border-radius: 24px;
+    }
+
+    /* Selectable Avatar Card */
+    .avatar-card {
+      background-color: #FFFFFF;
+      border: 2px solid #E5E7EB;
+      border-radius: 18px;
+      box-shadow: 0 3px 0 #E5E7EB;
+      transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+      cursor: pointer;
+    }
+
+    .avatar-card:hover {
+      border-color: #C4B5FD;
+      background-color: #FAFAFC;
+    }
+
+    .avatar-card.selected {
+      border-color: #8B5CF6;
+      background-color: #F3F0FF;
+      box-shadow: 0 3px 0 #8B5CF6;
+    }
+
+    /* Crisp White-Background Avatar Image Container */
+    .yusaeng-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background-color: #FFFFFF;
+      display: block;
+    }
+
+    /* Grape Berry Buttons */
+    .grape-btn {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background-color: #F3F0FF;
+      border: 2px solid #E5DEFF;
+      box-shadow: 0 3px 0 #E5DEFF;
+      color: #A78BFA;
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease;
+      user-select: none;
+    }
+
+    @media (min-width: 640px) {
+      .grape-btn {
+        width: 54px;
+        height: 54px;
+        font-size: 17px;
+      }
+    }
+
+    .grape-btn:hover {
+      transform: scale(1.06);
+      border-color: #F472B6;
+    }
+
+    .grape-btn.next-target {
+      background-color: #FDF2F8;
+      border-color: #EC4899;
+      box-shadow: 0 3px 0 #FBCFE8;
+      color: #EC4899;
+    }
+
+    .grape-btn.filled {
+      background: linear-gradient(145deg, #A78BFA 0%, #8B5CF6 48%, #EC4899 100%);
+      border-color: #7C3AED;
+      box-shadow: 0 3px 0 #6D28D9;
+      color: #FFFFFF;
+    }
+
+    .grape-btn.filled::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 10px;
+      width: 11px;
+      height: 5.5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.55);
+      transform: rotate(-26deg);
+      pointer-events: none;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.65); }
+      60% { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    .grape-pop {
+      animation: popIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* 3D Flashcard Flip */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      min-height: 235px;
+      transition: transform 0.48s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .flashcard-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Speech Bubble */
+    .speech-bubble {
+      position: relative;
+      background: #FFFFFF;
+      border: 2px solid #E5DEFF;
+      border-radius: 16px;
+      padding: 8px 14px;
+      box-shadow: 0 2px 0 #E5DEFF;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 11px;
+      height: 11px;
+      background: #FFFFFF;
+      border-right: 2px solid #E5DEFF;
+      border-bottom: 2px solid #E5DEFF;
+    }
+
+    @keyframes softAppear {
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .soft-appear {
+      animation: softAppear 0.24s ease-out;
+    }
+
+    #celebration-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+  <!-- Hidden Multi-File Input for Loading Official SKKU Yusaeng JPGs -->
+  <input id="yusaeng-file-input" type="file" accept="image/*" multiple class="hidden" />
+
+  <!-- Custom Inline Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4 w-full max-w-sm"></div>
+
+  <!-- =========================================================
+       1. LOGIN / PROFILE SETUP SCREEN
+  ========================================================= -->
+  <main id="auth-screen" class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-lg duo-card p-6 sm:p-8 soft-appear">
+      <div class="text-center mb-6">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-pinky-soft border border-pinky-border text-pinky font-extrabold text-xs mb-2.5">
+          한국어학당 3급
+        </span>
+        <h1 class="text-2xl sm:text-[26px] font-black text-espresso tracking-tight">
+          성균어학원 한국어학당 3급 학습
+        </h1>
+      </div>
+
+      <form id="auth-form" class="space-y-5">
+        <!-- Name Input -->
+        <div>
+          <label for="user-name-input" class="block text-sm font-extrabold text-espresso mb-2">이름</label>
+          <input id="user-name-input" type="text" required maxlength="20" autocomplete="off"
+            placeholder="이름을 입력하세요"
+            class="w-full px-4 py-3.5 rounded-2xl border-2 border-line bg-page text-base font-bold text-ink placeholder:text-muted/60 focus:outline-none focus:bg-white focus:border-violet transition" />
+        </div>
+
+        <!-- 7 Selectable Yusaeng Avatars + Multi-File Loader -->
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-2.5">
+            <span class="text-sm font-extrabold text-espresso">유생 캐릭터 선택</span>
+            <button type="button" onclick="triggerImageUpload()"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-violet-soft border border-violet-border text-violet text-xs font-extrabold hover:bg-violet hover:text-white transition cursor-pointer">
+              <span>이미지 파일 연결</span>
+            </button>
+          </div>
+
+          <div id="auth-avatar-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5"></div>
+        </div>
+
+        <!-- Start Button -->
+        <button type="submit" class="btn-3d btn-purple w-full py-4 rounded-2xl font-extrabold text-base tracking-wide cursor-pointer">
+          시작하기
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- =========================================================
+       2. MAIN APP DASHBOARD
+  ========================================================= -->
+  <div id="app-screen" class="hidden flex-1 flex flex-col">
+    <!-- Bright Crisp Top Header -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b-2 border-line">
+      <div class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+        <!-- Left: Avatar (clickable) + User Name -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <button type="button" onclick="openProfileModal()" title="캐릭터 변경"
+            class="flex items-center gap-2.5 pr-3 pl-1 py-1 rounded-full bg-white border-2 border-line hover:border-violet transition cursor-pointer">
+            <div id="header-avatar-box" class="w-9 h-9 rounded-full overflow-hidden border border-violet-border bg-white shrink-0 flex items-center justify-center"></div>
+            <span id="header-name" class="text-sm font-extrabold text-espresso truncate max-w-[96px]"></span>
+          </button>
+        </div>
+
+        <!-- Center: Clean Pill Navigation Tabs -->
+        <nav class="order-3 sm:order-2 w-full sm:w-auto flex items-center justify-center gap-2">
+          <button type="button" id="nav-tab-grape" onclick="switchMainTab('grape')"
+            class="flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 transition cursor-pointer">
+            포도알
+          </button>
+          <button type="button" id="nav-tab-vocab" onclick="switchMainTab('vocab')"
+            class="flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 transition cursor-pointer">
+            단어 카드
+          </button>
+        </nav>
+
+        <!-- Right: Gear Icon (Admin Mode) -->
+        <div class="order-2 sm:order-3 flex items-center gap-2">
+          <button type="button" onclick="openAdminModal()" aria-label="관리자 모드"
+            class="btn-3d btn-white w-10 h-10 rounded-2xl flex items-center justify-center text-espresso hover:text-violet cursor-pointer">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 max-w-2xl w-full mx-auto px-4 pt-6 pb-8">
+
+      <!-- =====================================================
+           TAB 1: 포도알 (20-Grape Tracker)
+      ===================================================== -->
+      <section id="panel-grape" class="duo-card p-5 sm:p-7 soft-appear">
+        <!-- Top Progress Row -->
+        <div class="flex items-center justify-between gap-3 mb-5">
+          <div class="flex items-center gap-2">
+            <span id="grape-count-badge" class="font-num font-black text-xl text-violet">0 / 20</span>
+            <span id="grape-bunches-badge" class="hidden px-2.5 py-0.5 rounded-full bg-pinky-soft border border-pinky-border text-pinky font-extrabold text-xs"></span>
+          </div>
+          <div class="flex-1 max-w-[200px] h-3.5 rounded-full bg-violet-soft overflow-hidden border border-violet-border">
+            <div id="grape-progress-bar" class="h-full rounded-full bg-gradient-to-r from-violet to-pinky transition-all duration-500" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Grape Bunch + Cheer Yusaeng Layout -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 py-2">
+          <!-- 20-Grape Bunch -->
+          <div class="flex flex-col items-center">
+            <!-- Minimal Decorative Stem (Warm Espresso & Soft Pink/Lavender - ZERO GREEN) -->
+            <div class="w-28 -mb-1.5 pointer-events-none select-none">
+              <svg viewBox="0 0 140 42" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M70 38 C70 25, 71 15, 68 6" stroke="#5C3D2E" stroke-width="5" stroke-linecap="round"/>
+                <path d="M68 17 C82 13, 92 8, 97 15 C101 20, 94 26, 87 22" stroke="#EC4899" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="52" cy="24" r="7" fill="#FBCFE8" stroke="#EC4899" stroke-width="2"/>
+                <circle cx="88" cy="26" r="6" fill="#E5DEFF" stroke="#8B5CF6" stroke-width="2"/>
+              </svg>
+            </div>
+            <div id="grape-cluster" class="flex flex-col items-center gap-1.5 sm:gap-2 py-1"></div>
+          </div>
+
+          <!-- Cheer Character Beside Grape Bunch (성균관대_04.jpg) -->
+          <div class="flex flex-col items-center shrink-0">
+            <div class="speech-bubble mb-3">
+              <p id="cheer-bubble-text" class="text-xs sm:text-sm font-extrabold text-espresso whitespace-nowrap">오늘도 파이팅!</p>
+            </div>
+            <div id="cheer-image-box" class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border-2 border-violet-border bg-white overflow-hidden flex items-center justify-center p-1.5"></div>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="mt-6 max-w-xs mx-auto flex flex-col gap-3">
+          <button type="button" id="claim-grape-btn" onclick="claimTodayGrape()"
+            class="btn-3d btn-pink w-full py-4 rounded-2xl font-extrabold text-base cursor-pointer">
+            오늘의 포도알 받기
+          </button>
+          <button type="button" id="show-celebration-btn" onclick="openCelebrationModal()"
+            class="hidden btn-3d btn-purple w-full py-4 rounded-2xl font-extrabold text-base cursor-pointer">
+            선생님께 보여주세요!
+          </button>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           TAB 2: 단어 카드 (Duolingo-style Flashcards)
+      ===================================================== -->
+      <section id="panel-vocab" class="hidden space-y-4 soft-appear">
+        <!-- Filter & Controls Card -->
+        <div class="duo-card p-4 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <!-- Filter Pills -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button type="button" id="filter-review" onclick="setVocabFilter('review')"
+                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer">
+                복습할 단어
+              </button>
+              <button type="button" id="filter-mastered" onclick="setVocabFilter('mastered')"
+                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer">
+                외운 단어
+              </button>
+              <button type="button" id="filter-all" onclick="setVocabFilter('all')"
+                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer">
+                전체
+              </button>
+            </div>
+
+            <!-- List & Add Buttons -->
+            <div class="flex items-center gap-1.5">
+              <button type="button" onclick="openWordListModal()"
+                class="px-3 py-1.5 rounded-full bg-page border-2 border-line text-espresso text-xs font-extrabold hover:border-violet transition cursor-pointer">
+                목록
+              </button>
+              <button type="button" onclick="openAddWordModal()"
+                class="px-3 py-1.5 rounded-full bg-violet-soft border-2 border-violet-border text-violet text-xs font-extrabold hover:bg-violet hover:text-white transition cursor-pointer">
+                + 단어 추가
+              </button>
+            </div>
+          </div>
+
+          <!-- Direction Toggle & Counter -->
+          <div class="flex items-center justify-between pt-2.5 border-t border-line">
+            <button type="button" onclick="toggleVocabDirection()"
+              class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-page border-2 border-line text-xs font-extrabold text-espresso hover:border-violet transition cursor-pointer">
+              <span id="direction-label">한국어 → 모국어</span>
+            </button>
+            <span id="vocab-counter" class="font-num text-sm font-black text-violet">0 / 0</span>
+          </div>
+        </div>
+
+        <!-- 3D Flip Flashcard -->
+        <div id="flashcard-stage" class="perspective-1000">
+          <div id="flashcard-inner" onclick="flipFlashcard()" class="flashcard-inner">
+            <!-- Front -->
+            <div class="flashcard-face bg-white border-2 border-line shadow-[0_4px_0_#E5E7EB]">
+              <span id="card-status-tag" class="px-3 py-1 rounded-full text-xs font-extrabold mb-4"></span>
+              <p id="card-front-text" class="text-3xl sm:text-4xl font-black text-ink tracking-tight break-keep"></p>
+              <span class="mt-6 text-xs font-bold text-muted">탭해서 뒤집기</span>
+            </div>
+            <!-- Back -->
+            <div class="flashcard-face flashcard-back bg-violet-soft border-2 border-violet shadow-[0_4px_0_#C4B5FD]">
+              <span class="px-3 py-1 rounded-full bg-white text-violet text-xs font-extrabold mb-3">뜻</span>
+              <p id="card-back-meaning" class="text-2xl sm:text-3xl font-black text-espresso break-keep"></p>
+              <p id="card-back-example" class="mt-3 text-sm font-bold text-muted break-keep"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="vocab-empty-state" class="hidden duo-card p-10 text-center">
+          <p id="vocab-empty-text" class="text-lg font-black text-espresso mb-4">단어가 없어요</p>
+          <button type="button" onclick="openAddWordModal()"
+            class="btn-3d btn-purple px-5 py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+            + 단어 추가
+          </button>
+        </div>
+
+        <!-- 3D Action Buttons -->
+        <div id="vocab-action-bar" class="grid grid-cols-2 gap-3">
+          <button type="button" onclick="markCurrentWord(false)"
+            class="btn-3d btn-pink py-4 rounded-2xl font-extrabold text-sm sm:text-base cursor-pointer">
+            틀렸어요 · 다시
+          </button>
+          <button type="button" onclick="markCurrentWord(true)"
+            class="btn-3d btn-purple py-4 rounded-2xl font-extrabold text-sm sm:text-base cursor-pointer">
+            외웠어요!
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Clean Subtle Footer on All Screens -->
+  <footer class="py-5 text-center">
+    <p class="text-xs font-bold text-muted tracking-wide">
+      Developed and styled by Choi Jeehyun
+    </p>
+  </footer>
+
+  <!-- =========================================================
+       3. 20-GRAPE CELEBRATION MODAL
+  ========================================================= -->
+  <div id="celebration-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-md overflow-hidden">
+    <canvas id="celebration-canvas"></canvas>
+
+    <div class="relative z-10 w-full max-w-sm duo-card border-violet p-6 sm:p-8 text-center soft-appear shadow-xl">
+      <!-- User Avatar + Celebration Jump Yusaeng (성균관대_01_2.jpg) -->
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div id="celebration-user-avatar" class="w-20 h-20 rounded-full border-2 border-violet bg-white overflow-hidden flex items-center justify-center p-1"></div>
+        <div id="celebration-jump-avatar" class="w-24 h-24 rounded-3xl border-2 border-pinky bg-white overflow-hidden flex items-center justify-center p-1"></div>
+      </div>
+
+      <p id="celebration-name" class="text-sm font-extrabold text-muted mb-1"></p>
+      <h2 class="text-2xl sm:text-3xl font-black text-espresso mb-4">포도알 20알 완성!</h2>
+
+      <div class="py-4 px-5 rounded-2xl bg-gradient-to-r from-violet to-pinky text-white shadow-[0_4px_0_#6D28D9] mb-6">
+        <p class="text-xl font-black tracking-wide">선생님께 보여주세요!</p>
+      </div>
+
+      <button type="button" onclick="closeCelebrationModal()"
+        class="btn-3d btn-white w-full py-3.5 rounded-2xl font-extrabold text-sm cursor-pointer">
+        닫기
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       4. PROFILE / AVATAR CHANGE MODAL
+  ========================================================= -->
+  <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
+    <div class="w-full max-w-md duo-card p-6 soft-appear max-h-[88vh] flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-black text-espresso">유생 캐릭터 변경</h3>
+        <button type="button" onclick="closeProfileModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
+      </div>
+
+      <div id="profile-avatar-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 overflow-y-auto pb-2 mb-4"></div>
+
+      <button type="button" onclick="triggerImageUpload()"
+        class="btn-3d btn-white w-full py-2.5 rounded-2xl text-xs font-extrabold text-violet mb-3 cursor-pointer">
+        유생 이미지 불러오기
+      </button>
+
+      <div class="grid grid-cols-2 gap-2.5">
+        <button type="button" onclick="logoutUser()"
+          class="btn-3d btn-pink py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+          로그아웃
+        </button>
+        <button type="button" onclick="closeProfileModal()"
+          class="btn-3d btn-purple py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+          완료
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       5. ADD WORD MODAL
+  ========================================================= -->
+  <div id="add-word-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
+    <div class="w-full max-w-sm duo-card p-6 soft-appear">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-black text-espresso">새 단어 추가</h3>
+        <button type="button" onclick="closeAddWordModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
+      </div>
+
+      <form id="add-word-form" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-extrabold text-espresso mb-1">한국어</label>
+          <input id="new-word-ko" type="text" required placeholder="예: 신청하다"
+            class="w-full px-3.5 py-2.5 rounded-xl border-2 border-line bg-page text-sm font-bold text-ink focus:outline-none focus:bg-white focus:border-violet" />
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-espresso mb-1">모국어 뜻</label>
+          <input id="new-word-native" type="text" required placeholder="예: to apply / register"
+            class="w-full px-3.5 py-2.5 rounded-xl border-2 border-line bg-page text-sm font-bold text-ink focus:outline-none focus:bg-white focus:border-violet" />
+        </div>
+        <div>
+          <label class="block text-xs font-extrabold text-espresso mb-1">예문 (선택)</label>
+          <input id="new-word-example" type="text" placeholder="예: 한국어 수업을 신청했어요."
+            class="w-full px-3.5 py-2.5 rounded-xl border-2 border-line bg-page text-sm font-bold text-ink focus:outline-none focus:bg-white focus:border-violet" />
+        </div>
+        <button type="submit" class="btn-3d btn-purple w-full py-3.5 rounded-2xl text-sm font-extrabold cursor-pointer mt-2">
+          추가하기
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       6. WORD LIST MODAL
+  ========================================================= -->
+  <div id="word-list-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
+    <div class="w-full max-w-md duo-card p-5 max-h-[80vh] flex flex-col soft-appear">
+      <div class="flex items-center justify-between pb-3 border-b border-line">
+        <h3 class="text-lg font-black text-espresso">단어 목록</h3>
+        <button type="button" onclick="closeWordListModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
+      </div>
+      <div id="word-list-container" class="flex-1 overflow-y-auto py-3 space-y-2"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       7. GEAR ICON ADMIN MODE MODAL (PIN: 0000)
+  ========================================================= -->
+  <div id="admin-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
+    <div class="w-full max-w-sm duo-card p-6 soft-appear">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-black text-espresso">관리자 모드</h3>
+        <button type="button" onclick="closeAdminModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
+      </div>
+
+      <!-- PIN Gate -->
+      <div id="admin-pin-panel" class="space-y-3">
+        <input id="admin-pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="PIN (0000)"
+          class="w-full px-4 py-3 rounded-2xl border-2 border-line bg-page text-center font-num text-xl font-black tracking-[0.4em] text-ink focus:outline-none focus:bg-white focus:border-violet" />
+        <button type="button" onclick="unlockAdmin()" class="btn-3d btn-purple w-full py-3.5 rounded-2xl text-sm font-extrabold cursor-pointer">
+          잠금 해제
+        </button>
+      </div>
+
+      <!-- Admin Controls -->
+      <div id="admin-controls-panel" class="hidden space-y-2.5">
+        <button type="button" onclick="adminUnlockToday()" class="btn-3d btn-pink w-full py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+          오늘 제한 해제
+        </button>
+        <div class="grid grid-cols-2 gap-2.5">
+          <button type="button" onclick="adminAddGrape()" class="btn-3d btn-purple py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+            +1 포도알
+          </button>
+          <button type="button" onclick="adminRemoveGrape()" class="btn-3d btn-white py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+            -1 포도알
+          </button>
+        </div>
+        <button type="button" onclick="adminFillAllGrapes()" class="btn-3d btn-purple w-full py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
+          20알 완성 테스트
+        </button>
+        <button type="button" onclick="triggerImageUpload()" class="btn-3d btn-white w-full py-3 rounded-2xl text-sm font-extrabold text-violet cursor-pointer">
+          유생 이미지 불러오기
+        </button>
+        <div class="pt-2 border-t border-line">
+          <button type="button" onclick="adminResetAllData()" class="btn-3d btn-white w-full py-3 rounded-2xl text-xs font-extrabold text-pinky cursor-pointer">
+            전체 초기화
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       APPLICATION LOGIC
+  ========================================================= -->
+  <script>
+    const STORAGE_KEY = 'skku_level3_bright_v2';
+    const IMAGES_STORAGE_KEY = 'skku_yusaeng_images_v2';
+    const GRAPE_ROWS = [4, 5, 4, 4, 3]; // 20 grapes total
+
+    // Exact Official SKKU Yusaeng Filenames (7 Selectable User Avatars)
+    const SELECTABLE_AVATARS = [
+      { filename: '성균관대_33.jpg', label: '반짝 남유생' },
+      { filename: '성균관대_35_2.jpg', label: '반짝 여유생' },
+      { filename: '성균관대_34.jpg', label: '뿌듯 유생' },
+      { filename: '성균관대_36_2.jpg', label: '자신감 유생' },
+      { filename: '성균관대_01_2.jpg', label: '꽃길 유생' },
+      { filename: '성균관대_02_2.jpg', label: '저요 유생' },
+      { filename: '성균관대_37.jpg', label: '인사 유생' }
+    ];
+
+    // Reaction Images
+    const REACTION_IMAGES = {
+      cheer: { filename: '성균관대_04.jpg', label: '힘내 유생' },
+      wrong: { filename: '성균관대_03.jpg', label: '깜짝 유생' },
+      celebrate: { filename: '성균관대_01_2.jpg', label: '꽃길 유생' }
+    };
+
+    // Fallback aliases if user uploads original names without _2 suffix
+    const FILENAME_ALIASES = {
+      '성균관대_35.jpg': '성균관대_35_2.jpg',
+      '성균관대_36.jpg': '성균관대_36_2.jpg',
+      '성균관대_01.jpg': '성균관대_01_2.jpg',
+      '성균관대_02.jpg': '성균관대_02_2.jpg'
+    };
+
+    const ALL_KNOWN_FILENAMES = [
+      ...SELECTABLE_AVATARS.map((a) => a.filename),
+      REACTION_IMAGES.cheer.filename,
+      REACTION_IMAGES.wrong.filename
+    ];
+
+    const DEFAULT_WORDS = [
+      { id: 'w1', ko: '경험하다', native: 'to experience', example: '한국 문화를 직접 경험했어요.', mastered: false },
+      { id: 'w2', ko: '해결하다', native: 'to solve / resolve', example: '어려운 문제를 잘 해결했어요.', mastered: false },
+      { id: 'w3', ko: '익숙하다', native: 'to be familiar with', example: '이제 서울 생활에 익숙해요.', mastered: false },
+      { id: 'w4', ko: '신청하다', native: 'to apply / register', example: '한국어 수업을 신청했어요.', mastered: false },
+      { id: 'w5', ko: '추천하다', native: 'to recommend', example: '맛있는 식당을 추천해 주세요.', mastered: false },
+      { id: 'w6', ko: '포기하다', native: 'to give up', example: '끝까지 포기하지 마세요.', mastered: false },
+      { id: 'w7', ko: '집중하다', native: 'to concentrate / focus', example: '수업 시간에 집중해요.', mastered: false },
+      { id: 'w8', ko: '표현하다', native: 'to express', example: '내 생각을 한국어로 표현해요.', mastered: false }
+    ];
+
+    let state = {
+      user: null, // { name, avatarFilename }
+      grapes: [], // array of 'YYYY-MM-DD' (KST)
+      completedBunches: 0,
+      words: JSON.parse(JSON.stringify(DEFAULT_WORDS)),
+      activeTab: 'grape',
+      vocabFilter: 'review', // 'review' | 'mastered' | 'all'
+      vocabDirection: 'ko-to-native'
+    };
+
+    let customImages = {}; // { '성균관대_33.jpg': 'data:image/jpeg;base64,...' }
+    let selectedAuthAvatar = SELECTABLE_AVATARS[0].filename;
+    let currentCardIndex = 0;
+    let isCardFlipped = false;
+
+    // =========================================================
+    // Silent KST Date Utility (NO clock shown on screen)
+    // =========================================================
+    function getKstDateString() {
+      return new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Seoul',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).format(new Date());
+    }
+
+    // =========================================================
+    // Persistence
+    // =========================================================
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && typeof parsed === 'object') {
+            state = {
+              ...state,
+              ...parsed,
+              words: Array.isArray(parsed.words) && parsed.words.length > 0
+                ? parsed.words
+                : JSON.parse(JSON.stringify(DEFAULT_WORDS))
+            };
+          }
+        }
+        const imgRaw = localStorage.getItem(IMAGES_STORAGE_KEY);
+        if (imgRaw) {
+          const parsedImgs = JSON.parse(imgRaw);
+          if (parsedImgs && typeof parsedImgs === 'object') {
+            customImages = parsedImgs;
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function saveCustomImages() {
+      try {
+        localStorage.setItem(IMAGES_STORAGE_KEY, JSON.stringify(customImages));
+      } catch (e) {
+        showToast('저장 공간이 부족해요');
+      }
+    }
+
+    // =========================================================
+    // Real Yusaeng Image Resolver & Multi-File Uploader
+    // =========================================================
+    function getImageSrc(filename) {
+      const normalized = filename.normalize('NFC');
+      return customImages[normalized] || normalized;
+    }
+
+    function renderYusaengImageInto(container, filename, label, showUploadPrompt = false) {
+      container.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = getImageSrc(filename);
+      img.alt = label;
+      img.className = 'yusaeng-img';
+
+      img.onerror = () => {
+        container.innerHTML = `
+          <div class="w-full h-full bg-violet-soft flex flex-col items-center justify-center text-center p-1.5 select-none">
+            <span class="text-[11px] font-extrabold text-violet leading-tight break-keep">${label}</span>
+            ${showUploadPrompt ? '<span class="text-[9px] font-bold text-muted mt-0.5 leading-tight">이미지 불러오기</span>' : ''}
+          </div>
+        `;
+      };
+
+      container.appendChild(img);
+    }
+
+    function triggerImageUpload() {
+      const input = document.getElementById('yusaeng-file-input');
+      input.value = '';
+      input.click();
+    }
+
+    function compressImageToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const img = new Image();
+          img.onload = () => {
+            const maxDim = 260;
+            let w = img.width;
+            let h = img.height;
+            if (w > maxDim || h > maxDim) {
+              if (w >= h) {
+                h = Math.round((h * maxDim) / w);
+                w = maxDim;
+              } else {
+                w = Math.round((w * maxDim) / h);
+                h = maxDim;
+              }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+          };
+          img.onerror = reject;
+          img.src = ev.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    document.getElementById('yusaeng-file-input').addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files || []);
+      if (files.length === 0) return;
+
+      let matchedCount = 0;
+
+      for (const file of files) {
+        const cleanName = file.name.normalize('NFC');
+        let targetKey = null;
+
+        if (ALL_KNOWN_FILENAMES.includes(cleanName)) {
+          targetKey = cleanName;
+        } else if (FILENAME_ALIASES[cleanName]) {
+          targetKey = FILENAME_ALIASES[cleanName];
+        }
+
+        if (targetKey) {
+          try {
+            const dataUrl = await compressImageToDataUrl(file);
+            customImages[targetKey] = dataUrl;
+            matchedCount++;
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      }
+
+      if (matchedCount > 0) {
+        saveCustomImages();
+        refreshAllImages();
+        showToast(`유생 이미지 ${matchedCount}개 연결 완료!`);
+      } else {
+        showToast('파일명이 일치하는 유생 이미지가 없어요');
+      }
+    });
+
+    function refreshAllImages() {
+      renderAvatarGrid('auth-avatar-grid', selectedAuthAvatar, handleAuthAvatarSelect);
+      if (state.user) {
+        renderHeader();
+        renderCheerWidget();
+        if (!document.getElementById('profile-modal').classList.contains('hidden')) {
+          renderAvatarGrid('profile-avatar-grid', state.user.avatarFilename, handleProfileAvatarSelect);
+        }
+        if (!document.getElementById('celebration-modal').classList.contains('hidden')) {
+          renderCelebrationAvatars();
+        }
+      }
+    }
+
+    // =========================================================
+    // Auth & Avatar Selection
+    // =========================================================
+    function handleAuthAvatarSelect(filename) {
+      selectedAuthAvatar = filename;
+      renderAvatarGrid('auth-avatar-grid', selectedAuthAvatar, handleAuthAvatarSelect);
+    }
+
+    function handleProfileAvatarSelect(filename) {
+      if (!state.user) return;
+      state.user.avatarFilename = filename;
+      saveState();
+      renderHeader();
+      renderAvatarGrid('profile-avatar-grid', state.user.avatarFilename, handleProfileAvatarSelect);
+    }
+
+    function renderAvatarGrid(containerId, activeFilename, onSelect) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+
+      SELECTABLE_AVATARS.forEach((av) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = `avatar-card p-2.5 flex flex-col items-center gap-1.5 ${av.filename === activeFilename ? 'selected' : ''}`;
+        card.onclick = () => onSelect(av.filename);
+
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-violet-border bg-white overflow-hidden flex items-center justify-center p-0.5';
+        renderYusaengImageInto(imgWrap, av.filename, av.label, true);
+
+        const labelEl = document.createElement('span');
+        labelEl.className = 'text-[11px] font-extrabold text-espresso truncate max-w-full';
+        labelEl.textContent = av.label;
+
+        card.appendChild(imgWrap);
+        card.appendChild(labelEl);
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('auth-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('user-name-input').value.trim();
+      if (!name) return;
+
+      state.user = { name, avatarFilename: selectedAuthAvatar };
+      saveState();
+      renderApp();
+    });
+
+    function openProfileModal() {
+      if (!state.user) return;
+      renderAvatarGrid('profile-avatar-grid', state.user.avatarFilename, handleProfileAvatarSelect);
+      document.getElementById('profile-modal').classList.remove('hidden');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profile-modal').classList.add('hidden');
+    }
+
+    function logoutUser() {
+      state.user = null;
+      saveState();
+      closeProfileModal();
+      closeCelebrationModal();
+      renderApp();
+    }
+
+    // =========================================================
+    // Main Navigation & Render
+    // =========================================================
+    function renderApp() {
+      const authScreen = document.getElementById('auth-screen');
+      const appScreen = document.getElementById('app-screen');
+
+      if (!state.user) {
+        authScreen.classList.remove('hidden');
+        appScreen.classList.add('hidden');
+        renderAvatarGrid('auth-avatar-grid', selectedAuthAvatar, handleAuthAvatarSelect);
+      } else {
+        authScreen.classList.add('hidden');
+        appScreen.classList.remove('hidden');
+        renderHeader();
+        renderCheerWidget();
+        switchMainTab(state.activeTab || 'grape');
+      }
+    }
+
+    function renderHeader() {
+      if (!state.user) return;
+      const meta = SELECTABLE_AVATARS.find((a) => a.filename === state.user.avatarFilename) || SELECTABLE_AVATARS[0];
+      renderYusaengImageInto(document.getElementById('header-avatar-box'), meta.filename, meta.label, false);
+      document.getElementById('header-name').textContent = state.user.name;
+    }
+
+    function renderCheerWidget() {
+      renderYusaengImageInto(
+        document.getElementById('cheer-image-box'),
+        REACTION_IMAGES.cheer.filename,
+        REACTION_IMAGES.cheer.label,
+        true
+      );
+    }
+
+    function switchMainTab(tab) {
+      state.activeTab = tab;
+      saveState();
+
+      const grapeTab = document.getElementById('nav-tab-grape');
+      const vocabTab = document.getElementById('nav-tab-vocab');
+      const grapePanel = document.getElementById('panel-grape');
+      const vocabPanel = document.getElementById('panel-vocab');
+
+      if (tab === 'grape') {
+        grapeTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-violet bg-violet-soft text-violet transition cursor-pointer';
+        vocabTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-line bg-white text-muted hover:text-ink transition cursor-pointer';
+        grapePanel.classList.remove('hidden');
+        vocabPanel.classList.add('hidden');
+        renderGrapeBoard();
+      } else {
+        vocabTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-violet bg-violet-soft text-violet transition cursor-pointer';
+        grapeTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-line bg-white text-muted hover:text-ink transition cursor-pointer';
+        vocabPanel.classList.remove('hidden');
+        grapePanel.classList.add('hidden');
+        renderVocabView();
+      }
+    }
+
+    // =========================================================
+    // TAB 1: 20-Grape Tracker (Silent KST 1/day)
+    // =========================================================
+    function renderGrapeBoard(animatedIndex = -1) {
+      const count = state.grapes.length;
+      const todayKst = getKstDateString();
+      const claimedToday = state.grapes.includes(todayKst);
+      const isComplete = count >= 20;
+
+      document.getElementById('grape-count-badge').textContent = `${count} / 20`;
+      document.getElementById('grape-progress-bar').style.width = `${(count / 20) * 100}%`;
+
+      const bunchesBadge = document.getElementById('grape-bunches-badge');
+      if (state.completedBunches > 0) {
+        bunchesBadge.classList.remove('hidden');
+        bunchesBadge.textContent = `${state.completedBunches}송이 완성`;
+      } else {
+        bunchesBadge.classList.add('hidden');
+      }
+
+      const bubble = document.getElementById('cheer-bubble-text');
+      if (isComplete) {
+        bubble.textContent = '20알 완성! 최고예요!';
+      } else if (claimedToday) {
+        bubble.textContent = '오늘도 잘했어요!';
+      } else {
+        bubble.textContent = count % 2 === 0 ? '힘내!' : '오늘도 파이팅!';
+      }
+
+      const clusterEl = document.getElementById('grape-cluster');
+      clusterEl.innerHTML = '';
+
+      let idx = 0;
+      GRAPE_ROWS.forEach((rowCount) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-center gap-1.5 sm:gap-2';
+
+        for (let i = 0; i < rowCount; i++) {
+          const grapeIndex = idx++;
+          const isFilled = grapeIndex < count;
+          const isNext = !isComplete && !claimedToday && grapeIndex === count;
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `grape-btn ${isFilled ? 'filled' : ''} ${isNext ? 'next-target' : ''} ${grapeIndex === animatedIndex ? 'grape-pop' : ''}`;
+          btn.textContent = String(grapeIndex + 1);
+          btn.onclick = () => {
+            if (isComplete) {
+              openCelebrationModal();
+            } else if (!isFilled) {
+              claimTodayGrape();
+            }
+          };
+          row.appendChild(btn);
+        }
+        clusterEl.appendChild(row);
+      });
+
+      const claimBtn = document.getElementById('claim-grape-btn');
+      const celebBtn = document.getElementById('show-celebration-btn');
+
+      if (isComplete) {
+        claimBtn.classList.add('hidden');
+        celebBtn.classList.remove('hidden');
+      } else {
+        celebBtn.classList.add('hidden');
+        claimBtn.classList.remove('hidden');
+        if (claimedToday) {
+          claimBtn.disabled = true;
+          claimBtn.textContent = '오늘 완료';
+        } else {
+          claimBtn.disabled = false;
+          claimBtn.textContent = '오늘의 포도알 받기';
+        }
+      }
+    }
+
+    function claimTodayGrape() {
+      if (state.grapes.length >= 20) {
+        openCelebrationModal();
+        return;
+      }
+
+      const todayKst = getKstDateString();
+      if (state.grapes.includes(todayKst)) {
+        showToast('오늘은 이미 받았어요');
+        return;
+      }
+
+      const newIdx = state.grapes.length;
+      state.grapes.push(todayKst);
+      saveState();
+      renderGrapeBoard(newIdx);
+
+      if (state.grapes.length >= 20) {
+        setTimeout(() => openCelebrationModal(), 360);
+      } else {
+        showToast(`${state.grapes.length}번째 포도알 완료!`);
+      }
+    }
+
+    // =========================================================
+    // TAB 2: Flashcards ("단어 카드")
+    // =========================================================
+    function getFilteredWords() {
+      if (state.vocabFilter === 'review') return state.words.filter((w) => !w.mastered);
+      if (state.vocabFilter === 'mastered') return state.words.filter((w) => w.mastered);
+      return state.words;
+    }
+
+    function setVocabFilter(filter) {
+      state.vocabFilter = filter;
+      currentCardIndex = 0;
+      isCardFlipped = false;
+      saveState();
+      renderVocabView();
+    }
+
+    function toggleVocabDirection() {
+      state.vocabDirection = state.vocabDirection === 'ko-to-native' ? 'native-to-ko' : 'ko-to-native';
+      isCardFlipped = false;
+      saveState();
+      renderVocabView();
+    }
+
+    function flipFlashcard() {
+      isCardFlipped = !isCardFlipped;
+      document.getElementById('flashcard-inner').classList.toggle('is-flipped', isCardFlipped);
+    }
+
+    function renderVocabView() {
+      const filters = { review: 'filter-review', mastered: 'filter-mastered', all: 'filter-all' };
+      Object.entries(filters).forEach(([key, elId]) => {
+        const el = document.getElementById(elId);
+        if (key === state.vocabFilter) {
+          el.className = key === 'review'
+            ? 'px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 border-pinky bg-pinky-soft text-pinky transition cursor-pointer'
+            : 'px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 border-violet bg-violet-soft text-violet transition cursor-pointer';
+        } else {
+          el.className = 'px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 border-line bg-white text-muted hover:text-ink transition cursor-pointer';
+        }
+      });
+
+      document.getElementById('direction-label').textContent =
+        state.vocabDirection === 'ko-to-native' ? '한국어 → 모국어' : '모국어 → 한국어';
+
+      const list = getFilteredWords();
+      const stage = document.getElementById('flashcard-stage');
+      const actions = document.getElementById('vocab-action-bar');
+      const empty = document.getElementById('vocab-empty-state');
+      const counter = document.getElementById('vocab-counter');
+
+      if (list.length === 0) {
+        stage.classList.add('hidden');
+        actions.classList.add('hidden');
+        empty.classList.remove('hidden');
+        counter.textContent = '0 / 0';
+        document.getElementById('vocab-empty-text').textContent =
+          state.vocabFilter === 'review' ? '복습할 단어를 모두 외웠어요!' : '단어가 없어요';
+        return;
+      }
+
+      if (currentCardIndex >= list.length) currentCardIndex = 0;
+
+      stage.classList.remove('hidden');
+      actions.classList.remove('hidden');
+      empty.classList.add('hidden');
+      counter.textContent = `${currentCardIndex + 1} / ${list.length}`;
+
+      const word = list[currentCardIndex];
+      document.getElementById('flashcard-inner').classList.toggle('is-flipped', isCardFlipped);
+
+      const tag = document.getElementById('card-status-tag');
+      if (word.mastered) {
+        tag.className = 'px-3 py-1 rounded-full text-xs font-extrabold mb-4 bg-violet-soft text-violet';
+        tag.textContent = '외운 단어';
+      } else {
+        tag.className = 'px-3 py-1 rounded-full text-xs font-extrabold mb-4 bg-pinky-soft text-pinky';
+        tag.textContent = '복습할 단어';
+      }
+
+      if (state.vocabDirection === 'ko-to-native') {
+        document.getElementById('card-front-text').textContent = word.ko;
+        document.getElementById('card-back-meaning').textContent = word.native;
+      } else {
+        document.getElementById('card-front-text').textContent = word.native;
+        document.getElementById('card-back-meaning').textContent = word.ko;
+      }
+      document.getElementById('card-back-example').textContent = word.example || '';
+    }
+
+    function markCurrentWord(mastered) {
+      const list = getFilteredWords();
+      if (list.length === 0) return;
+
+      const word = list[currentCardIndex];
+      const target = state.words.find((w) => w.id === word.id);
+      if (target) target.mastered = mastered;
+      saveState();
+
+      isCardFlipped = false;
+      const nextList = getFilteredWords();
+      if (nextList.length > 0) {
+        if (state.vocabFilter === 'all' || (state.vocabFilter === 'review' && !mastered) || (state.vocabFilter === 'mastered' && mastered)) {
+          currentCardIndex = (currentCardIndex + 1) % nextList.length;
+        } else if (currentCardIndex >= nextList.length) {
+          currentCardIndex = 0;
+        }
+      } else {
+        currentCardIndex = 0;
+      }
+
+      renderVocabView();
+
+      if (mastered) {
+        showToast('외웠어요!');
+      } else {
+        showToast('다시 한 번 외워봐요!', REACTION_IMAGES.wrong.filename, REACTION_IMAGES.wrong.label);
+      }
+    }
+
+    // Add Word Modal
+    function openAddWordModal() {
+      document.getElementById('add-word-modal').classList.remove('hidden');
+      document.getElementById('new-word-ko').focus();
+    }
+
+    function closeAddWordModal() {
+      document.getElementById('add-word-modal').classList.add('hidden');
+    }
+
+    document.getElementById('add-word-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ko = document.getElementById('new-word-ko').value.trim();
+      const native = document.getElementById('new-word-native').value.trim();
+      const example = document.getElementById('new-word-example').value.trim();
+      if (!ko || !native) return;
+
+      state.words.unshift({
+        id: 'w_' + Date.now(),
+        ko,
+        native,
+        example,
+        mastered: false
+      });
+      saveState();
+
+      document.getElementById('new-word-ko').value = '';
+      document.getElementById('new-word-native').value = '';
+      document.getElementById('new-word-example').value = '';
+      closeAddWordModal();
+      currentCardIndex = 0;
+      isCardFlipped = false;
+      renderVocabView();
+      showToast('단어가 추가되었어요');
+    });
+
+    // Word List Modal
+    function openWordListModal() {
+      renderWordListModal();
+      document.getElementById('word-list-modal').classList.remove('hidden');
+    }
+
+    function closeWordListModal() {
+      document.getElementById('word-list-modal').classList.add('hidden');
+    }
+
+    function renderWordListModal() {
+      const container = document.getElementById('word-list-container');
+      container.innerHTML = '';
+
+      if (state.words.length === 0) {
+        container.innerHTML = '<p class="text-center text-sm font-bold text-muted py-6">등록된 단어가 없어요</p>';
+        return;
+      }
+
+      state.words.forEach((w) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between gap-2 p-3 rounded-2xl bg-page border border-line';
+        row.innerHTML = `
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm text-ink">${w.ko}</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold ${w.mastered ? 'bg-violet-soft text-violet' : 'bg-pinky-soft text-pinky'}">
+                ${w.mastered ? '외움' : '복습'}
+              </span>
+            </div>
+            <p class="text-xs font-bold text-muted truncate">${w.native}</p>
+          </div>
+          <button type="button" onclick="deleteWord('${w.id}')"
+            class="px-2.5 py-1 rounded-xl bg-white border border-line text-xs font-extrabold text-pinky hover:border-pinky cursor-pointer shrink-0">
+            삭제
+          </button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function deleteWord(id) {
+      state.words = state.words.filter((w) => w.id !== id);
+      saveState();
+      renderWordListModal();
+      renderVocabView();
+    }
+
+    // =========================================================
+    // GEAR ICON ADMIN MODE (PIN: 0000)
+    // =========================================================
+    function openAdminModal() {
+      document.getElementById('admin-pin-input').value = '';
+      document.getElementById('admin-pin-panel').classList.remove('hidden');
+      document.getElementById('admin-controls-panel').classList.add('hidden');
+      document.getElementById('admin-modal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('admin-pin-input').focus(), 50);
+    }
+
+    function closeAdminModal() {
+      document.getElementById('admin-modal').classList.add('hidden');
+    }
+
+    function unlockAdmin() {
+      const pin = document.getElementById('admin-pin-input').value.trim();
+      if (pin === '0000') {
+        document.getElementById('admin-pin-panel').classList.add('hidden');
+        document.getElementById('admin-controls-panel').classList.remove('hidden');
+      } else {
+        showToast('PIN이 올바르지 않아요 (0000)');
+      }
+    }
+
+    document.getElementById('admin-pin-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') unlockAdmin();
+    });
+
+    function adminUnlockToday() {
+      const todayKst = getKstDateString();
+      state.grapes = state.grapes.map((d, i) => (d === todayKst ? `unlocked_${Date.now()}_${i}` : d));
+      saveState();
+      renderGrapeBoard();
+      showToast('오늘 제한이 해제되었어요');
+    }
+
+    function adminAddGrape() {
+      if (state.grapes.length >= 20) return;
+      state.grapes.push(`admin_${Date.now()}`);
+      saveState();
+      renderGrapeBoard(state.grapes.length - 1);
+      if (state.grapes.length >= 20) {
+        closeAdminModal();
+        openCelebrationModal();
+      }
+    }
+
+    function adminRemoveGrape() {
+      if (state.grapes.length === 0) return;
+      state.grapes.pop();
+      saveState();
+      renderGrapeBoard();
+    }
+
+    function adminFillAllGrapes() {
+      while (state.grapes.length < 20) {
+        state.grapes.push(`test_${state.grapes.length}`);
+      }
+      saveState();
+      renderGrapeBoard();
+      closeAdminModal();
+      openCelebrationModal();
+    }
+
+    function adminResetAllData() {
+      localStorage.removeItem(STORAGE_KEY);
+      state = {
+        user: null,
+        grapes: [],
+        completedBunches: 0,
+        words: JSON.parse(JSON.stringify(DEFAULT_WORDS)),
+        activeTab: 'grape',
+        vocabFilter: 'review',
+        vocabDirection: 'ko-to-native'
+      };
+      closeAdminModal();
+      closeCelebrationModal();
+      renderApp();
+      showToast('전체 초기화 완료');
+    }
+
+    // =========================================================
+    // 20-GRAPE CELEBRATION CANVAS (Purple / Pink / Gold)
+    // =========================================================
+    let celebAnimId = null;
+    let fireworks = [];
+    let confetti = [];
+    let lastBurst = 0;
+
+    function renderCelebrationAvatars() {
+      if (state.user) {
+        const meta = SELECTABLE_AVATARS.find((a) => a.filename === state.user.avatarFilename) || SELECTABLE_AVATARS[0];
+        renderYusaengImageInto(document.getElementById('celebration-user-avatar'), meta.filename, meta.label, false);
+        document.getElementById('celebration-name').textContent = state.user.name;
+      }
+      renderYusaengImageInto(
+        document.getElementById('celebration-jump-avatar'),
+        REACTION_IMAGES.celebrate.filename,
+        REACTION_IMAGES.celebrate.label,
+        false
+      );
+    }
+
+    function openCelebrationModal() {
+      renderCelebrationAvatars();
+      document.getElementById('celebration-modal').classList.remove('hidden');
+      startCelebration();
+    }
+
+    function closeCelebrationModal() {
+      document.getElementById('celebration-modal').classList.add('hidden');
+      stopCelebration();
+    }
+
+    function spawnBurst(x, y) {
+      const colors = ['#8B5CF6', '#EC4899', '#F472B6', '#C4B5FD', '#FBBF24', '#FDE047'];
+      for (let i = 0; i < 34; i++) {
+        const angle = (Math.PI * 2 * i) / 34;
+        const speed = 2.2 + Math.random() * 4.2;
+        fireworks.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          size: 2.5 + Math.random() * 2.5,
+          alpha: 1
+        });
+      }
+    }
+
+    function startCelebration() {
+      const canvas = document.getElementById('celebration-canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#8B5CF6', '#EC4899', '#F472B6', '#C4B5FD', '#FBBF24'];
+      fireworks = [];
+      confetti = Array.from({ length: 95 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: 7 + Math.random() * 6,
+        h: 4 + Math.random() * 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vy: 2 + Math.random() * 3,
+        vx: (Math.random() - 0.5) * 1.6,
+        rot: Math.random() * 360,
+        vRot: (Math.random() - 0.5) * 9
+      }));
+
+      spawnBurst(canvas.width * 0.28, canvas.height * 0.26);
+      spawnBurst(canvas.width * 0.72, canvas.height * 0.26);
+      lastBurst = performance.now();
+
+      if (celebAnimId) cancelAnimationFrame(celebAnimId);
+      animateCelebration(performance.now());
+    }
+
+    function animateCelebration(now) {
+      const canvas = document.getElementById('celebration-canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (now - lastBurst > 850) {
+        spawnBurst(canvas.width * (0.2 + Math.random() * 0.6), canvas.height * (0.15 + Math.random() * 0.35));
+        lastBurst = now;
+      }
+
+      confetti.forEach((c) => {
+        c.y += c.vy;
+        c.x += c.vx;
+        c.rot += c.vRot;
+        if (c.y > canvas.height + 20) {
+          c.y = -15;
+          c.x = Math.random() * canvas.width;
+        }
+        ctx.save();
+        ctx.translate(c.x, c.y);
+        ctx.rotate((c.rot * Math.PI) / 180);
+        ctx.fillStyle = c.color;
+        ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+        ctx.restore();
+      });
+
+      for (let i = fireworks.length - 1; i >= 0; i--) {
+        const p = fireworks[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.06;
+        p.alpha -= 0.018;
+        if (p.alpha <= 0) {
+          fireworks.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      celebAnimId = requestAnimationFrame(animateCelebration);
+    }
+
+    function stopCelebration() {
+      if (celebAnimId) {
+        cancelAnimationFrame(celebAnimId);
+        celebAnimId = null;
+      }
+    }
+
+    // =========================================================
+    // Clean Inline Toast (Supports Reaction Yusaeng Image)
+    // =========================================================
+    function showToast(msg, reactionFilename = null, reactionLabel = '') {
+      const container = document.getElementById('toast-container');
+      const el = document.createElement('div');
+      el.className = 'flex items-center gap-2.5 bg-white text-ink text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-2xl shadow-lg border-2 border-pinky soft-appear';
+
+      if (reactionFilename) {
+        const thumb = document.createElement('div');
+        thumb.className = 'w-9 h-9 rounded-full border border-pinky-border bg-white overflow-hidden shrink-0 flex items-center justify-center';
+        renderYusaengImageInto(thumb, reactionFilename, reactionLabel, false);
+        el.appendChild(thumb);
+      }
+
+      const text = document.createElement('span');
+      text.textContent = msg;
+      el.appendChild(text);
+
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 2200);
+    }
+
+    // =========================================================
+    // Init
+    // =========================================================
+    window.addEventListener('resize', () => {
+      if (!document.getElementById('celebration-modal').classList.contains('hidden')) {
+        const canvas = document.getElementById('celebration-canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+
+    window.onload = function () {
+      loadState();
+      renderApp();
+    };
+  </script>
+</body>
+</html>
