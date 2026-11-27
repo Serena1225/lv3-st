@@ -96,7 +96,13 @@
 
   .duo-prompt { background: var(--surface2); border: 2px solid var(--border); border-radius: 16px; padding: 15px; margin-bottom: 14px; }
   .duo-tag { font-size: 11px; font-weight: 900; color: var(--pink); margin-bottom: 5px; display: inline-block; }
-  .duo-text { font-size: 16px; font-weight: 800; color: var(--brown); line-height: 1.5; white-space: pre-line; }
+  .duo-text { font-size: 16px; font-weight: 800; color: var(--brown); line-height: 1.65; white-space: pre-line; }
+  .blank-box {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 78px; height: 30px; margin: 0 5px; padding: 0 10px; vertical-align: middle;
+    background: #FFFFFF; border: 2px solid var(--purple); border-bottom-width: 4px;
+    border-radius: 10px; box-shadow: inset 0 2px 4px rgba(139, 92, 246, 0.12);
+  }
   .answer-zone { min-height: 64px; border: 2px dashed var(--purple); border-radius: 16px; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; background: #FFF; }
   .chip-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 14px; }
   .chip { background: #FFF; border: 2px solid var(--border); border-bottom-width: 4px; padding: 8px 13px; border-radius: 14px; font-size: 14px; font-weight: 800; color: var(--brown); }
@@ -108,7 +114,7 @@
   .opt-btn { width: 100%; text-align: left; padding: 13px 14px; border-radius: 14px; margin-bottom: 8px; background: #FFF; border: 2px solid var(--border); font-size: 14px; font-weight: 700; color: var(--brown); }
   .opt-btn.correct { background: var(--purple-soft); border-color: var(--purple); color: var(--purple-dark); }
   .opt-btn.wrong { background: #FEE2E2; border-color: var(--danger); color: #B91C1C; }
-  .feedback-bar { border-radius: 14px; padding: 13px; margin-top: 12px; font-size: 13px; font-weight: 700; line-height: 1.45; }
+  .feedback-bar { border-radius: 14px; padding: 13px; margin-top: 12px; font-size: 13px; font-weight: 700; line-height: 1.5; }
   .feedback-bar.ok { background: var(--purple-soft); border: 2px solid var(--purple); color: var(--purple-dark); }
   .feedback-bar.no { background: #FEE2E2; border: 2px solid var(--danger); color: #991B1B; }
 
@@ -154,7 +160,6 @@
       <div class="field"><div class="avatar-grid" id="regAvatarGrid"></div></div>
       <button class="btn btn-pink btn-full" onclick="doRegister()">START</button>
     </div>
-    <!-- 로그인/회원가입 화면 하단 이름 + 관리자 버튼 -->
     <div class="auth-footer">
       <span>Developed and styled by Choi Jeehyun</span>
       <button class="gear-btn" onclick="openAdminAuth()" title="관리자 모드">⚙</button>
@@ -244,18 +249,20 @@
     </div>
   </section>
 
-  <!-- GRAMMAR QUIZ TAB -->
+  <!-- GRAMMAR QUIZ TAB (과별 1~16과 + 집중 훈련) -->
   <section id="tab-quiz" class="hidden">
     <div id="quizSetup">
       <div class="card">
-        <div class="card-hdr"><span>🔥 FOCUS TRAINING</span></div>
+        <div class="card-hdr"><span>📘 LESSON GRAMMAR (1~16과)</span></div>
+        <div class="pill-row" id="quizLessonPills"></div>
+        <div class="card-hdr" style="margin-top:8px;"><span>🔥 FOCUS</span></div>
         <div class="pill-row" id="focusCatPills"></div>
         <button class="btn btn-primary btn-full" onclick="startQuiz()">START</button>
       </div>
     </div>
     <div id="quizActive" class="card hidden">
       <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--muted); font-weight:800; margin-bottom:6px;">
-        <span id="quizSectionTag">GRAMMAR</span><span id="quizCounter">1 / 5</span>
+        <span id="quizSectionTag">1과</span><span id="quizCounter">1 / 5</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="quizProgress"></div></div>
       <div id="quizPassage" class="duo-prompt hidden"><div class="duo-text" id="quizPassageText" style="font-size:14px;"></div></div>
@@ -272,16 +279,17 @@
     </div>
   </section>
 
-  <!-- SENTENCE BUILDER TAB -->
+  <!-- SENTENCE BUILDER TAB (과별 1~16과 + 집중 훈련) -->
   <section id="tab-builder" class="hidden">
+    <div class="pill-row" id="builderLessonPills"></div>
     <div class="pill-row" id="builderCatPills"></div>
     <div class="card">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-        <span style="font-size:13px; font-weight:900; color:var(--purple);" id="builderCounter">1 / 5</span>
+        <span style="font-size:13px; font-weight:900; color:var(--purple);" id="builderCounter">1 / 1</span>
         <button class="btn btn-secondary btn-sm" onclick="nextSentence()">SKIP →</button>
       </div>
       <div class="duo-prompt">
-        <span class="duo-tag" id="builderGrammarTag">간접화법</span>
+        <span class="duo-tag" id="builderGrammarTag">1과</span>
         <div class="duo-text" id="builderPromptText"></div>
       </div>
       <div class="answer-zone" id="answerZone"></div>
@@ -341,7 +349,7 @@
   </div>
 </div>
 
-<!-- ADMIN LIVE MANAGER MODAL (Google Sheets 실시간 저장) -->
+<!-- ADMIN LIVE MANAGER -->
 <div id="adminModal" class="modal-bg">
   <div class="modal-card">
     <div class="card-hdr">
@@ -356,7 +364,6 @@
       <button class="btn btn-secondary btn-sm" onclick="adminAddGrape(-1)">포도알 -1</button>
     </div>
 
-    <!-- 1. AI 프롬프트 생성 -->
     <div style="background:var(--surface2); padding:14px; border-radius:16px; margin-bottom:12px;">
       <div style="font-size:13px; font-weight:900; color:var(--purple); margin-bottom:8px;">1. AI 변형 문제 프롬프트 복사</div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
@@ -379,7 +386,6 @@
       <button class="btn btn-brown btn-sm btn-full" onclick="copyAiPrompt()">📋 AI 프롬프트 복사</button>
     </div>
 
-    <!-- 2. JSON 붙여넣기 → 시트 바로 저장 -->
     <div style="background:var(--surface2); padding:14px; border-radius:16px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span style="font-size:13px; font-weight:900; color:var(--pink);">2. JSON 바로 반영 (구글 시트 저장)</span>
@@ -421,20 +427,44 @@ const LESSONS = [
   {id:16,title:"문화 차이",vocab:[["손이 크다","generous","出手大方","hào phóng","気前がいい"],["발이 넓다","wide network","人脉广","quen biết rộng","顔が広い"],["눈이 높다","high standards","眼光高","mắt cao","目が高い"],["편견","prejudice","偏见","định kiến","偏見"],["인심","generosity","人情味","tình người","人情"]]}
 ];
 
+/* 1~16과 기본 문법 문제 (과별 1문항 이상 기본 내장) */
 const DEFAULT_QUIZ = [
-  {lesson:1,category:"간접화법-평서",question:"가: 지훈 씨가 이번 주말에 뭐 한대요?\n나: 친구들과 사진 동아리 출사를 (   ) 했어요.",options:["간다고","가다고","가는다고","갔는다고"],answer:0,explanation:"받침 없는 동사 '가다' + '-ㄴ다고 하다' → 간다고."},
-  {lesson:2,category:"간접화법-의문",question:"면접관이 저에게 이 회사에 왜 (   ) 물었어요.",options:["지원했냐고","지원했다고","지원하라고","지원하자고"],answer:0,explanation:"질문 간접화법 과거형은 '-았/었냐고 묻다'."},
+  {lesson:1,category:"간접화법-평서",question:"가: 지훈 씨가 오늘 모임에 온대요?\n나: 아니요, 감기에 걸려서 집에서 (   ) 했어요.",options:["쉰다고","쉬다고","쉬는다고","쉬라고"],answer:0,explanation:"받침 없는 동사 '쉬다'의 평서문 간접화법은 '-ㄴ다고 하다'입니다."},
+  {lesson:2,category:"간접화법-의문",question:"면접관이 저에게 이 회사에 왜 (   ) 물었어요.",options:["지원했냐고","지원했다고","지원하라고","지원하자고"],answer:0,explanation:"과거 질문 간접화법은 '-았/었냐고 묻다'를 씁니다."},
+  {lesson:3,category:"간접화법-명령",question:"의사 선생님께서 저에게 찬물을 많이 (   ) 하셨어요.",options:["마시지 말라고","마시지 마라고","마시지 않으라고","마시지 말자고"],answer:0,explanation:"부정 명령 간접화법은 '-지 말라고 하다'입니다."},
+  {lesson:4,category:"간접화법-청유",question:"유미 씨가 시험이 끝나면 같이 노래방에 (   ) 했어요.",options:["가자고","가라고","간다고","가냐고"],answer:0,explanation:"함께 하자고 제안할 때는 '-자고 하다'를 씁니다."},
+  {lesson:5,category:"더니/았었더니",question:"어젯밤에 커피를 두 잔이나 (   ) 새벽까지 잠이 안 왔어요.",options:["마셨더니","마시더니","마실더니","마시는더니"],answer:0,explanation:"1인칭 주어의 행동에 대한 결과는 '-았/었더니'를 씁니다."},
+  {lesson:6,category:"대화빈칸",question:"가: 어제 왜 그렇게 일찍 잤어요?\n나: 아르바이트를 (   ) 너무 피곤했거든요.",options:["하느라고","하거든","하더니","할 뿐이라서"],answer:0,explanation:"부정적 결과의 원인을 말할 때는 '-느라고'를 씁니다."},
   {lesson:7,category:"피동사",question:"공사장 소리가 너무 커서 안내 방송이 잘 안 (   ).",options:["들려요","들어요","들려줘요","듣혀요"],answer:0,explanation:"'듣다'의 피동사는 '들리다'입니다."},
-  {lesson:8,category:"간접화법-축약",question:"가: 내일 등산 모임에 다들 온대요?\n나: 아니요, 비가 올 것 같아서 다음 주로 (   ).",options:["미루재요","미루냬요","미루대요","미루래요"],answer:0,explanation:"청유('-자고 해요')의 축약형은 '-재요'입니다."},
-  {lesson:11,category:"사동사",question:"추운 날에는 아이에게 두꺼운 외투를 꼭 (   ).",options:["입히세요","입으세요","입기세요","입이세요"],answer:0,explanation:"'입다'의 사동사는 '입히다'입니다."}
+  {lesson:8,category:"간접화법-축약",question:"가: 내일 등산 모임에 다들 온대요?\n나: 아니요, 비가 올 것 같아서 다음 주로 (   ).",options:["미루재요","미루냬요","미루대요","미루래요"],answer:0,explanation:"'-자고 해요'의 축약형은 '-재요'입니다."},
+  {lesson:9,category:"대화빈칸",question:"아침에 늦게 (   ) 첫 기차를 놓치고 말았어요.",options:["일어나는 바람에","일어난 바람에","일어났는 바람에","일어날 바람에"],answer:0,explanation:"예상치 못한 부정적 원인은 '-는 바람에'를 씁니다."},
+  {lesson:10,category:"대화빈칸",question:"늦잠을 자서 하마터면 비행기를 못 (   ).",options:["탈 뻔했어요","탔을 뻔했어요","타는 뻔했어요","탄 뻔했어요"],answer:0,explanation:"일어날 뻔한 일은 '-(으)ㄹ 뻔하다'를 쓰며 과거형과 결합하지 않습니다."},
+  {lesson:11,category:"사동사",question:"추운 날에는 아이에게 두꺼운 외투를 꼭 (   ).",options:["입히세요","입으세요","입기세요","입이세요"],answer:0,explanation:"'입다'의 사동사는 '입히다'입니다."},
+  {lesson:12,category:"대화빈칸",question:"어제 전통 결혼식을 직접 봤는데 정말 (   ).",options:["멋있더라고요","멋있는더라고요","멋있은더라고요","멋있을더라고요"],answer:0,explanation:"직접 보고 경험한 사실은 어간 + '-더라고요'를 씁니다."},
+  {lesson:13,category:"대화빈칸",question:"요즘 한국에서는 어떤 노래가 가장 인기가 (   )?",options:["많은가요","많나요","많ㄴ가요","많으가요"],answer:0,explanation:"받침 있는 형용사 '많다' 뒤에는 '-은가요?'가 붙습니다."},
+  {lesson:14,category:"대화빈칸",question:"비가 많이 오는데 우산을 안 가져왔어요. 아침에 일기예보를 (   ).",options:["볼걸 그랬어요","봤을걸 그랬어요","보는걸 그랬어요","본걸 그랬어요"],answer:0,explanation:"지나간 일에 대한 후회는 '-(으)ㄹ걸 그랬다'를 씁니다."},
+  {lesson:15,category:"대화빈칸",question:"다음부터는 수업 시간에 늦지 (   ).",options:["않도록 하세요","않았도록 하세요","않을도록 하세요","말도록 하세요"],answer:0,explanation:"부정 권유는 '-지 않도록 하다'를 씁니다."},
+  {lesson:16,category:"대화빈칸",question:"설날에는 가족들과 함께 윷놀이를 (   ).",options:["하곤 해요","해곤 해요","했곤 해요","할곤 해요"],answer:0,explanation:"반복되는 습관은 어간 + '-곤 하다'를 씁니다."}
 ];
 
+/* 1~16과 기본 문장 만들기 (과별 1문항 이상 기본 내장) */
 const DEFAULT_BUILDER = [
   {lesson:1,category:"간접화법-평서",prompt:'(지민 → 수진)\n"다음 주부터 봉사 동아리에 나가요."',tokens:["지민 씨가","수진 씨에게","다음 주부터","봉사 동아리에","나간다고","했어요."],dist:["나가다고","나가는다고","수진 씨가","봉사 동아리를"]},
-  {lesson:2,category:"간접화법-의문",prompt:'(선생님 → 학생)\n"적성검사 결과가 마음에 들어요?"',tokens:["선생님께서","학생에게","적성검사 결과가","마음에 드냐고","물으셨어요."],dist:["마음에 든다고","마음에 들으냐고","학생이","적성검사 결과를"]},
-  {lesson:7,category:"피동사",prompt:'능동 → 피동 바꾸기\n"시력이 좋아져서 칠판 글씨를 잘 봐요."',tokens:["시력이 좋아져서","칠판 글씨가","잘","보여요."],dist:["칠판 글씨를","봐요.","보아져요.","보여줘요."]},
+  {lesson:2,category:"간접화법-의문",prompt:'(선생님 → 민호)\n"어제 숙제를 다 했어요?"',tokens:["선생님께서","민호 씨에게","어제 숙제를","다 했냐고","물으셨어요."],dist:["다 했다고","다 하냐고","민호 씨가","다 하라고"]},
+  {lesson:3,category:"간접화법-명령",prompt:'(엄마 → 동생)\n"도서관에서 떠들지 마세요."',tokens:["엄마가","동생에게","도서관에서","떠들지 말라고","하셨어요."],dist:["떠들지 마라고","떠들지 말자고","도서관에","동생이"]},
+  {lesson:4,category:"간접화법-청유",prompt:'(지훈 → 친구들)\n"점심에 같이 김치찌개를 먹읍시다."',tokens:["지훈 씨가","친구들에게","점심에 같이","김치찌개를","먹자고","했어요."],dist:["먹으라고","먹는다고","김치찌개가","친구들이"]},
+  {lesson:5,category:"더니/았었더니",prompt:'1인칭 경험 결과 말하기\n(따뜻한 차를 마시다 → 목이 괜찮아지다)',tokens:["따뜻한 차를","마셨더니","목이 좀","괜찮아졌어요."],dist:["마시더니","마실더니","목에 좀","괜찮아지더니"]},
+  {lesson:6,category:"대화빈칸",prompt:'원인과 부정적 결과 연결 (-느라고)\n(발표 준비하다 / 잠을 못 자다)',tokens:["발표 준비를","하느라고","어젯밤에","잠을 못 잤어요."],dist:["했느라고","하겠느라고","잠이","발표 준비가"]},
+  {lesson:7,category:"피동사",prompt:'능동 → 피동 바꾸기\n"경찰이 도둑을 잡았어요."',tokens:["도둑이","경찰에게","잡혔어요."],dist:["도둑을","경찰이","잡았어요.","잡겼어요."]},
   {lesson:8,category:"간접화법-축약",prompt:'(민수 → 나)\n"내일 오후에 눈이 많이 올 거예요."',tokens:["민수 씨가","내일 오후에","눈이 많이","올 거래요."],dist:["온대요.","올 거냬요.","올 거재요.","눈을 많이"]},
-  {lesson:11,category:"사동사",prompt:'사동 표현으로 바꾸기\n"동생이 웃다" (내가 재미있는 이야기를 했다)',tokens:["내가","재미있는 이야기를 해서","동생을","웃겼어요."],dist:["동생이","웃었어요.","웃혔어요.","웃어졌어요."]}
+  {lesson:9,category:"대화빈칸",prompt:'걱정되어 미리 행동하기 (-(으)ㄹ까 봐)\n(수업에 늦다 / 택시를 타다)',tokens:["수업에","늦을까 봐","택시를","탔어요."],dist:["늦을가 봐","안 늦을까 봐","택시가","늦는까 봐"]},
+  {lesson:10,category:"대화빈칸",prompt:'상태 유지 (-아/어 있다)\n(박물관 문이 닫히다)',tokens:["박물관","출입문이","이미","닫혀 있었어요."],dist:["닫아 있었어요.","닫고 있었어요.","출입문을","닫혔어 있었어요."]},
+  {lesson:11,category:"사동사",prompt:'사동 표현 만들기\n"아이가 우유를 마시다" (어머니가 주었다)',tokens:["어머니께서","아이에게","우유를","먹이셨어요."],dist:["먹히셨어요.","아이가","우유가","마시셨어요."]},
+  {lesson:12,category:"대화빈칸",prompt:'정도가 더해짐 (-(으)면 -(으)ㄹ수록)\n(날씨가 덥다 / 아이스크림이 잘 팔리다)',tokens:["날씨가","더우면 더울수록","아이스크림이","잘 팔려요."],dist:["덥으면 덥을수록","더웠으면 더울수록","아이스크림을","잘 팔아요."]},
+  {lesson:13,category:"대화빈칸",prompt:'원인/순서 (-아/어 가지고)\n(잠을 못 자다 / 너무 피곤하다)',tokens:["어제","잠을 못 자 가지고","오늘","너무 피곤해요."],dist:["못 자서 가지고","못 잤어 가지고","잠이","피곤해 가지고"]},
+  {lesson:14,category:"대화빈칸",prompt:'근거를 보고 추측 (-는 모양이다)\n(밖에 비가 오다)',tokens:["우산을 쓴 걸 보니","밖에","비가","오는 모양이에요."],dist:["온 모양이에요.","올 모양이에요.","비를","오 모양이에요."]},
+  {lesson:15,category:"대화빈칸",prompt:'완전히 끝냄/아쉬움 (-아/어 버리다)\n(이번 달 용돈을 다 쓰다)',tokens:["이번 달","용돈을","다","써 버렸어요."],dist:["쓰어 버렸어요.","썼어 버렸어요.","용돈이","안 써 버렸어요."]},
+  {lesson:16,category:"대화빈칸",prompt:'똑같이 따라 하기 (-는 대로)\n(제가 하다 / 따라 해 보세요)',tokens:["제가","하는 대로","천천히","따라 해 보세요."],dist:["한 대로","할 대로","하 대로","저를"]}
 ];
 
 let state = {
@@ -444,11 +474,14 @@ let state = {
   quizBank: [...DEFAULT_QUIZ],
   builderBank: [...DEFAULT_BUILDER],
   regAvatar: AVATARS[0],
-  todayLesson: 1, vocabLesson: 1, focusCat: 'ALL', builderCat: 'ALL',
+  todayLesson: 1, vocabLesson: 1,
+  quizFilter: 'L1', builderFilter: 'L1',
   builderIdx: 0, selectedChips: [],
   fcDone: 0, builderDone: 0,
   quizQueue: [], quizIdx: 0, quizCorrect: 0, quizWrongs: []
 };
+
+const expCache = JSON.parse(localStorage.getItem('skku3_exp_cache') || '{}');
 
 function getKstDate() { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date()); }
 function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2400); }
@@ -466,6 +499,8 @@ async function init() {
     document.getElementById('langPicker').value = state.user.lang || 'en';
     state.todayLesson = state.user.todayLesson || 1;
     state.vocabLesson = state.todayLesson;
+    state.quizFilter = 'L' + state.todayLesson;
+    state.builderFilter = 'L' + state.todayLesson;
     renderAll();
   }
 }
@@ -478,6 +513,26 @@ async function loadFromSheet() {
       if (Array.isArray(res.data.builder) && res.data.builder.length) state.builderBank = res.data.builder;
     }
   } catch (e) {}
+}
+
+async function getLocalizedExp(text) {
+  const lang = (state.user && state.user.lang) || 'en';
+  if (!text || lang === 'ko') return text;
+  const key = `${lang}:${text}`;
+  if (expCache[key]) return expCache[key];
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'translate', lang, text })
+    }).then(r => r.json());
+    if (res.ok && res.translated) {
+      expCache[key] = res.translated;
+      localStorage.setItem('skku3_exp_cache', JSON.stringify(expCache));
+      return res.translated;
+    }
+  } catch (e) {}
+  return text;
 }
 
 function renderAvatarGrid(elId, sel, onPick) {
@@ -530,7 +585,7 @@ function goTab(tab) {
   if (tab==='home') renderHome();
   if (tab==='vocab') renderVocabList();
   if (tab==='flashcard') renderFlashcardQuiz();
-  if (tab==='quiz') renderFocusPills();
+  if (tab==='quiz') renderQuizPills();
   if (tab==='builder') { renderBuilderPills(); renderSentenceBuilder(); }
 }
 function renderAll() {
@@ -538,15 +593,23 @@ function renderAll() {
   ensureTodayMissions();
   document.getElementById('hdrUserName').textContent = state.user.name + ' · 3급';
   document.getElementById('hdrAvatar').src = state.user.avatar || AVATARS[0];
-  renderHome(); renderPills(); renderVocabList(); renderFocusPills(); renderBuilderPills();
+  renderHome(); renderPills(); renderVocabList(); renderQuizPills(); renderBuilderPills();
 }
 
 /* ===== TODAY LESSON & MISSIONS ===== */
-function selectTodayLesson(id) { state.todayLesson = id; state.vocabLesson = id; state.user.todayLesson = id; saveUser(); renderHome(); renderPills(); }
+function selectTodayLesson(id) {
+  state.todayLesson = id;
+  state.vocabLesson = id;
+  state.quizFilter = 'L' + id;
+  state.builderFilter = 'L' + id;
+  state.user.todayLesson = id;
+  saveUser();
+  renderHome(); renderPills(); renderQuizPills(); renderBuilderPills();
+}
 function startTodayMission(step) {
   if (step === 'vocab') { state.vocabLesson = state.todayLesson; goTab('flashcard'); }
-  else if (step === 'quiz') { state.focusCat = 'TODAY'; goTab('quiz'); startQuiz(); }
-  else if (step === 'builder') { state.builderCat = 'ALL'; goTab('builder'); }
+  else if (step === 'quiz') { state.quizFilter = 'L' + state.todayLesson; goTab('quiz'); startQuiz(); }
+  else if (step === 'builder') { state.builderFilter = 'L' + state.todayLesson; state.builderIdx = 0; goTab('builder'); }
 }
 function ensureTodayMissions() {
   if (!state.user) return;
@@ -636,7 +699,7 @@ function speakKo(t) { if (!('speechSynthesis' in window)) return; speechSynthesi
 
 function renderFlashcardQuiz() {
   document.getElementById('fcProgressTxt').textContent = `${Math.min(state.fcDone, 3)}/3`;
-  const todayL = LESSONS.find(l => l.id === state.todayLesson);
+  const todayL = LESSONS.find(l => l.id === state.vocabLesson);
   const pool = state.flashcards.length ? state.flashcards : todayL.vocab.map(v => ({ ko: v[0], v }));
   const item = pool[Math.floor(Math.random() * pool.length)];
   const lang = (state.user && state.user.lang) || 'en';
@@ -664,44 +727,61 @@ function pickFcOpt(idx) {
 }
 function nextFcQuestion() { renderFlashcardQuiz(); }
 
-/* ===== FOCUS GRAMMAR QUIZ ===== */
-function renderFocusPills() {
-  const cats = ['ALL', 'TODAY', ...new Set(state.quizBank.map(q => q.category).filter(Boolean))];
-  document.getElementById('focusCatPills').innerHTML = cats.map(c => `<button class="pill pink ${c===state.focusCat?'active':''}" onclick="state.focusCat='${c}';renderFocusPills();">${c==='TODAY'?state.todayLesson+'과':c}</button>`).join('');
+/* ===== LESSON & FOCUS GRAMMAR QUIZ ===== */
+function renderQuizPills() {
+  document.getElementById('quizLessonPills').innerHTML = LESSONS.map(l =>
+    `<button class="pill ${state.quizFilter==='L'+l.id?'active':''}" onclick="state.quizFilter='L${l.id}';renderQuizPills();">${l.id}과</button>`
+  ).join('');
+  const cats = ['ALL', ...new Set(state.quizBank.map(q => q.category).filter(Boolean))];
+  document.getElementById('focusCatPills').innerHTML = cats.map(c =>
+    `<button class="pill pink ${state.quizFilter===c?'active':''}" onclick="state.quizFilter='${c}';renderQuizPills();">${c}</button>`
+  ).join('');
 }
 function startQuiz() {
   let pool = state.quizBank;
-  if (state.focusCat === 'TODAY') { const byL = state.quizBank.filter(q => Number(q.lesson) === state.todayLesson); pool = byL.length ? byL : state.quizBank; }
-  else if (state.focusCat !== 'ALL') pool = state.quizBank.filter(q => q.category === state.focusCat);
-  state.quizQueue = [...pool].sort(() => Math.random()-0.5).slice(0, 8);
+  if (state.quizFilter.startsWith('L')) {
+    const lid = Number(state.quizFilter.slice(1));
+    pool = state.quizBank.filter(q => Number(q.lesson) === lid);
+  } else if (state.quizFilter !== 'ALL') {
+    pool = state.quizBank.filter(q => q.category === state.quizFilter);
+  }
+  if (!pool.length) pool = state.quizBank;
+  state.quizQueue = [...pool].sort(() => Math.random()-0.5).slice(0, 10);
   state.quizIdx = 0; state.quizCorrect = 0; state.quizWrongs = [];
-  document.getElementById('quizSetup').classList.add('hidden'); document.getElementById('quizResult').classList.add('hidden'); document.getElementById('quizActive').classList.remove('hidden');
+  document.getElementById('quizSetup').classList.add('hidden');
+  document.getElementById('quizResult').classList.add('hidden');
+  document.getElementById('quizActive').classList.remove('hidden');
   renderQuizQ();
 }
 function renderQuizQ() {
   const q = state.quizQueue[state.quizIdx];
-  document.getElementById('quizSectionTag').textContent = q.category || `${q.lesson}과`;
+  document.getElementById('quizSectionTag').textContent = `${q.lesson}과 · ${q.category || '문법'}`;
   document.getElementById('quizCounter').textContent = `${state.quizIdx+1} / ${state.quizQueue.length}`;
   document.getElementById('quizProgress').style.width = `${((state.quizIdx+1)/state.quizQueue.length)*100}%`;
   const p = document.getElementById('quizPassage');
   if (q.passage) { document.getElementById('quizPassageText').textContent = q.passage; p.classList.remove('hidden'); } else p.classList.add('hidden');
-  document.getElementById('quizQuestion').textContent = q.question;
+  document.getElementById('quizQuestion').innerHTML = q.question.replace(/\(\s*\)/g, '<span class="blank-box"></span>');
   document.getElementById('quizOptions').innerHTML = q.options.map((o,i) => `<button class="opt-btn" id="opt_${i}" onclick="pickOpt(${i})">${i+1}. ${o}</button>`).join('');
-  document.getElementById('quizFeedback').classList.add('hidden'); document.getElementById('quizNextBtn').classList.add('hidden');
+  document.getElementById('quizFeedback').classList.add('hidden');
+  document.getElementById('quizNextBtn').classList.add('hidden');
 }
-function pickOpt(idx) {
+async function pickOpt(idx) {
   const q = state.quizQueue[state.quizIdx];
   document.querySelectorAll('#quizOptions .opt-btn').forEach(b => b.disabled = true);
   const fb = document.getElementById('quizFeedback'); fb.classList.remove('hidden','ok','no');
+  const expId = 'exp_' + Date.now();
   if (idx === q.answer) {
     document.getElementById('opt_'+idx).classList.add('correct'); state.quizCorrect++;
-    fb.classList.add('ok'); fb.innerHTML = `⭕ ${q.explanation || ''}`;
+    fb.classList.add('ok'); fb.innerHTML = `⭕ <span id="${expId}">...</span>`;
   } else {
     document.getElementById('opt_'+idx).classList.add('wrong'); document.getElementById('opt_'+q.answer).classList.add('correct');
     state.quizWrongs.push({ q: q.question, a: q.options[q.answer] });
-    fb.classList.add('no'); fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ <strong>${q.options[q.answer]}</strong><br>${q.explanation || ''}</div></div>`;
+    fb.classList.add('no'); fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ <strong>${q.options[q.answer]}</strong><br><span id="${expId}">...</span></div></div>`;
   }
   document.getElementById('quizNextBtn').classList.remove('hidden');
+  const translated = await getLocalizedExp(q.explanation || '');
+  const expEl = document.getElementById(expId);
+  if (expEl) expEl.textContent = translated;
 }
 function nextQuizQuestion() {
   if (++state.quizIdx < state.quizQueue.length) renderQuizQ();
@@ -714,18 +794,29 @@ function nextQuizQuestion() {
 }
 function resetQuizUI() { document.getElementById('quizResult').classList.add('hidden'); document.getElementById('quizSetup').classList.remove('hidden'); }
 
-/* ===== SENTENCE BUILDER ===== */
+/* ===== LESSON & FOCUS SENTENCE BUILDER ===== */
 function renderBuilderPills() {
+  document.getElementById('builderLessonPills').innerHTML = LESSONS.map(l =>
+    `<button class="pill ${state.builderFilter==='L'+l.id?'active':''}" onclick="state.builderFilter='L${l.id}';state.builderIdx=0;renderBuilderPills();renderSentenceBuilder();">${l.id}과</button>`
+  ).join('');
   const cats = ['ALL', ...new Set(state.builderBank.map(b => b.category).filter(Boolean))];
-  document.getElementById('builderCatPills').innerHTML = cats.map(c => `<button class="pill ${c===state.builderCat?'active':''}" onclick="state.builderCat='${c}';state.builderIdx=0;renderBuilderPills();renderSentenceBuilder();">${c}</button>`).join('');
+  document.getElementById('builderCatPills').innerHTML = cats.map(c =>
+    `<button class="pill pink ${state.builderFilter===c?'active':''}" onclick="state.builderFilter='${c}';state.builderIdx=0;renderBuilderPills();renderSentenceBuilder();">${c}</button>`
+  ).join('');
 }
 function renderSentenceBuilder() {
-  const list = state.builderCat === 'ALL' ? state.builderBank : state.builderBank.filter(b => b.category === state.builderCat);
-  if (!list.length) return;
+  let list = state.builderBank;
+  if (state.builderFilter.startsWith('L')) {
+    const lid = Number(state.builderFilter.slice(1));
+    list = state.builderBank.filter(b => Number(b.lesson) === lid);
+  } else if (state.builderFilter !== 'ALL') {
+    list = state.builderBank.filter(b => b.category === state.builderFilter);
+  }
+  if (!list.length) list = state.builderBank;
   if (state.builderIdx >= list.length) state.builderIdx = 0;
   const item = list[state.builderIdx];
   document.getElementById('builderCounter').textContent = `${state.builderIdx+1} / ${list.length}`;
-  document.getElementById('builderGrammarTag').textContent = item.category || `${item.lesson}과`;
+  document.getElementById('builderGrammarTag').textContent = `${item.lesson}과 · ${item.category || '문장'}`;
   document.getElementById('builderPromptText').textContent = item.prompt;
   state.selectedChips = [];
   state._tokens = [...item.tokens, ...(item.dist || [])].map((t, i) => ({id:i, text:t})).sort(() => Math.random()-0.5);
@@ -746,14 +837,14 @@ function checkSentence() {
   const fb = document.getElementById('builderFeedback'); fb.classList.remove('hidden','ok','no');
   if (ans === target) {
     fb.classList.add('ok'); fb.innerHTML = `⭕ ${target}`; speakKo(target);
-    state.builderDone++; if (state.builderDone >= 2) completeMission('builder');
+    state.builderDone++; if (state.builderDone >= 1) completeMission('builder');
   } else {
     fb.classList.add('no'); fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ → <strong>${target}</strong></div></div>`;
   }
 }
 function nextSentence() { state.builderIdx++; renderSentenceBuilder(); }
 
-/* ===== ADMIN LIVE MANAGER (Google Sheets) ===== */
+/* ===== ADMIN LIVE MANAGER ===== */
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function openAdminAuth() { document.getElementById('adminPwInput').value = ''; openModal('adminAuthModal'); }
@@ -771,7 +862,7 @@ function copyAiPrompt() {
   const type = document.getElementById('admTargetType').value;
   const cat = document.getElementById('admCatSelect').value;
   const prompt = type === 'quiz'
-    ? `성균어학원 한국어 3급 [${cat}] 집중 훈련용 새로운 변형 객관식 문제 10개를 만들어 줘. 기존 유인물과 겹치지 않게 작성하고 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","question":"...","options":["보기1","보기2","보기3","보기4"],"answer":0,"explanation":"짧은 해설"}]`
+    ? `성균어학원 한국어 3급 [${cat}] 집중 훈련용 새로운 변형 객관식 문제 10개를 만들어 줘. 기존 유인물과 겹치지 않게 작성하고 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","question":"...","options":["보기1","보기2","보기3","보기4"],"answer":0,"explanation":"'문법표현'은 작은따옴표로 묶고 짧은 한국어 해설 작성"}]`
     : `성균어학원 한국어 3급 [${cat}] 문장 만들기 배열 문제 10개를 만들어 줘. 불필요한 오답 블록(dist) 4개씩 포함해서 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","prompt":"(화자 → 청자)\\n\\"직접화법 문장\\"","tokens":["정답","어절","배열"],"dist":["오답1","오답2","오답3","오답4"]}]`;
   navigator.clipboard.writeText(prompt);
   toast('AI 프롬프트 복사 완료!');
@@ -794,12 +885,12 @@ async function saveToSheet(key) {
     }).then(r => r.json());
     if (!res.ok) return toast(res.error || '저장 실패');
 
-    if (key === 'quiz') { state.quizBank = merged; renderFocusPills(); }
+    if (key === 'quiz') { state.quizBank = merged; renderQuizPills(); }
     else { state.builderBank = merged; renderBuilderPills(); }
     document.getElementById('admJsonInput').value = '';
     document.getElementById('admCountInfo').textContent = `문법 ${state.quizBank.length} · 문장 ${state.builderBank.length}`;
     toast(`☁️ ${added.length}개 저장 & 전체 반영 완료!`);
-  } catch (e) { toast('시트 연결 오류 (배포 권한 확인)'); }
+  } catch (e) { toast('시트 연결 오류 (새 버전 배포 확인)'); }
 }
 
 init();
