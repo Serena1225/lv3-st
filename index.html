@@ -1,1642 +1,985 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>성균어학원 한국어학당 3급 학습</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#8B5CF6">
+<link rel="manifest" href="./manifest.json">
+<title>성균어학원 한국어학당 3급 학습</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAFC;
+    --surface: #FFFFFF;
+    --surface2: #F4F0FA;
+    --border: #E8E0F0;
+    --brown: #4A2C2A;
+    --brown-dark: #331D1C;
+    --purple: #8B5CF6;
+    --purple-dark: #6D28D9;
+    --purple-soft: #EDE9FE;
+    --pink: #EC4899;
+    --pink-dark: #BE185D;
+    --pink-soft: #FCE7F3;
+    --text: #3B2322;
+    --muted: #8A7A85;
+    --danger: #EF4444;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; font-family: "Pretendard", "Nunito", -apple-system, sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column;
+  }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  input, select, textarea {
+    font-family: inherit; background: #FFF; color: var(--text);
+    border: 2px solid var(--border); border-radius: 14px; padding: 11px 14px; width: 100%; font-size: 14px; font-weight: 600;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--purple); }
 
-  <!-- Modern Clean Sans-Serif Fonts: Pretendard & Nunito -->
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  /* 3D Duolingo Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px 18px; border-radius: 16px; font-weight: 800; font-size: 14px;
+    transition: transform 0.08s, box-shadow 0.08s; user-select: none;
+  }
+  .btn:active { transform: translateY(3px); box-shadow: none !important; }
+  .btn-primary { background: var(--purple); color: #FFF; box-shadow: 0 4px 0 var(--purple-dark); }
+  .btn-pink { background: var(--pink); color: #FFF; box-shadow: 0 4px 0 var(--pink-dark); }
+  .btn-brown { background: var(--brown); color: #FFF; box-shadow: 0 4px 0 var(--brown-dark); }
+  .btn-secondary { background: #FFF; color: var(--brown); border: 2px solid var(--border); box-shadow: 0 3px 0 var(--border); }
+  .btn-danger { background: #FEE2E2; color: #B91C1C; border: 2px solid #FECACA; }
+  .btn-full { width: 100%; }
+  .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 12px; }
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  /* Header */
+  .topbar {
+    position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .brand { font-weight: 900; font-size: 15px; display: flex; align-items: center; gap: 8px; color: var(--brown); }
+  .avatar-mini { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--purple); background: #FFF; }
+  .lang-select { width: auto; padding: 6px 10px; font-size: 12px; border-radius: 10px; }
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            page: '#FAFAFC',
-            espresso: '#5C3D2E',
-            ink: '#2D2226',
-            muted: '#8B7E84',
-            violet: {
-              DEFAULT: '#8B5CF6',
-              hover: '#7C3AED',
-              shadow: '#6D28D9',
-              soft: '#F3F0FF',
-              border: '#E5DEFF',
-            },
-            pinky: {
-              DEFAULT: '#EC4899',
-              hover: '#DB2777',
-              shadow: '#BE185D',
-              soft: '#FDF2F8',
-              border: '#FBCFE8',
-            },
-            line: '#E5E7EB',
-          },
-          fontFamily: {
-            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-            num: ['Nunito', 'Pretendard', 'sans-serif'],
-          },
-        }
-      }
-    };
-  </script>
+  /* Layout & Cards */
+  .container { max-width: 680px; width: 100%; margin: 0 auto; padding: 16px 16px 96px; flex: 1; }
+  .card {
+    background: var(--surface); border: 2px solid var(--border); border-radius: 22px;
+    padding: 18px; margin-bottom: 14px; box-shadow: 0 4px 12px rgba(74,44,42,0.04);
+  }
+  .card-title { font-size: 16px; font-weight: 800; margin: 0 0 12px; display: flex; justify-content: space-between; align-items: center; color: var(--brown); }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+  /* Auth Screen */
+  .auth-screen {
+    position: fixed; inset: 0; z-index: 100; background: linear-gradient(160deg, #FDF2F8 0%, #F5F3FF 100%);
+    display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;
+  }
+  .auth-box {
+    max-width: 420px; width: 100%; background: #FFF; border: 2px solid var(--border);
+    border-radius: 26px; padding: 24px; box-shadow: 0 12px 32px rgba(139,92,246,0.12);
+  }
+  .auth-hero { width: 92px; height: 92px; object-fit: contain; border-radius: 50%; border: 3px solid var(--pink); background: #FFF; margin-bottom: 8px; }
+  .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--surface2); padding: 5px; border-radius: 14px; margin-bottom: 16px; }
+  .auth-tab { padding: 9px; border-radius: 10px; font-weight: 800; font-size: 13px; color: var(--muted); }
+  .auth-tab.active { background: var(--purple); color: #FFF; }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 12px; color: var(--brown); margin-bottom: 5px; font-weight: 700; }
 
-    body {
-      background-color: #FAFAFC;
-      color: #2D2226;
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+  .avatar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 6px; }
+  .avatar-opt {
+    border: 2px solid var(--border); border-radius: 14px; padding: 4px; background: #FFF;
+    display: flex; flex-direction: column; align-items: center; transition: 0.15s;
+  }
+  .avatar-opt img { width: 52px; height: 52px; object-fit: contain; }
+  .avatar-opt.selected { border-color: var(--pink); background: var(--pink-soft); transform: scale(1.05); }
 
-    /* Tactile Duolingo-style 3D Buttons */
-    .btn-3d {
-      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s ease;
-      user-select: none;
-    }
+  /* Bottom Nav */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+    border-top: 2px solid var(--border); display: flex; justify-content: space-around;
+    padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    font-size: 11px; color: var(--muted); padding: 5px 8px; border-radius: 12px; font-weight: 700;
+  }
+  .nav-btn.active { color: var(--purple); background: var(--purple-soft); }
+  .nav-icon { font-size: 18px; }
 
-    .btn-3d:active:not(:disabled) {
-      transform: translateY(3px);
-    }
+  /* Grape & Cheer */
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .stat-box { background: #FFF; border: 2px solid var(--border); border-radius: 18px; padding: 14px; text-align: center; }
+  .stat-val { font-size: 24px; font-weight: 900; color: var(--purple); font-family: "Nunito", "Pretendard", sans-serif; }
+  .stat-lbl { font-size: 12px; color: var(--muted); font-weight: 700; margin-top: 2px; }
+  .grape-wrap { display: flex; align-items: flex-end; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .cheer-box { display: flex; flex-direction: column; align-items: center; max-width: 140px; }
+  .bubble {
+    background: var(--pink-soft); border: 2px solid var(--pink); color: var(--brown);
+    padding: 8px 12px; border-radius: 14px; font-size: 12px; font-weight: 800; text-align: center; margin-bottom: 8px;
+  }
+  .cheer-img { width: 92px; height: 92px; object-fit: contain; }
 
-    .btn-purple {
-      background-color: #8B5CF6;
-      color: #FFFFFF;
-      box-shadow: 0 4px 0 #6D28D9;
-    }
+  /* Pills, Vocab, Schedule */
+  .pill-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 10px; scrollbar-width: none; }
+  .pill-row::-webkit-scrollbar { display: none; }
+  .pill {
+    flex-shrink: 0; padding: 7px 13px; border-radius: 20px; font-size: 12px; font-weight: 800;
+    background: #FFF; color: var(--muted); border: 2px solid var(--border);
+  }
+  .pill.active { background: var(--purple); color: #FFF; border-color: var(--purple); }
+  .vocab-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 4px; border-bottom: 1px solid var(--border); }
+  .vocab-row:last-child { border-bottom: none; }
+  .vocab-ko { font-size: 15px; font-weight: 800; color: var(--brown); }
+  .vocab-tr { font-size: 13px; color: var(--purple); font-weight: 600; margin-top: 2px; }
 
-    .btn-purple:hover:not(:disabled) {
-      background-color: #7C3AED;
-    }
+  .week-hdr { font-size: 13px; font-weight: 800; color: var(--purple); margin: 12px 0 8px; }
+  .sch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 8px; }
+  .sch-item { background: var(--surface2); border: 2px solid var(--border); border-radius: 14px; padding: 10px; text-align: left; }
+  .sch-item.holiday { border-left: 4px solid var(--danger); opacity: 0.7; }
+  .sch-item.exam { border-left: 4px solid var(--pink); }
+  .sch-item.event { border-left: 4px solid var(--brown); }
+  .sch-item.lesson { border-left: 4px solid var(--purple); }
+  .sch-date { font-size: 11px; color: var(--muted); font-weight: 700; }
+  .sch-lbl { font-size: 13px; font-weight: 800; margin-top: 3px; color: var(--brown); }
 
-    .btn-purple:active:not(:disabled) {
-      box-shadow: 0 1px 0 #6D28D9;
-    }
+  /* 3D Flashcard */
+  .fc-stage { perspective: 1000px; height: 210px; margin-bottom: 14px; cursor: pointer; }
+  .fc-inner { position: relative; width: 100%; height: 100%; transition: transform 0.45s; transform-style: preserve-3d; }
+  .fc-inner.flipped { transform: rotateY(180deg); }
+  .fc-face {
+    position: absolute; inset: 0; backface-visibility: hidden; border-radius: 22px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center;
+    border: 2px solid var(--purple); background: #FFF; box-shadow: 0 6px 0 var(--purple-soft);
+  }
+  .fc-back { transform: rotateY(180deg); border-color: var(--pink); background: #FFF5FA; box-shadow: 0 6px 0 var(--pink-soft); }
+  .fc-word { font-size: 26px; font-weight: 900; color: var(--brown); }
+  .fc-hint { font-size: 12px; color: var(--muted); margin-top: 10px; font-weight: 700; }
 
-    .btn-purple:disabled {
-      background-color: #E5E7EB;
-      color: #9CA3AF;
-      box-shadow: 0 4px 0 #D1D5DB;
-      cursor: not-allowed;
-    }
+  /* Sentence Builder & Quiz */
+  .duo-prompt { background: var(--surface2); border: 2px solid var(--border); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
+  .duo-tag { font-size: 11px; font-weight: 800; color: var(--pink); margin-bottom: 4px; display: inline-block; }
+  .duo-native { font-size: 17px; font-weight: 800; color: var(--brown); }
+  .answer-zone { min-height: 66px; border: 2px dashed var(--border); border-radius: 16px; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; background: #FFF; }
+  .chip-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 14px; }
+  .chip { background: #FFF; border: 2px solid var(--border); border-bottom-width: 4px; padding: 8px 14px; border-radius: 14px; font-size: 14px; font-weight: 800; color: var(--brown); }
+  .chip.selected { background: var(--purple-soft); border-color: var(--purple); color: var(--purple-dark); }
+  .chip.used { opacity: 0.25; pointer-events: none; }
 
-    .btn-pink {
-      background-color: #EC4899;
-      color: #FFFFFF;
-      box-shadow: 0 4px 0 #BE185D;
-    }
+  .progress-bar { height: 10px; background: var(--surface2); border-radius: 99px; overflow: hidden; margin-bottom: 14px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--pink)); transition: width 0.25s; }
+  .opt-btn { width: 100%; text-align: left; padding: 13px 14px; border-radius: 14px; margin-bottom: 8px; background: #FFF; border: 2px solid var(--border); font-size: 14px; font-weight: 700; color: var(--brown); }
+  .opt-btn.correct { background: var(--purple-soft); border-color: var(--purple); color: var(--purple-dark); }
+  .opt-btn.wrong { background: #FEE2E2; border-color: var(--danger); color: #B91C1C; }
+  .feedback-bar { border-radius: 14px; padding: 14px; margin-top: 12px; font-size: 13px; font-weight: 600; }
+  .feedback-bar.ok { background: var(--purple-soft); border: 2px solid var(--purple); color: var(--purple-dark); }
+  .feedback-bar.no { background: #FEE2E2; border: 2px solid var(--danger); color: #991B1B; }
 
-    .btn-pink:hover:not(:disabled) {
-      background-color: #DB2777;
-    }
+  /* Footer & Modals */
+  .app-footer { text-align: center; padding: 18px 12px 90px; font-size: 12px; color: var(--muted); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .gear-btn { font-size: 16px; color: var(--muted); padding: 4px 6px; border-radius: 8px; }
+  .modal-bg { position: fixed; inset: 0; z-index: 120; background: rgba(59,35,34,0.55); display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-bg.open { display: flex; }
+  .modal-card { background: #FFF; border: 2px solid var(--border); border-radius: 24px; max-width: 560px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 20px; }
+  .toast { position: fixed; top: 68px; left: 50%; transform: translateX(-50%); z-index: 200; background: var(--brown); color: #FFF; padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 800; display: none; box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+  .toast.show { display: block; }
+  .hidden { display: none !important; }
 
-    .btn-pink:active:not(:disabled) {
-      box-shadow: 0 1px 0 #BE185D;
-    }
-
-    .btn-pink:disabled {
-      background-color: #E5E7EB;
-      color: #9CA3AF;
-      box-shadow: 0 4px 0 #D1D5DB;
-      cursor: not-allowed;
-    }
-
-    .btn-white {
-      background-color: #FFFFFF;
-      color: #2D2226;
-      border: 2px solid #E5E7EB;
-      box-shadow: 0 3px 0 #E5E7EB;
-    }
-
-    .btn-white:hover:not(:disabled) {
-      background-color: #FAFAFC;
-      border-color: #D8B4FE;
-    }
-
-    .btn-white:active:not(:disabled) {
-      box-shadow: 0 1px 0 #E5E7EB;
-    }
-
-    /* Clean White Card */
-    .duo-card {
-      background-color: #FFFFFF;
-      border: 2px solid #E5E7EB;
-      border-radius: 24px;
-    }
-
-    /* Selectable Avatar Card */
-    .avatar-card {
-      background-color: #FFFFFF;
-      border: 2px solid #E5E7EB;
-      border-radius: 18px;
-      box-shadow: 0 3px 0 #E5E7EB;
-      transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
-      cursor: pointer;
-    }
-
-    .avatar-card:hover {
-      border-color: #C4B5FD;
-      background-color: #FAFAFC;
-    }
-
-    .avatar-card.selected {
-      border-color: #8B5CF6;
-      background-color: #F3F0FF;
-      box-shadow: 0 3px 0 #8B5CF6;
-    }
-
-    /* Crisp White-Background Avatar Image Container */
-    .yusaeng-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background-color: #FFFFFF;
-      display: block;
-    }
-
-    /* Grape Berry Buttons */
-    .grape-btn {
-      position: relative;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background-color: #F3F0FF;
-      border: 2px solid #E5DEFF;
-      box-shadow: 0 3px 0 #E5DEFF;
-      color: #A78BFA;
-      font-family: 'Nunito', sans-serif;
-      font-size: 15px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, border-color 0.2s ease;
-      user-select: none;
-    }
-
-    @media (min-width: 640px) {
-      .grape-btn {
-        width: 54px;
-        height: 54px;
-        font-size: 17px;
-      }
-    }
-
-    .grape-btn:hover {
-      transform: scale(1.06);
-      border-color: #F472B6;
-    }
-
-    .grape-btn.next-target {
-      background-color: #FDF2F8;
-      border-color: #EC4899;
-      box-shadow: 0 3px 0 #FBCFE8;
-      color: #EC4899;
-    }
-
-    .grape-btn.filled {
-      background: linear-gradient(145deg, #A78BFA 0%, #8B5CF6 48%, #EC4899 100%);
-      border-color: #7C3AED;
-      box-shadow: 0 3px 0 #6D28D9;
-      color: #FFFFFF;
-    }
-
-    .grape-btn.filled::before {
-      content: '';
-      position: absolute;
-      top: 7px;
-      left: 10px;
-      width: 11px;
-      height: 5.5px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.55);
-      transform: rotate(-26deg);
-      pointer-events: none;
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.65); }
-      60% { transform: scale(1.18); }
-      100% { transform: scale(1); }
-    }
-
-    .grape-pop {
-      animation: popIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    /* 3D Flashcard Flip */
-    .perspective-1000 {
-      perspective: 1000px;
-    }
-
-    .flashcard-inner {
-      position: relative;
-      width: 100%;
-      min-height: 235px;
-      transition: transform 0.48s cubic-bezier(0.4, 0.2, 0.2, 1);
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
-
-    .flashcard-inner.is-flipped {
-      transform: rotateY(180deg);
-    }
-
-    .flashcard-face {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      border-radius: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 28px 24px;
-      text-align: center;
-    }
-
-    .flashcard-back {
-      transform: rotateY(180deg);
-    }
-
-    /* Speech Bubble */
-    .speech-bubble {
-      position: relative;
-      background: #FFFFFF;
-      border: 2px solid #E5DEFF;
-      border-radius: 16px;
-      padding: 8px 14px;
-      box-shadow: 0 2px 0 #E5DEFF;
-    }
-
-    .speech-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      left: 50%;
-      transform: translateX(-50%) rotate(45deg);
-      width: 11px;
-      height: 11px;
-      background: #FFFFFF;
-      border-right: 2px solid #E5DEFF;
-      border-bottom: 2px solid #E5DEFF;
-    }
-
-    @keyframes softAppear {
-      from { opacity: 0; transform: translateY(8px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .soft-appear {
-      animation: softAppear 0.24s ease-out;
-    }
-
-    #celebration-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-  </style>
+  /* Celebration */
+  .celeb-modal { text-align: center; background: linear-gradient(180deg, #FFF 0%, #FDF2F8 100%); border: 3px solid var(--pink); }
+  .celeb-banner { background: linear-gradient(90deg, var(--purple), var(--pink)); color: #FFF; padding: 12px 18px; border-radius: 16px; font-size: 18px; font-weight: 900; margin: 12px 0; }
+  #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 250; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th, td { padding: 8px 6px; border-bottom: 1px solid var(--border); text-align: left; }
+  th { color: var(--purple); }
+</style>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body>
 
-  <!-- Hidden Multi-File Input for Loading Official SKKU Yusaeng JPGs -->
-  <input id="yusaeng-file-input" type="file" accept="image/*" multiple class="hidden" />
+<canvas id="confettiCanvas"></canvas>
+<div id="toast" class="toast"></div>
 
-  <!-- Custom Inline Toast Container -->
-  <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center gap-2 pointer-events-none px-4 w-full max-w-sm"></div>
-
-  <!-- =========================================================
-       1. LOGIN / PROFILE SETUP SCREEN
-  ========================================================= -->
-  <main id="auth-screen" class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6">
-    <div class="w-full max-w-lg duo-card p-6 sm:p-8 soft-appear">
-      <div class="text-center mb-6">
-        <span class="inline-block px-3.5 py-1 rounded-full bg-pinky-soft border border-pinky-border text-pinky font-extrabold text-xs mb-2.5">
-          한국어학당 3급
-        </span>
-        <h1 class="text-2xl sm:text-[26px] font-black text-espresso tracking-tight">
-          성균어학원 한국어학당 3급 학습
-        </h1>
-      </div>
-
-      <form id="auth-form" class="space-y-5">
-        <!-- Name Input -->
-        <div>
-          <label for="user-name-input" class="block text-sm font-extrabold text-espresso mb-2">이름</label>
-          <input id="user-name-input" type="text" required maxlength="20" autocomplete="off"
-            placeholder="이름을 입력하세요"
-            class="w-full px-4 py-3.5 rounded-2xl border-2 border-line bg-page text-base font-bold text-ink placeholder:text-muted/60 focus:outline-none focus:bg-white focus:border-violet transition" />
-        </div>
-
-        <!-- 7 Selectable Yusaeng Avatars + Multi-File Loader -->
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-2.5">
-            <span class="text-sm font-extrabold text-espresso">유생 캐릭터 선택</span>
-            <button type="button" onclick="triggerImageUpload()"
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-violet-soft border border-violet-border text-violet text-xs font-extrabold hover:bg-violet hover:text-white transition cursor-pointer">
-              <span>이미지 파일 연결</span>
-            </button>
-          </div>
-
-          <div id="auth-avatar-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5"></div>
-        </div>
-
-        <!-- Start Button -->
-        <button type="submit" class="btn-3d btn-purple w-full py-4 rounded-2xl font-extrabold text-base tracking-wide cursor-pointer">
-          시작하기
-        </button>
-      </form>
+<!-- AUTH SCREEN -->
+<div id="authScreen" class="auth-screen">
+  <div class="auth-box">
+    <div style="text-align:center; margin-bottom:14px;">
+      <img src="성균관대_33.jpg" alt="유생" class="auth-hero" id="authHeroImg">
+      <div style="font-size:20px; font-weight:900; color:var(--brown);">성균어학원 한국어학당 3급 학습</div>
     </div>
-  </main>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLoginBtn" onclick="switchAuthTab('login')">로그인</button>
+      <button class="auth-tab" id="tabRegBtn" onclick="switchAuthTab('register')">새 계정 만들기</button>
+    </div>
+    <div id="loginForm">
+      <div class="field"><label>아이디</label><input id="loginId" placeholder="아이디 입력"></div>
+      <div class="field"><label>비밀번호</label><input id="loginPw" type="password" placeholder="비밀번호 입력"></div>
+      <button class="btn btn-primary btn-full" onclick="doLogin()">시작하기</button>
+    </div>
+    <div id="registerForm" class="hidden">
+      <div class="field"><label>이름</label><input id="regName" placeholder="예: 왕량 / Anna"></div>
+      <div class="field"><label>아이디</label><input id="regId" placeholder="영문/숫자 아이디"></div>
+      <div class="field"><label>비밀번호</label><input id="regPw" type="password" placeholder="비밀번호 만들기"></div>
+      <div class="field"><label>모국어</label><select id="regLang"></select></div>
+      <div class="field">
+        <label>유생 캐릭터 선택</label>
+        <div class="avatar-grid" id="regAvatarGrid"></div>
+      </div>
+      <button class="btn btn-pink btn-full" onclick="doRegister()">계정 만들고 시작하기</button>
+    </div>
+  </div>
+</div>
 
-  <!-- =========================================================
-       2. MAIN APP DASHBOARD
-  ========================================================= -->
-  <div id="app-screen" class="hidden flex-1 flex flex-col">
-    <!-- Bright Crisp Top Header -->
-    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b-2 border-line">
-      <div class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-        <!-- Left: Avatar (clickable) + User Name -->
-        <div class="flex items-center gap-2.5 min-w-0">
-          <button type="button" onclick="openProfileModal()" title="캐릭터 변경"
-            class="flex items-center gap-2.5 pr-3 pl-1 py-1 rounded-full bg-white border-2 border-line hover:border-violet transition cursor-pointer">
-            <div id="header-avatar-box" class="w-9 h-9 rounded-full overflow-hidden border border-violet-border bg-white shrink-0 flex items-center justify-center"></div>
-            <span id="header-name" class="text-sm font-extrabold text-espresso truncate max-w-[96px]"></span>
-          </button>
-        </div>
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brand">
+    <img id="hdrAvatar" src="성균관대_33.jpg" class="avatar-mini" onclick="openAvatarChange()" title="캐릭터 변경">
+    <span id="hdrUserName">성균어학원 3급</span>
+  </div>
+  <div style="display:flex; align-items:center; gap:6px;">
+    <select id="langPicker" class="lang-select" onchange="changeLang(this.value)"></select>
+    <button class="btn btn-secondary btn-sm" onclick="logout()">로그아웃</button>
+  </div>
+</header>
 
-        <!-- Center: Clean Pill Navigation Tabs -->
-        <nav class="order-3 sm:order-2 w-full sm:w-auto flex items-center justify-center gap-2">
-          <button type="button" id="nav-tab-grape" onclick="switchMainTab('grape')"
-            class="flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 transition cursor-pointer">
-            포도알
-          </button>
-          <button type="button" id="nav-tab-vocab" onclick="switchMainTab('vocab')"
-            class="flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 transition cursor-pointer">
-            단어 카드
-          </button>
-        </nav>
+<main class="container">
+  <!-- HOME TAB -->
+  <section id="tab-home">
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-val" id="statStreak">0일</div><div class="stat-lbl">연속 학습</div></div>
+      <div class="stat-box"><div class="stat-val" id="statGrapes">0 / 20</div><div class="stat-lbl">포도알</div></div>
+    </div>
 
-        <!-- Right: Gear Icon (Admin Mode) -->
-        <div class="order-2 sm:order-3 flex items-center gap-2">
-          <button type="button" onclick="openAdminModal()" aria-label="관리자 모드"
-            class="btn-3d btn-white w-10 h-10 rounded-2xl flex items-center justify-center text-espresso hover:text-violet cursor-pointer">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </button>
+    <div class="card">
+      <div class="card-title">
+        <span>🍇 나의 포도송이</span>
+        <span id="bunchCount" style="font-size:12px; color:var(--pink);">완성 0송이</span>
+      </div>
+      <div class="grape-wrap">
+        <svg id="grapeSvg" viewBox="0 0 220 220" width="200" height="200"></svg>
+        <div class="cheer-box">
+          <div class="bubble" id="cheerMsg">오늘도 힘내요! 🍇</div>
+          <img src="성균관대_04.jpg" alt="응원 유생" class="cheer-img">
         </div>
       </div>
-    </header>
+      <button class="btn btn-pink btn-full" id="claimGrapeBtn" style="margin-top:12px;" onclick="claimDailyGrape()">오늘의 포도알 받기 (+1)</button>
+    </div>
 
-    <!-- Main Content -->
-    <main class="flex-1 max-w-2xl w-full mx-auto px-4 pt-6 pb-8">
+    <div class="card">
+      <div class="card-title"><span>빠른 학습</span></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <button class="btn btn-primary" onclick="goTab('quiz')">매일 복습 (22)</button>
+        <button class="btn btn-pink" onclick="goTab('flashcard')">단어 카드</button>
+        <button class="btn btn-brown" onclick="goTab('builder')">문장 만들기</button>
+        <button class="btn btn-secondary" onclick="goTab('vocab')">3급 어휘</button>
+      </div>
+    </div>
+  </section>
 
-      <!-- =====================================================
-           TAB 1: 포도알 (20-Grape Tracker)
-      ===================================================== -->
-      <section id="panel-grape" class="duo-card p-5 sm:p-7 soft-appear">
-        <!-- Top Progress Row -->
-        <div class="flex items-center justify-between gap-3 mb-5">
-          <div class="flex items-center gap-2">
-            <span id="grape-count-badge" class="font-num font-black text-xl text-violet">0 / 20</span>
-            <span id="grape-bunches-badge" class="hidden px-2.5 py-0.5 rounded-full bg-pinky-soft border border-pinky-border text-pinky font-extrabold text-xs"></span>
-          </div>
-          <div class="flex-1 max-w-[200px] h-3.5 rounded-full bg-violet-soft overflow-hidden border border-violet-border">
-            <div id="grape-progress-bar" class="h-full rounded-full bg-gradient-to-r from-violet to-pinky transition-all duration-500" style="width: 0%;"></div>
-          </div>
+  <!-- SCHEDULE TAB -->
+  <section id="tab-schedule" class="hidden">
+    <div class="card">
+      <div class="card-title"><span>3급 진도표</span></div>
+      <div id="scheduleContainer"></div>
+    </div>
+  </section>
+
+  <!-- VOCAB TAB -->
+  <section id="tab-vocab" class="hidden">
+    <div class="pill-row" id="vocabLessonPills"></div>
+    <div class="card">
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <input id="vocabSearch" placeholder="어휘 검색" oninput="renderVocabList()">
+      </div>
+      <div id="vocabList"></div>
+    </div>
+  </section>
+
+  <!-- FLASHCARD TAB (모르는 단어/틀린 단어장) -->
+  <section id="tab-flashcard" class="hidden">
+    <div class="card">
+      <div class="card-title">
+        <span>🃏 모르는 단어 카드 (<span id="fcCount">0</span>)</span>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-secondary btn-sm" onclick="toggleFcDir()" id="fcDirBtn">한 → 모국어</button>
+          <button class="btn btn-primary btn-sm" onclick="openModal('addWordModal')">+ 추가</button>
         </div>
-
-        <!-- Grape Bunch + Cheer Yusaeng Layout -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 py-2">
-          <!-- 20-Grape Bunch -->
-          <div class="flex flex-col items-center">
-            <!-- Minimal Decorative Stem (Warm Espresso & Soft Pink/Lavender - ZERO GREEN) -->
-            <div class="w-28 -mb-1.5 pointer-events-none select-none">
-              <svg viewBox="0 0 140 42" class="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M70 38 C70 25, 71 15, 68 6" stroke="#5C3D2E" stroke-width="5" stroke-linecap="round"/>
-                <path d="M68 17 C82 13, 92 8, 97 15 C101 20, 94 26, 87 22" stroke="#EC4899" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="52" cy="24" r="7" fill="#FBCFE8" stroke="#EC4899" stroke-width="2"/>
-                <circle cx="88" cy="26" r="6" fill="#E5DEFF" stroke="#8B5CF6" stroke-width="2"/>
-              </svg>
-            </div>
-            <div id="grape-cluster" class="flex flex-col items-center gap-1.5 sm:gap-2 py-1"></div>
-          </div>
-
-          <!-- Cheer Character Beside Grape Bunch (성균관대_04.jpg) -->
-          <div class="flex flex-col items-center shrink-0">
-            <div class="speech-bubble mb-3">
-              <p id="cheer-bubble-text" class="text-xs sm:text-sm font-extrabold text-espresso whitespace-nowrap">오늘도 파이팅!</p>
-            </div>
-            <div id="cheer-image-box" class="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl border-2 border-violet-border bg-white overflow-hidden flex items-center justify-center p-1.5"></div>
-          </div>
-        </div>
-
-        <!-- Action Button -->
-        <div class="mt-6 max-w-xs mx-auto flex flex-col gap-3">
-          <button type="button" id="claim-grape-btn" onclick="claimTodayGrape()"
-            class="btn-3d btn-pink w-full py-4 rounded-2xl font-extrabold text-base cursor-pointer">
-            오늘의 포도알 받기
-          </button>
-          <button type="button" id="show-celebration-btn" onclick="openCelebrationModal()"
-            class="hidden btn-3d btn-purple w-full py-4 rounded-2xl font-extrabold text-base cursor-pointer">
-            선생님께 보여주세요!
-          </button>
-        </div>
-      </section>
-
-      <!-- =====================================================
-           TAB 2: 단어 카드 (Duolingo-style Flashcards)
-      ===================================================== -->
-      <section id="panel-vocab" class="hidden space-y-4 soft-appear">
-        <!-- Filter & Controls Card -->
-        <div class="duo-card p-4 space-y-3">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <!-- Filter Pills -->
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <button type="button" id="filter-review" onclick="setVocabFilter('review')"
-                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer">
-                복습할 단어
-              </button>
-              <button type="button" id="filter-mastered" onclick="setVocabFilter('mastered')"
-                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer">
-                외운 단어
-              </button>
-              <button type="button" id="filter-all" onclick="setVocabFilter('all')"
-                class="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 transition cursor-pointer">
-                전체
-              </button>
-            </div>
-
-            <!-- List & Add Buttons -->
-            <div class="flex items-center gap-1.5">
-              <button type="button" onclick="openWordListModal()"
-                class="px-3 py-1.5 rounded-full bg-page border-2 border-line text-espresso text-xs font-extrabold hover:border-violet transition cursor-pointer">
-                목록
-              </button>
-              <button type="button" onclick="openAddWordModal()"
-                class="px-3 py-1.5 rounded-full bg-violet-soft border-2 border-violet-border text-violet text-xs font-extrabold hover:bg-violet hover:text-white transition cursor-pointer">
-                + 단어 추가
-              </button>
-            </div>
-          </div>
-
-          <!-- Direction Toggle & Counter -->
-          <div class="flex items-center justify-between pt-2.5 border-t border-line">
-            <button type="button" onclick="toggleVocabDirection()"
-              class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-page border-2 border-line text-xs font-extrabold text-espresso hover:border-violet transition cursor-pointer">
-              <span id="direction-label">한국어 → 모국어</span>
-            </button>
-            <span id="vocab-counter" class="font-num text-sm font-black text-violet">0 / 0</span>
+      </div>
+      <div id="fcEmpty" class="hidden" style="text-align:center; padding:32px 10px; color:var(--muted); font-weight:700;">
+        저장된 모르는 단어가 없어요.<br>어휘 탭에서 ★를 누르거나 + 추가 버튼을 눌러보세요!
+      </div>
+      <div id="fcPlayArea">
+        <div class="fc-stage" onclick="flipCard()">
+          <div class="fc-inner" id="fcInner">
+            <div class="fc-face"><div class="fc-word" id="fcFront">단어</div><div class="fc-hint">카드를 눌러 뜻 확인</div></div>
+            <div class="fc-face fc-back"><div class="fc-word" id="fcBack">뜻</div><div class="fc-hint">다시 누르면 뒤집힘</div></div>
           </div>
         </div>
-
-        <!-- 3D Flip Flashcard -->
-        <div id="flashcard-stage" class="perspective-1000">
-          <div id="flashcard-inner" onclick="flipFlashcard()" class="flashcard-inner">
-            <!-- Front -->
-            <div class="flashcard-face bg-white border-2 border-line shadow-[0_4px_0_#E5E7EB]">
-              <span id="card-status-tag" class="px-3 py-1 rounded-full text-xs font-extrabold mb-4"></span>
-              <p id="card-front-text" class="text-3xl sm:text-4xl font-black text-ink tracking-tight break-keep"></p>
-              <span class="mt-6 text-xs font-bold text-muted">탭해서 뒤집기</span>
-            </div>
-            <!-- Back -->
-            <div class="flashcard-face flashcard-back bg-violet-soft border-2 border-violet shadow-[0_4px_0_#C4B5FD]">
-              <span class="px-3 py-1 rounded-full bg-white text-violet text-xs font-extrabold mb-3">뜻</span>
-              <p id="card-back-meaning" class="text-2xl sm:text-3xl font-black text-espresso break-keep"></p>
-              <p id="card-back-example" class="mt-3 text-sm font-bold text-muted break-keep"></p>
-            </div>
-          </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <button class="btn btn-danger" onclick="fcResult(false)">틀렸어요 · 다시</button>
+          <button class="btn btn-primary" onclick="fcResult(true)">외웠어요!</button>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- Empty State -->
-        <div id="vocab-empty-state" class="hidden duo-card p-10 text-center">
-          <p id="vocab-empty-text" class="text-lg font-black text-espresso mb-4">단어가 없어요</p>
-          <button type="button" onclick="openAddWordModal()"
-            class="btn-3d btn-purple px-5 py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-            + 단어 추가
-          </button>
+  <!-- QUIZ TAB -->
+  <section id="tab-quiz" class="hidden">
+    <div id="quizSetup">
+      <div class="card">
+        <div class="card-title"><span>매일 복습 (어휘10 · 문법10 · 읽기2)</span></div>
+        <div class="field"><label>과 선택</label><select id="quizLessonSelect"></select></div>
+        <button class="btn btn-primary btn-full" onclick="startDailyQuiz()">22문항 복습 시작</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>시험 대비 통합 복습</span></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+          <button class="btn btn-brown" onclick="startExamReview('midterm')">중간 복습 (1~7과)</button>
+          <button class="btn btn-pink" onclick="startExamReview('final')">기말 복습 (8~15과)</button>
         </div>
+      </div>
+    </div>
 
-        <!-- 3D Action Buttons -->
-        <div id="vocab-action-bar" class="grid grid-cols-2 gap-3">
-          <button type="button" onclick="markCurrentWord(false)"
-            class="btn-3d btn-pink py-4 rounded-2xl font-extrabold text-sm sm:text-base cursor-pointer">
-            틀렸어요 · 다시
-          </button>
-          <button type="button" onclick="markCurrentWord(true)"
-            class="btn-3d btn-purple py-4 rounded-2xl font-extrabold text-sm sm:text-base cursor-pointer">
-            외웠어요!
-          </button>
-        </div>
-      </section>
-    </main>
-  </div>
+    <div id="quizActive" class="card hidden">
+      <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--muted); font-weight:800; margin-bottom:6px;">
+        <span id="quizSectionTag">어휘</span>
+        <span id="quizCounter">1 / 22</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="quizProgress"></div></div>
+      <div id="quizPassage" class="duo-prompt hidden" style="font-size:14px; line-height:1.6;"></div>
+      <div id="quizQuestion" style="font-size:16px; font-weight:800; margin-bottom:14px; line-height:1.45; white-space:pre-line;"></div>
+      <div id="quizOptions"></div>
+      <div id="quizFeedback" class="feedback-bar hidden"></div>
+      <button id="quizNextBtn" class="btn btn-primary btn-full hidden" style="margin-top:12px;" onclick="nextQuizQuestion()">다음 문제</button>
+    </div>
 
-  <!-- Clean Subtle Footer on All Screens -->
-  <footer class="py-5 text-center">
-    <p class="text-xs font-bold text-muted tracking-wide">
-      Developed and styled by Choi Jeehyun
-    </p>
+    <div id="quizResult" class="card hidden" style="text-align:center;">
+      <img src="성균관대_01_2.jpg" style="width:90px; height:90px; object-fit:contain;">
+      <div style="font-size:20px; font-weight:900; color:var(--purple);" id="resScoreText"></div>
+      <div style="font-size:13px; color:var(--muted); margin:6px 0 16px;" id="resBreakdown"></div>
+      <div id="wrongReviewList" style="text-align:left; margin-bottom:16px;"></div>
+      <button class="btn btn-primary btn-full" onclick="resetQuizUI()">다른 과 복습하기</button>
+    </div>
+  </section>
+
+  <!-- SENTENCE BUILDER TAB -->
+  <section id="tab-builder" class="hidden">
+    <div class="pill-row" id="builderLessonPills"></div>
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span style="font-size:13px; font-weight:800; color:var(--purple);" id="builderCounter">1 / 1</span>
+        <button class="btn btn-secondary btn-sm" onclick="nextSentence()">다른 문장</button>
+      </div>
+      <div class="duo-prompt">
+        <span class="duo-tag" id="builderGrammarTag">문법</span>
+        <div class="duo-native" id="builderNativeText"></div>
+      </div>
+      <div class="answer-zone" id="answerZone"></div>
+      <div class="chip-bank" id="chipBank"></div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-secondary" onclick="clearAnswerZone()">초기화</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="checkSentence()">확인</button>
+      </div>
+      <div id="builderFeedback" class="feedback-bar hidden"></div>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    <span>Developed and styled by Choi Jeehyun</span>
+    <button class="gear-btn" title="관리자 모드" onclick="openAdminAuth()">⚙</button>
   </footer>
+</main>
 
-  <!-- =========================================================
-       3. 20-GRAPE CELEBRATION MODAL
-  ========================================================= -->
-  <div id="celebration-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-md overflow-hidden">
-    <canvas id="celebration-canvas"></canvas>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-tab="home" onclick="goTab('home')"><span class="nav-icon">🍇</span>홈</button>
+  <button class="nav-btn" data-tab="schedule" onclick="goTab('schedule')"><span class="nav-icon">📅</span>진도</button>
+  <button class="nav-btn" data-tab="vocab" onclick="goTab('vocab')"><span class="nav-icon">📖</span>어휘</button>
+  <button class="nav-btn" data-tab="flashcard" onclick="goTab('flashcard')"><span class="nav-icon">🃏</span>카드</button>
+  <button class="nav-btn" data-tab="quiz" onclick="goTab('quiz')"><span class="nav-icon">✅</span>복습</button>
+  <button class="nav-btn" data-tab="builder" onclick="goTab('builder')"><span class="nav-icon">🧩</span>문장</button>
+</nav>
 
-    <div class="relative z-10 w-full max-w-sm duo-card border-violet p-6 sm:p-8 text-center soft-appear shadow-xl">
-      <!-- User Avatar + Celebration Jump Yusaeng (성균관대_01_2.jpg) -->
-      <div class="flex items-center justify-center gap-3 mb-4">
-        <div id="celebration-user-avatar" class="w-20 h-20 rounded-full border-2 border-violet bg-white overflow-hidden flex items-center justify-center p-1"></div>
-        <div id="celebration-jump-avatar" class="w-24 h-24 rounded-3xl border-2 border-pinky bg-white overflow-hidden flex items-center justify-center p-1"></div>
-      </div>
+<!-- CELEBRATION MODAL (20 GRAPES) -->
+<div id="celebModal" class="modal-bg">
+  <div class="modal-card celeb-modal">
+    <img src="성균관대_01_2.jpg" style="width:120px; height:120px; object-fit:contain;">
+    <div style="font-size:24px; font-weight:900; color:var(--brown); margin-top:6px;">🎉 포도송이 완성! 🎉</div>
+    <div class="celeb-banner">선생님께 보여주세요!</div>
+    <div id="celebUser" style="font-size:15px; font-weight:800; color:var(--purple); margin-bottom:16px;"></div>
+    <button class="btn btn-primary btn-full" onclick="closeModal('celebModal')">확인</button>
+  </div>
+</div>
 
-      <p id="celebration-name" class="text-sm font-extrabold text-muted mb-1"></p>
-      <h2 class="text-2xl sm:text-3xl font-black text-espresso mb-4">포도알 20알 완성!</h2>
-
-      <div class="py-4 px-5 rounded-2xl bg-gradient-to-r from-violet to-pinky text-white shadow-[0_4px_0_#6D28D9] mb-6">
-        <p class="text-xl font-black tracking-wide">선생님께 보여주세요!</p>
-      </div>
-
-      <button type="button" onclick="closeCelebrationModal()"
-        class="btn-3d btn-white w-full py-3.5 rounded-2xl font-extrabold text-sm cursor-pointer">
-        닫기
-      </button>
+<!-- ADD FLASHCARD WORD MODAL -->
+<div id="addWordModal" class="modal-bg" onclick="if(event.target===this) closeModal('addWordModal')">
+  <div class="modal-card" style="max-width:360px;">
+    <div class="card-title"><span>단어 카드 추가</span></div>
+    <div class="field"><label>한국어</label><input id="newFcKo" placeholder="예: 극복하다"></div>
+    <div class="field"><label>모국어 뜻</label><input id="newFcTr" placeholder="예: to overcome"></div>
+    <div style="display:flex; gap:8px;">
+      <button class="btn btn-secondary" style="flex:1;" onclick="closeModal('addWordModal')">취소</button>
+      <button class="btn btn-primary" style="flex:1;" onclick="addFlashcard()">저장</button>
     </div>
   </div>
+</div>
 
-  <!-- =========================================================
-       4. PROFILE / AVATAR CHANGE MODAL
-  ========================================================= -->
-  <div id="profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
-    <div class="w-full max-w-md duo-card p-6 soft-appear max-h-[88vh] flex flex-col">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-black text-espresso">유생 캐릭터 변경</h3>
-        <button type="button" onclick="closeProfileModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
-      </div>
+<!-- AVATAR CHANGE MODAL -->
+<div id="avatarModal" class="modal-bg" onclick="if(event.target===this) closeModal('avatarModal')">
+  <div class="modal-card" style="max-width:380px;">
+    <div class="card-title"><span>유생 캐릭터 변경</span></div>
+    <div class="avatar-grid" id="changeAvatarGrid"></div>
+    <button class="btn btn-secondary btn-full" style="margin-top:14px;" onclick="closeModal('avatarModal')">닫기</button>
+  </div>
+</div>
 
-      <div id="profile-avatar-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5 overflow-y-auto pb-2 mb-4"></div>
-
-      <button type="button" onclick="triggerImageUpload()"
-        class="btn-3d btn-white w-full py-2.5 rounded-2xl text-xs font-extrabold text-violet mb-3 cursor-pointer">
-        유생 이미지 불러오기
-      </button>
-
-      <div class="grid grid-cols-2 gap-2.5">
-        <button type="button" onclick="logoutUser()"
-          class="btn-3d btn-pink py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-          로그아웃
-        </button>
-        <button type="button" onclick="closeProfileModal()"
-          class="btn-3d btn-purple py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-          완료
-        </button>
-      </div>
+<!-- ADMIN AUTH MODAL -->
+<div id="adminAuthModal" class="modal-bg" onclick="if(event.target===this) closeModal('adminAuthModal')">
+  <div class="modal-card" style="max-width:340px;">
+    <div class="card-title"><span>관리자 인증</span></div>
+    <div class="field"><label>비밀번호</label><input id="adminPwInput" type="password" placeholder="비밀번호 입력"></div>
+    <div style="display:flex; gap:8px;">
+      <button class="btn btn-secondary" style="flex:1;" onclick="closeModal('adminAuthModal')">취소</button>
+      <button class="btn btn-primary" style="flex:1;" onclick="verifyAdmin()">확인</button>
     </div>
   </div>
+</div>
 
-  <!-- =========================================================
-       5. ADD WORD MODAL
-  ========================================================= -->
-  <div id="add-word-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
-    <div class="w-full max-w-sm duo-card p-6 soft-appear">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-black text-espresso">새 단어 추가</h3>
-        <button type="button" onclick="closeAddWordModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
-      </div>
-
-      <form id="add-word-form" class="space-y-3.5">
-        <div>
-          <label class="block text-xs font-extrabold text-espresso mb-1">한국어</label>
-          <input id="new-word-ko" type="text" required placeholder="예: 신청하다"
-            class="w-full px-3.5 py-2.5 rounded-xl border-2 border-line bg-page text-sm font-bold text-ink focus:outline-none focus:bg-white focus:border-violet" />
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-espresso mb-1">모국어 뜻</label>
-          <input id="new-word-native" type="text" required placeholder="예: to apply / register"
-            class="w-full px-3.5 py-2.5 rounded-xl border-2 border-line bg-page text-sm font-bold text-ink focus:outline-none focus:bg-white focus:border-violet" />
-        </div>
-        <div>
-          <label class="block text-xs font-extrabold text-espresso mb-1">예문 (선택)</label>
-          <input id="new-word-example" type="text" placeholder="예: 한국어 수업을 신청했어요."
-            class="w-full px-3.5 py-2.5 rounded-xl border-2 border-line bg-page text-sm font-bold text-ink focus:outline-none focus:bg-white focus:border-violet" />
-        </div>
-        <button type="submit" class="btn-3d btn-purple w-full py-3.5 rounded-2xl text-sm font-extrabold cursor-pointer mt-2">
-          추가하기
-        </button>
-      </form>
+<!-- ADMIN MODAL -->
+<div id="adminModal" class="modal-bg">
+  <div class="modal-card">
+    <div class="card-title">
+      <span>⚙ 관리자 모드</span>
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('adminModal')">닫기</button>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+      <button class="btn btn-secondary btn-sm" onclick="adminUnlockToday()">오늘 포도 제한 해제</button>
+      <button class="btn btn-pink btn-sm" onclick="adminTestCeleb()">20알 축하 테스트</button>
+      <button class="btn btn-primary btn-sm" onclick="adminAddGrape(1)">포도알 +1</button>
+      <button class="btn btn-danger btn-sm" onclick="adminAddGrape(-1)">포도알 -1</button>
+    </div>
+    <div class="field">
+      <label>Google Apps Script 웹 앱 URL</label>
+      <input id="gasUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+      <button class="btn btn-brown btn-sm" style="margin-top:6px;" onclick="saveGasUrl()">URL 저장</button>
+    </div>
+    <div style="font-size:13px; font-weight:800; margin:12px 0 6px;">등록 학생 현황</div>
+    <div style="overflow-x:auto;">
+      <table><thead><tr><th>아이디</th><th>이름</th><th>포도</th><th>평균</th></tr></thead><tbody id="adminStudentsTbody"></tbody></table>
     </div>
   </div>
+</div>
 
-  <!-- =========================================================
-       6. WORD LIST MODAL
-  ========================================================= -->
-  <div id="word-list-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
-    <div class="w-full max-w-md duo-card p-5 max-h-[80vh] flex flex-col soft-appear">
-      <div class="flex items-center justify-between pb-3 border-b border-line">
-        <h3 class="text-lg font-black text-espresso">단어 목록</h3>
-        <button type="button" onclick="closeWordListModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
+<script>
+const AVATARS = [
+  '성균관대_33.jpg', '성균관대_34.jpg', '성균관대_35_2.jpg', '성균관대_36_2.jpg',
+  '성균관대_37.jpg', '성균관대_01_2.jpg', '성균관대_02_2.jpg'
+];
+
+const LANGUAGES = [
+  { code: 'en', label: 'English' }, { code: 'zh-CN', label: '中文' }, { code: 'ja', label: '日本語' },
+  { code: 'vi', label: 'Tiếng Việt' }, { code: 'th', label: 'ภาษาไทย' }, { code: 'mn', label: 'Монгол' },
+  { code: 'my', label: 'မြန်မာ' }, { code: 'bn', label: 'বাংলা' }, { code: 'ne', label: 'नेपाली' },
+  { code: 'fr', label: 'Français' }, { code: 'de', label: 'Deutsch' }, { code: 'ru', label: 'Русский' },
+  { code: 'es', label: 'Español' }, { code: 'ko', label: '한국어' }
+];
+
+const LESSONS = [
+  { id:1, title:"동아리 문화", grammars:[{p:"V+(느)ㄴ다고 하다",ko:"간접 전달",ex:"안나 씨가 경복궁이 멋있다고 했어요."},{p:"V+고 나서",ko:"앞 행동 후 다음 행동",ex:"수업이 끝나고 나서 동아리 모임에 갈 거예요."},{p:"V+지 그래요?",ko:"권유",ex:"피곤하면 집에 가서 쉬지 그래요?"},{p:"N+에 대해(서)",ko:"대상",ex:"한국 동아리 문화에 대해서 발표하려고 해요."}], vocab:[["사진 동아리","photography club","摄影社团","CLB nhiếp ảnh","写真サークル"],["토론하다","to debate","讨论","tranh luận","討論する"],["교류하다","to exchange","交流","giao lưu","交流する"],["공감하다","to empathize","共鸣","đồng cảm","共感する"],["극복하다","to overcome","克服","khắc phục","克服する"],["가입하다","to join","加入","gia nhập","加入する"],["참석하다","to attend","出席","tham dự","出席する"],["공동체 의식","sense of community","集体意识","ý thức cộng đồng","共同体意識"],["알차다","fulfilling","充实","bổ ích","充実している"],["홍보하다","to promote","宣传","quảng bá","広報する"]] },
+  { id:2, title:"적성과 진로", grammars:[{p:"V/A+(으)ㄹ 뿐이다",ko:"오직 그것만",ex:"그냥 글을 쓰는 것을 좋아할 뿐이에요."},{p:"V+아/어 보니까",ko:"경험 후 알게 됨",ex:"전공해 보니까 적성에 맞는 것 같아요."},{p:"V/A+냐고 하다",ko:"질문 전달",ex:"친구가 주말에 뭐 했냐고 물었어요."},{p:"V/A+기를 바라다",ko:"희망",ex:"꼭 대학에 합격하기 바랍니다."}], vocab:[["적성검사","aptitude test","职业倾向测试","kiểm tra năng khiếu","適性検査"],["진로","career path","前途","con đường sự nghiệp","進路"],["지원하다","to apply","申请","ứng tuyển","志願する"],["꼼꼼하다","meticulous","细心","tỉ mỉ","几帳面だ"],["면접","interview","面试","phỏng vấn","面接"],["장학금","scholarship","奖学金","học bổng","奨学金"],["승진","promotion","升职","thăng chức","昇進"],["전공하다","to major in","主修","học chuyên ngành","専攻する"],["뛰어나다","outstanding","出色","xuất sắc","優れている"],["챙기다","to take care of","照顾","chăm lo","気を配る"]] },
+  { id:3, title:"방 구하기", grammars:[{p:"V+(으)라고 하다",ko:"명령 전달",ex:"엄마가 집에 일찍 오라고 하셨어요."},{p:"V+는 편이다",ko:"완곡한 표현",ex:"기숙사 방이 깨끗한 편이에요."},{p:"V/A+기는 하다",ko:"인정 후 대조",ex:"한국어가 어렵기는 하지만 재미있어요."},{p:"A+아/어 보이다",ko:"겉모습 추측",ex:"오늘 무척 피곤해 보이네요."}], vocab:[["기숙사","dormitory","宿舍","ký túc xá","寮"],["원룸","studio","单间公寓","phòng trọ","ワンルーム"],["월세","monthly rent","月租","tiền thuê tháng","家賃"],["보증금","deposit","押金","tiền đặt cọc","保証金"],["관리비","maintenance fee","物业费","phí quản lý","管理費"],["부동산","real estate","房产中介","bất động sản","不動産"],["전망","view","视野","tầm nhìn","眺め"],["난방이 되다","heating works","有暖气","có sưởi ấm","暖房が効く"],["하수구가 막히다","drain clogged","下水道堵了","cống bị tắc","排水口が詰まる"],["편의 시설","facilities","便利设施","tiện ích","便宜施設"]] },
+  { id:4, title:"현대인의 여가 활동", grammars:[{p:"V/A+아서 그런지",ko:"원인 추측",ex:"스트레스가 많아서 그런지 입맛이 없어요."},{p:"V/A+거든요",ko:"이유 설명",ex:"회사 근처에 살거든요."},{p:"V+자고 하다",ko:"제안 전달",ex:"친구가 주말에 등산을 가자고 했어요."},{p:"V+기만 하다",ko:"오직 그 행동만",ex:"주말에는 집에서 자기만 해요."}], vocab:[["공연을 관람하다","watch performance","观看演出","xem biểu diễn","公演を観覧する"],["스트레스가 해소되다","relieve stress","缓解压力","giải tỏa căng thẳng","ストレス解消"],["보람을 느끼다","feel rewarded","感到有意义","cảm thấy có ích","やりがいを感じる"],["여유","leisure","悠闲","sự thong thả","余裕"],["취향","preference","喜好","sở thích","好み"],["특기","specialty","特长","sở trường","特技"],["수다를 떨다","chat away","闲聊","tám chuyện","おしゃべりする"],["정신이 맑아지다","mind clears","头脑清醒","tinh thần tỉnh táo","頭がすっきりする"],["봉사활동을 하다","volunteer","做志愿","hoạt động tình nguyện","ボランティア"],["악기를 연주하다","play instrument","演奏乐器","chơi nhạc cụ","楽器を演奏する"]] },
+  { id:5, title:"음식과 요리", grammars:[{p:"V/A+더니",ko:"관찰과 대조",ex:"어제는 춥더니 오늘은 따뜻하네요."},{p:"V+는군요 / A+군요",ko:"감탄",ex:"요리를 정말 잘하는군요!"},{p:"V/A+거든",ko:"조건 가정",ex:"도착하거든 바로 전화하세요."},{p:"V+아/어 놓다",ko:"미리 준비",ex:"재료를 미리 썰어 놓으세요."}], vocab:[["구이","grilled dish","烤菜","món nướng","焼き物"],["튀김","fried food","油炸食品","món chiên","揚げ物"],["달콤하다","sweet","甜美","ngọt ngào","甘い"],["신선하다","fresh","新鲜","tươi ngon","新鮮だ"],["매콤하다","spicy","微辣","cay nồng","ピリ辛だ"],["손질하다","prep ingredients","处理食材","sơ chế","下ごしらえする"],["데치다","to blanch","焯水","chần qua","さっと茹でる"],["다지다","to mince","切碎","băm nhỏ","みじん切り"],["무치다","to season","凉拌","trộn gia vị","和える"],["육수를 끓이다","boil broth","熬高汤","nấu nước dùng","出汁をとる"]] },
+  { id:6, title:"쇼핑", grammars:[{p:"V+느라고",ko:"부정적 결과 원인",ex:"발표 준비하느라고 잠을 못 잤어요."},{p:"V/A+(으)ㄹ 리가 없다",ko:"가능성 없음",ex:"성민 씨가 치마를 살 리가 없어요."},{p:"N+와/과 달리",ko:"비교 대조",ex:"일본은 한국과 달리 교통비가 비싼 편이에요."},{p:"V/A+아도/어도",ko:"양보",ex:"아무리 바빠도 아침밥은 꼭 먹어요."}], vocab:[["딱 맞다","fit perfectly","正好合适","vừa khít","ぴったり合う"],["꽉 끼다","too tight","太紧","chật cứng","きつい"],["일시불","lump-sum","一次性付款","trả một lần","一括払い"],["할부","installment","分期付款","trả góp","分割払い"],["결제","payment","支付","thanh toán","決済"],["교환","exchange","换货","đổi hàng","交換"],["반품 처리","return","退货处理","xử lý trả hàng","返品処理"],["배송비","shipping fee","运费","phí giao hàng","配送料"],["상품 불량","defective","商品不良","hàng lỗi","不良品"],["구매하다","purchase","购买","mua sắm","購入する"]] },
+  { id:7, title:"고장과 수리", grammars:[{p:"V/A+(으)ㄹ지도 모르다",ko:"가능성 추측",ex:"수리가 조금 오래 걸릴지도 몰라요."},{p:"피동사",ko:"움직임을 당함",ex:"통화할 때 목소리가 잘 안 들려요."},{p:"V+던",ko:"과거 회상",ex:"잘 돌아가던 세탁기가 멈췄어요."},{p:"V/A+(으)ㄹ 텐데",ko:"강한 추측",ex:"종일 일해서 피곤할 텐데 일찍 쉬어요."}], vocab:[["가전제품","appliances","家电","đồ gia dụng","家電製品"],["사용설명서","manual","说明书","hướng dẫn sử dụng","取扱説明書"],["수리 기사","technician","维修工","thợ sửa chữa","修理技師"],["배수가 안 되다","not draining","无法排水","không thoát nước","排水されない"],["전원이 안 들어오다","no power","不通电","không vào điện","電源が入らない"],["액정이 깨지다","cracked screen","屏幕碎了","vỡ màn hình","液晶が割れる"],["충전이 안 되다","won't charge","充不进电","không sạc được","充電できない"],["작동을 안 하다","not working","不运转","không hoạt động","作動しない"],["번호표를 뽑다","take ticket","取排队号","lấy số thứ tự","番号札を取る"],["환불이 가능하다","refundable","可以退款","có thể hoàn tiền","返金可能"]] },
+  { id:8, title:"날씨와 여행", grammars:[{p:"V+대요/래요/재요",ko:"간접인용 축약",ex:"오늘 오후에 비가 온대요."},{p:"V+는데도",ko:"반대 결과",ex:"폭우가 내리는데도 경기를 하고 있어요."},{p:"V+(느)ㄴ다면서요?",ko:"들은 내용 확인",ex:"여행을 자주 간다면서요?"},{p:"N+(이)라도",ko:"차선책",ex:"직항이 없으면 경유하는 표라도 삽시다."}], vocab:[["폭염","heat wave","酷暑","nắng nóng","猛暑"],["폭설","heavy snow","暴雪","tuyết dày","大雪"],["미세먼지","fine dust","雾霾","bụi mịn","PM2.5"],["폭우","heavy rain","暴雨","mưa lớn","豪雨"],["화창하다","sunny","晴朗","nắng đẹp","晴れやかだ"],["쌀쌀하다","chilly","微冷","se lạnh","肌寒い"],["성수기","peak season","旺季","mùa cao điểm","繁忙期"],["비수기","off-season","淡季","mùa thấp điểm","閑散期"],["연착되다","delayed","晚点","bị trễ","延着する"],["경유하다","transit","转机","quá cảnh","経由する"]] },
+  { id:9, title:"운동과 건강", grammars:[{p:"V/A+아야/어야",ko:"필수 조건",ex:"음식을 골고루 먹어야 건강해져요."},{p:"V+는 바람에",ko:"부정적 원인",ex:"늦게 일어나는 바람에 지각했어요."},{p:"V+(느)ㄴ다면",ko:"가정",ex:"복권에 당첨된다면 세계여행을 가고 싶어요."},{p:"V/A+(으)ㄹ까 봐",ko:"걱정",ex:"수업에 늦을까 봐 택시를 탔어요."}], vocab:[["소화불량","indigestion","消化不良","khó tiêu","消化不良"],["불면증","insomnia","失眠症","mất ngủ","不眠症"],["알레르기","allergy","过敏","dị ứng","アレルギー"],["체하다","upset stomach","积食","đầy bụng","胃もたれ"],["삐다","sprain","扭伤","bong gân","捻挫する"],["데다","get burned","烫伤","bị bỏng","やけどする"],["건강검진","checkup","体检","khám sức khỏe","健康診断"],["피로가 쌓이다","fatigue builds","疲劳累积","tích tụ mệt mỏi","疲労がたまる"],["체력을 기르다","build stamina","增强体力","rèn thể lực","体力をつける"],["약을 복용하다","take medicine","服药","uống thuốc","薬を服用する"]] },
+  { id:10, title:"공공기관과 공공질서", grammars:[{p:"V+아/어 있다",ko:"상태 유지",ex:"박물관 출입문이 닫혀 있었어요."},{p:"V+았던/었던",ko:"완료된 과거",ex:"저번에 대출했던 책을 찾고 있어요."},{p:"V+(으)ㄹ 뻔하다",ko:"일어날 뻔함",ex:"늦잠을 자서 비행기를 못 탈 뻔했어요."},{p:"아무+N",ko:"불특정 부정",ex:"아직 아무 계획도 없어요."}], vocab:[["인터넷뱅킹","internet banking","网上银行","ngân hàng trực tuyến","ネットバンキング"],["계좌 번호","account number","账号","số tài khoản","口座番号"],["노약자석","priority seat","老弱病残专座","ghế ưu tiên","優先席"],["외국인등록증","ARC","外国人登录证","thẻ người nước ngoài","外国人登録証"],["새치기를 하다","cut in line","插队","chen hàng","割り込み"],["작성하다","fill out","填写","điền đơn","作成する"],["분실되다","be lost","遗失","bị thất lạc","紛失する"],["양보하다","yield","让座","nhường nhịn","譲る"],["책이 연체되다","overdue","逾期","quá hạn","延滞する"],["비자가 만료되다","visa expires","签证到期","hết hạn visa","ビザ満了"]] },
+  { id:11, title:"명절과 방문", grammars:[{p:"V/A+잖아요",ko:"공유 지식",ex:"명절에 고향에 간다고 했잖아요."},{p:"V+는 데",ko:"도움/시간/돈",ex:"걷는 것이 건강을 지키는 데 좋아요."},{p:"사동사",ko:"행동을 시킴",ex:"엄마가 아기를 침대에 눕혔어요."},{p:"N+만에",ko:"경과 기간",ex:"일 년 만에 고향에 가요."}], vocab:[["설날","Lunar New Year","春节","Tết","旧正月"],["추석","Chuseok","中秋节","Trung Thu","秋夕"],["세배를 하다","New Year bow","拜年","lạy mừng tuổi","新年の挨拶"],["성묘를 하다","visit graves","扫墓","tảo mộ","墓参り"],["보답하다","repay","报答","báo đáp","報いる"],["풍성하다","abundant","丰盛","dồi dào","豊かだ"],["혼잡하다","congested","拥挤","đông đúc","混雑している"],["초대를 받다","be invited","受邀","được mời","招待を受ける"],["손님을 배웅하다","see off","送客","tiễn khách","見送る"],["신경을 쓰다","pay attention","费心","chú ý","気を遣う"]] },
+  { id:12, title:"사랑과 결혼", grammars:[{p:"V+는 척하다",ko:"거짓 꾸밈",ex:"모르는 척하고 지나갔어요."},{p:"V/A+더라고요",ko:"직접 경험",ex:"전통 결혼식이 정말 멋있더라고요."},{p:"-(으)면 -(으)ㄹ수록",ko:"점점 심해짐",ex:"만나면 만날수록 좋아졌어요."},{p:"V+는 만큼",ko:"비슷한 정도",ex:"노력한 만큼 좋은 결과가 있을 거예요."}], vocab:[["세련되다","sophisticated","时尚","sành điệu","洗練されている"],["다정하다","affectionate","体贴","dịu dàng","優しい"],["고백하다","confess","表白","tỏ tình","告白する"],["이별하다","break up","分手","chia tay","別れる"],["청혼","proposal","求婚","cầu hôn","プロポーズ"],["청첩장","invitation","请柬","thiệp cưới","招待状"],["축의금","wedding money","份子钱","tiền mừng","ご祝儀"],["첫눈에 반하다","love at first sight","一见钟情","yêu từ cái nhìn đầu","一目惚れ"],["정이 들다","grow fond","产生感情","nảy sinh tình cảm","情が移る"],["맞벌이를 하다","dual-income","双职工","cùng đi làm","共働き"]] },
+  { id:13, title:"유행", grammars:[{p:"V+나요? / A+(으)ㄴ가요?",ko:"부드러운 질문",ex:"요즘 한국에서 무슨 노래가 유행인가요?"},{p:"V+아/어지다",ko:"상태 변화",ex:"명륜당은 조선시대에 지어졌어요."},{p:"V+게 하다",ko:"시킴",ex:"아이에게 음식을 골고루 먹게 하세요."},{p:"V+아/어 가지고",ko:"원인/순서",ex:"잠을 못 자 가지고 너무 피곤해요."}], vocab:[["유행어","buzzword","流行语","từ lóng","流行語"],["유행을 따라 하다","follow trends","追赶潮流","theo xu hướng","流行を追う"],["염색하다","dye hair","染发","nhuộm tóc","髪を染める"],["만족스럽다","satisfactory","满意","hài lòng","満足だ"],["대중가요","pop music","流行歌曲","nhạc đại chúng","大衆歌謡"],["예능 프로그램","variety show","综艺节目","chương trình giải trí","バラエティ"],["감동적이다","touching","感人","cảm động","感動的だ"],["연출하다","direct","演出","dàn dựng","演出する"],["머리를 다듬다","trim hair","修剪头发","tỉa tóc","髪を整える"],["생기를 주다","revitalize","增添活力","tạo sức sống","生気を与える"]] },
+  { id:14, title:"고민과 상담", grammars:[{p:"V/A+듯이",ko:"비유",ex:"피로가 눈 녹듯이 풀리네요."},{p:"V+(으)ㄹ걸 그랬다",ko:"후회",ex:"조금 더 일찍 잘걸 그랬어요."},{p:"V+는 모양이다",ko:"근거 추측",ex:"밖에 비가 오는 모양이에요."},{p:"V/A+(으)ㄹ걸요",ko:"주관적 추측",ex:"퇴근 시간이라서 길이 아주 막힐걸요."}], vocab:[["상담센터","counseling center","咨询中心","trung tâm tư vấn","相談センター"],["속상하다","upset","伤心","buồn lòng","悔しい"],["실망하다","disappointed","失望","thất vọng","失望する"],["예민하다","sensitive","敏感","nhạy cảm","敏感だ"],["긴장되다","nervous","紧张","căng thẳng","緊張する"],["망설이다","hesitate","犹豫","do dự","ためらう"],["소심하다","timid","胆小","nhút nhát","小心だ"],["용기를 내다","take courage","鼓起勇气","lấy dũng khí","勇気を出す"],["고민을 털어놓다","confide","倾诉烦恼","tâm sự","悩みを打ち明ける"],["기분 전환을 하다","refresh mood","转换心情","đổi tâm trạng","気分転換"]] },
+  { id:15, title:"대중문화", grammars:[{p:"V/A+지요",ko:"동의/권유",ex:"봄에 피는 꽃이 정말 예쁘지요."},{p:"V+아/어 버리다",ko:"완료/아쉬움",ex:"용돈을 다 써 버렸어요."},{p:"V+도록 하다",ko:"권유/결심",ex:"다음부터는 지각하지 않도록 하세요."},{p:"N+에 따라서",ko:"기준에 따라",ex:"무대 연출에 따라서 분위기가 달라져요."}], vocab:[["역사 드라마","historical drama","历史剧","phim cổ trang","歴史ドラマ"],["현대미술","contemporary art","现代美术","mỹ thuật hiện đại","現代美術"],["긴장감이 있다","suspenseful","有紧张感","hồi hộp","緊張感がある"],["통쾌하다","exhilarating","痛快","sảng khoái","痛快だ"],["화려하다","splendid","华丽","lộng lẫy","華やかだ"],["출연하다","appear","出演","tham gia","出演する"],["완성도","perfection","完成度","độ hoàn thiện","完成度"],["관람객","audience","观众","khán giả","観覧客"],["조기 예매","early booking","提前预订","đặt sớm","早期予約"],["가슴이 벅차다","heart swells","心潮澎湃","xúc động","胸がいっぱい"]] },
+  { id:16, title:"문화 차이", grammars:[{p:"V+고 말다",ko:"원치 않은 결과",ex:"긴장해서 결국 실수하고 말았어요."},{p:"V+나 보다",ko:"짐작",ex:"입이 귀에 걸린 걸 보니 좋은 일이 있나 봐요."},{p:"V+곤 하다",ko:"습관 반복",ex:"설날에는 가족들과 윷놀이를 하곤 해요."},{p:"V+는 대로",ko:"똑같이/곧바로",ex:"제가 하는 대로 따라 해 보세요."}], vocab:[["손이 크다","generous","出手大方","hào phóng","気前がいい"],["발이 넓다","wide network","人脉广","quen biết rộng","顔が広い"],["눈이 높다","high standards","眼光高","mắt cao","目が高い"],["입에 맞다","suit palate","合口味","hợp khẩu vị","口に合う"],["귀를 기울이다","listen carefully","倾听","lắng nghe","耳を傾ける"],["입이 귀에 걸리다","grin ear to ear","笑得合不拢嘴","cười toe toét","満面の笑み"],["편견","prejudice","偏见","định kiến","偏見"],["인심","generosity","人情味","tình người","人情"],["서투르다","clumsy","生疏","vụng về","不慣れだ"],["술을 따르다","pour alcohol","倒酒","rót rượu","お酒を注ぐ"]] }
+];
+
+const SCHEDULE = [
+  {w:1,d:"12/2 (수)",l:1,t:"오리엔테이션 · 1과",c:"lesson"},{w:1,d:"12/3 (목)",l:1,t:"1과 동아리 문화",c:"lesson"},{w:1,d:"12/4 (금)",l:1,t:"1과 동아리 문화",c:"lesson"},
+  {w:2,d:"12/7 (월)",l:2,t:"2과 적성과 진로",c:"lesson"},{w:2,d:"12/10 (목)",l:3,t:"3과 방 구하기",c:"lesson"},
+  {w:3,d:"12/15 (화)",l:4,t:"4과 여가 활동",c:"lesson"},{w:3,d:"12/18 (금)",l:5,t:"5과 음식과 요리",c:"lesson"},
+  {w:4,d:"12/22 (화)",l:6,t:"6과 쇼핑",c:"lesson"},{w:4,d:"12/23 (수)",l:6,t:"기능 과제 발표 1",c:"event"},{w:4,d:"12/25 (금)",l:0,t:"크리스마스 휴일",c:"holiday"},
+  {w:5,d:"12/28 (월)",l:7,t:"7과 고장과 수리",c:"lesson"},{w:5,d:"1/1 (금)",l:0,t:"신정 휴일",c:"holiday"},
+  {w:6,d:"1/5 (화)",l:0,t:"중간시험 복습 (1~7과)",c:"exam"},{w:6,d:"1/6~7",l:0,t:"중간시험",c:"exam"},{w:6,d:"1/8 (금)",l:0,t:"현장학습",c:"event"},
+  {w:7,d:"1/11 (월)",l:8,t:"8과 날씨와 여행",c:"lesson"},{w:7,d:"1/13 (수)",l:9,t:"9과 운동과 건강",c:"lesson"},
+  {w:8,d:"1/18 (월)",l:10,t:"10과 공공기관",c:"lesson"},{w:8,d:"1/20 (수)",l:11,t:"11과 명절과 방문",c:"lesson"},
+  {w:9,d:"1/25 (월)",l:12,t:"12과 사랑과 결혼",c:"lesson"},{w:9,d:"1/28 (목)",l:13,t:"13과 유행",c:"lesson"},
+  {w:10,d:"2/1 (월)",l:14,t:"14과 고민과 상담",c:"lesson"},{w:10,d:"2/4 (목)",l:15,t:"15과 · 기능 과제 2",c:"event"},
+  {w:11,d:"2/10 (수)",l:16,t:"16과 문화 차이",c:"lesson"},{w:11,d:"2/11 (목)",l:0,t:"기말시험 복습 (8~16과)",c:"exam"},{w:11,d:"2/12~16",l:0,t:"기말시험",c:"exam"}
+];
+
+let state = {
+  gasUrl: localStorage.getItem('skku3_gas_url') || '',
+  user: JSON.parse(localStorage.getItem('skku3_user') || 'null'),
+  students: JSON.parse(localStorage.getItem('skku3_students') || '[]'),
+  flashcards: JSON.parse(localStorage.getItem('skku3_fc') || '[]'),
+  quizBank: [],
+  regAvatar: AVATARS[0],
+  vocabLesson: 1, builderLesson: 1, builderIdx: 0, selectedChips: [],
+  fcIdx: 0, fcDir: 'ko2tr',
+  quizQueue: [], quizIdx: 0, quizScore: { vocab:0, grammar:0, reading:0 }, quizWrongs: []
+};
+
+function getKstDate() {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+async function init() {
+  const langHtml = LANGUAGES.map(l => `<option value="${l.code}">${l.label}</option>`).join('');
+  document.getElementById('regLang').innerHTML = langHtml;
+  document.getElementById('langPicker').innerHTML = langHtml;
+  document.getElementById('quizLessonSelect').innerHTML = LESSONS.map(l => `<option value="${l.id}">${l.id}과 ${l.title}</option>`).join('');
+  renderAvatarGrid('regAvatarGrid', state.regAvatar, a => {
+    state.regAvatar = a;
+    document.getElementById('authHeroImg').src = a;
+    renderAvatarGrid('regAvatarGrid', a, arguments.callee);
+  });
+
+  // 기존 폴더의 192문항 문제은행 자동 로드
+  try {
+    const res = await fetch('./skku3_question_bank_1_16.json');
+    if (res.ok) state.quizBank = await res.json();
+  } catch (e) {}
+
+  if (state.user) {
+    document.getElementById('authScreen').classList.add('hidden');
+    document.getElementById('langPicker').value = state.user.lang || 'en';
+    renderAll();
+  }
+}
+
+function renderAvatarGrid(elId, selected, onPick) {
+  const el = document.getElementById(elId);
+  el.innerHTML = AVATARS.map(a => `
+    <button type="button" class="avatar-opt ${a === selected ? 'selected' : ''}" data-av="${a}">
+      <img src="${a}" alt="유생">
+    </button>
+  `).join('');
+  el.querySelectorAll('.avatar-opt').forEach(btn => btn.onclick = () => onPick(btn.dataset.av));
+}
+
+function openAvatarChange() {
+  if (!state.user) return;
+  renderAvatarGrid('changeAvatarGrid', state.user.avatar || AVATARS[0], a => {
+    state.user.avatar = a;
+    saveUser();
+    document.getElementById('hdrAvatar').src = a;
+    closeModal('avatarModal');
+    toast('캐릭터가 변경되었습니다.');
+  });
+  openModal('avatarModal');
+}
+
+function switchAuthTab(mode) {
+  document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
+  document.getElementById('tabRegBtn').classList.toggle('active', mode === 'register');
+  document.getElementById('loginForm').classList.toggle('hidden', mode !== 'login');
+  document.getElementById('registerForm').classList.toggle('hidden', mode !== 'register');
+}
+
+function saveUser() {
+  localStorage.setItem('skku3_user', JSON.stringify(state.user));
+  const idx = state.students.findIndex(s => s.id === state.user.id);
+  if (idx >= 0) state.students[idx] = state.user;
+  localStorage.setItem('skku3_students', JSON.stringify(state.students));
+}
+
+function doLogin() {
+  const id = document.getElementById('loginId').value.trim();
+  const pw = document.getElementById('loginPw').value.trim();
+  const found = state.students.find(s => s.id === id && s.password === pw);
+  if (!found) return toast('아이디 또는 비밀번호를 확인하세요.');
+  state.user = found;
+  saveUser();
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('langPicker').value = state.user.lang || 'en';
+  renderAll();
+}
+
+function doRegister() {
+  const name = document.getElementById('regName').value.trim();
+  const id = document.getElementById('regId').value.trim();
+  const pw = document.getElementById('regPw').value.trim();
+  const lang = document.getElementById('regLang').value;
+  if (!name || !id || !pw) return toast('모든 항목을 입력하세요.');
+  if (state.students.some(s => s.id === id)) return toast('이미 사용 중인 아이디입니다.');
+  state.user = { id, password: pw, name, lang, avatar: state.regAvatar, streak: 0, lastGrapeDate: '', grapes: 0, totalSessions: 0, avgScore: 0 };
+  state.students.push(state.user);
+  saveUser();
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('langPicker').value = lang;
+  renderAll();
+}
+
+function logout() {
+  state.user = null;
+  localStorage.removeItem('skku3_user');
+  document.getElementById('authScreen').classList.remove('hidden');
+}
+
+function changeLang(lang) {
+  if (!state.user) return;
+  state.user.lang = lang; saveUser();
+  renderVocabList(); renderSentenceBuilder();
+}
+
+function goTab(tab) {
+  ['home','schedule','vocab','flashcard','quiz','builder'].forEach(t => {
+    document.getElementById('tab-' + t).classList.toggle('hidden', t !== tab);
+  });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  if (tab === 'vocab') renderVocabList();
+  if (tab === 'flashcard') renderFlashcard();
+  if (tab === 'builder') renderSentenceBuilder();
+}
+
+function renderAll() {
+  if (!state.user) return;
+  document.getElementById('hdrUserName').textContent = state.user.name + ' · 3급';
+  document.getElementById('hdrAvatar').src = state.user.avatar || AVATARS[0];
+  renderHome(); renderSchedule(); renderPills(); renderVocabList(); renderFlashcard(); renderSentenceBuilder();
+}
+
+/* ===== 20-GRAPE BOARD (KST 1/DAY) ===== */
+function renderHome() {
+  const grapes = Number(state.user.grapes || 0);
+  const inBunch = grapes % 20;
+  const bunches = Math.floor(grapes / 20);
+  document.getElementById('statStreak').textContent = (state.user.streak || 0) + '일';
+  document.getElementById('statGrapes').textContent = `${inBunch} / 20`;
+  document.getElementById('bunchCount').textContent = `완성 ${bunches}송이`;
+
+  const coords = [
+    [55,48],[85,48],[115,48],[145,48],[175,48],
+    [70,76],[100,76],[130,76],[160,76],
+    [55,104],[85,104],[115,104],[145,104],[175,104],
+    [85,132],[115,132],[145,132],
+    [100,160],[130,160],
+    [115,188]
+  ];
+  let svg = `<path d="M115 26 Q122 10 140 16" stroke="#4A2C2A" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  for (let i = 0; i < 20; i++) {
+    const filled = i < inBunch;
+    const [cx, cy] = coords[i];
+    svg += `<circle cx="${cx}" cy="${cy}" r="13" fill="${filled ? (i%2 ? '#8B5CF6' : '#EC4899') : '#F4F0FA'}" stroke="${filled ? '#4A2C2A' : '#E8E0F0'}" stroke-width="2"/>`;
+  }
+  document.getElementById('grapeSvg').innerHTML = svg;
+
+  const today = getKstDate();
+  const claimed = state.user.lastGrapeDate === today;
+  const btn = document.getElementById('claimGrapeBtn');
+  btn.textContent = claimed ? '오늘의 포도알 완료! ✓' : '오늘의 포도알 받기 (+1)';
+  btn.disabled = claimed;
+  btn.style.opacity = claimed ? '0.6' : '1';
+  document.getElementById('cheerMsg').textContent = claimed ? '오늘 공부 최고예요! 👍' : '포도알을 모아봐요! 🍇';
+}
+
+function claimDailyGrape() {
+  const today = getKstDate();
+  if (state.user.lastGrapeDate === today) return toast('오늘은 이미 포도알을 받았어요!');
+  state.user.lastGrapeDate = today;
+  state.user.streak = Number(state.user.streak || 0) + 1;
+  state.user.grapes = Number(state.user.grapes || 0) + 1;
+  saveUser();
+  renderHome();
+  if (state.user.grapes % 20 === 0) triggerCelebration();
+  else toast('포도알 +1 적립! 🍇');
+}
+
+function triggerCelebration() {
+  document.getElementById('celebUser').textContent = `${state.user.name}님 · 20알 완성!`;
+  openModal('celebModal');
+  launchConfetti();
+}
+
+function launchConfetti() {
+  const c = document.getElementById('confettiCanvas');
+  const ctx = c.getContext('2d');
+  c.width = window.innerWidth; c.height = window.innerHeight;
+  const colors = ['#8B5CF6','#EC4899','#F59E0B','#4A2C2A','#F472B6'];
+  const pieces = Array.from({length: 110}, () => ({
+    x: Math.random()*c.width, y: -20 - Math.random()*c.height*0.5,
+    r: 5 + Math.random()*6, vx: (Math.random()-0.5)*5, vy: 3 + Math.random()*5,
+    color: colors[Math.floor(Math.random()*colors.length)]
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0,0,c.width,c.height);
+    pieces.forEach(p => { p.x += p.vx; p.y += p.vy; ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, p.r, p.r*1.4); });
+    if (++frame < 140) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  }
+  draw();
+}
+
+/* ===== SCHEDULE & VOCAB ===== */
+function renderSchedule() {
+  const byW = {};
+  SCHEDULE.forEach(it => { (byW[it.w] = byW[it.w] || []).push(it); });
+  document.getElementById('scheduleContainer').innerHTML = Object.keys(byW).map(w => `
+    <div class="week-hdr">${w}주차</div>
+    <div class="sch-grid">${byW[w].map(it => `
+      <button class="sch-item ${it.c}" onclick="if(${it.l}){state.vocabLesson=${it.l};renderPills();goTab('vocab');}else toast('${it.t}');">
+        <div class="sch-date">${it.d}</div><div class="sch-lbl">${it.t}</div>
+      </button>`).join('')}
+    </div>`).join('');
+}
+
+function renderPills() {
+  document.getElementById('vocabLessonPills').innerHTML = LESSONS.map(l =>
+    `<button class="pill ${l.id===state.vocabLesson?'active':''}" onclick="state.vocabLesson=${l.id};renderPills();renderVocabList();">${l.id}과</button>`
+  ).join('');
+  document.getElementById('builderLessonPills').innerHTML = LESSONS.map(l =>
+    `<button class="pill ${l.id===state.builderLesson?'active':''}" onclick="state.builderLesson=${l.id};state.builderIdx=0;renderPills();renderSentenceBuilder();">${l.id}과</button>`
+  ).join('');
+}
+
+function getTr(v, lang) {
+  if (lang==='ko') return v[0];
+  if (lang==='zh-CN') return v[2]||v[1];
+  if (lang==='vi') return v[3]||v[1];
+  if (lang==='ja') return v[4]||v[1];
+  return v[1];
+}
+
+function renderVocabList() {
+  const L = LESSONS.find(x => x.id === state.vocabLesson);
+  const lang = (state.user && state.user.lang) || 'en';
+  const q = (document.getElementById('vocabSearch').value || '').trim().toLowerCase();
+  const list = L.vocab.filter(v => !q || v[0].includes(q) || getTr(v, lang).toLowerCase().includes(q));
+  document.getElementById('vocabList').innerHTML = list.map(v => {
+    const tr = getTr(v, lang);
+    const saved = state.flashcards.some(f => f.ko === v[0]);
+    return `<div class="vocab-row">
+      <div><div class="vocab-ko">${v[0]}</div><div class="vocab-tr">${tr}</div></div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-secondary btn-sm" onclick="toggleStar('${v[0].replace(/'/g,'')}','${tr.replace(/'/g,'')}')">${saved ? '★' : '☆'}</button>
+        <button class="btn btn-secondary btn-sm" onclick="speakKo('${v[0].replace(/'/g,'')}')">🔊</button>
       </div>
-      <div id="word-list-container" class="flex-1 overflow-y-auto py-3 space-y-2"></div>
-    </div>
-  </div>
+    </div>`;
+  }).join('');
+}
 
-  <!-- =========================================================
-       7. GEAR ICON ADMIN MODE MODAL (PIN: 0000)
-  ========================================================= -->
-  <div id="admin-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink/25 backdrop-blur-xs">
-    <div class="w-full max-w-sm duo-card p-6 soft-appear">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-black text-espresso">관리자 모드</h3>
-        <button type="button" onclick="closeAdminModal()" class="text-muted hover:text-ink font-black text-lg cursor-pointer">✕</button>
-      </div>
+function toggleStar(ko, tr) {
+  const i = state.flashcards.findIndex(f => f.ko === ko);
+  if (i >= 0) { state.flashcards.splice(i, 1); toast('단어 카드에서 삭제됨'); }
+  else { state.flashcards.push({ ko, tr }); toast('모르는 단어 카드에 추가됨 ★'); }
+  localStorage.setItem('skku3_fc', JSON.stringify(state.flashcards));
+  renderVocabList(); renderFlashcard();
+}
 
-      <!-- PIN Gate -->
-      <div id="admin-pin-panel" class="space-y-3">
-        <input id="admin-pin-input" type="password" inputmode="numeric" maxlength="4" placeholder="PIN (0000)"
-          class="w-full px-4 py-3 rounded-2xl border-2 border-line bg-page text-center font-num text-xl font-black tracking-[0.4em] text-ink focus:outline-none focus:bg-white focus:border-violet" />
-        <button type="button" onclick="unlockAdmin()" class="btn-3d btn-purple w-full py-3.5 rounded-2xl text-sm font-extrabold cursor-pointer">
-          잠금 해제
-        </button>
-      </div>
+function speakKo(text) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text); u.lang = 'ko-KR'; u.rate = 0.92;
+  speechSynthesis.speak(u);
+}
 
-      <!-- Admin Controls -->
-      <div id="admin-controls-panel" class="hidden space-y-2.5">
-        <button type="button" onclick="adminUnlockToday()" class="btn-3d btn-pink w-full py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-          오늘 제한 해제
-        </button>
-        <div class="grid grid-cols-2 gap-2.5">
-          <button type="button" onclick="adminAddGrape()" class="btn-3d btn-purple py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-            +1 포도알
-          </button>
-          <button type="button" onclick="adminRemoveGrape()" class="btn-3d btn-white py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-            -1 포도알
-          </button>
-        </div>
-        <button type="button" onclick="adminFillAllGrapes()" class="btn-3d btn-purple w-full py-3 rounded-2xl text-sm font-extrabold cursor-pointer">
-          20알 완성 테스트
-        </button>
-        <button type="button" onclick="triggerImageUpload()" class="btn-3d btn-white w-full py-3 rounded-2xl text-sm font-extrabold text-violet cursor-pointer">
-          유생 이미지 불러오기
-        </button>
-        <div class="pt-2 border-t border-line">
-          <button type="button" onclick="adminResetAllData()" class="btn-3d btn-white w-full py-3 rounded-2xl text-xs font-extrabold text-pinky cursor-pointer">
-            전체 초기화
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+/* ===== FLASHCARD ===== */
+function renderFlashcard() {
+  document.getElementById('fcCount').textContent = state.flashcards.length;
+  const empty = state.flashcards.length === 0;
+  document.getElementById('fcEmpty').classList.toggle('hidden', !empty);
+  document.getElementById('fcPlayArea').classList.toggle('hidden', empty);
+  if (empty) return;
+  if (state.fcIdx >= state.flashcards.length) state.fcIdx = 0;
+  const item = state.flashcards[state.fcIdx];
+  document.getElementById('fcInner').classList.remove('flipped');
+  document.getElementById('fcFront').textContent = state.fcDir === 'ko2tr' ? item.ko : item.tr;
+  document.getElementById('fcBack').textContent = state.fcDir === 'ko2tr' ? item.tr : item.ko;
+}
+function flipCard() { document.getElementById('fcInner').classList.toggle('flipped'); }
+function toggleFcDir() {
+  state.fcDir = state.fcDir === 'ko2tr' ? 'tr2ko' : 'ko2tr';
+  document.getElementById('fcDirBtn').textContent = state.fcDir === 'ko2tr' ? '한 → 모국어' : '모국어 → 한';
+  renderFlashcard();
+}
+function fcResult(known) {
+  if (known) { state.flashcards.splice(state.fcIdx, 1); localStorage.setItem('skku3_fc', JSON.stringify(state.flashcards)); toast('외웠어요! 목록에서 제거됨'); }
+  else { state.fcIdx = (state.fcIdx + 1) % state.flashcards.length; toast('다시 복습할게요!'); }
+  renderFlashcard();
+}
+function addFlashcard() {
+  const ko = document.getElementById('newFcKo').value.trim();
+  const tr = document.getElementById('newFcTr').value.trim();
+  if (!ko || !tr) return toast('단어와 뜻을 모두 입력하세요.');
+  state.flashcards.push({ ko, tr });
+  localStorage.setItem('skku3_fc', JSON.stringify(state.flashcards));
+  document.getElementById('newFcKo').value = ''; document.getElementById('newFcTr').value = '';
+  closeModal('addWordModal'); renderFlashcard(); toast('추가되었습니다.');
+}
 
-  <!-- =========================================================
-       APPLICATION LOGIC
-  ========================================================= -->
-  <script>
-    const STORAGE_KEY = 'skku_level3_bright_v2';
-    const IMAGES_STORAGE_KEY = 'skku_yusaeng_images_v2';
-    const GRAPE_ROWS = [4, 5, 4, 4, 3]; // 20 grapes total
+/* ===== SENTENCE BUILDER ===== */
+function renderSentenceBuilder() {
+  const L = LESSONS.find(x => x.id === state.builderLesson);
+  const list = L.grammars.map((g, i) => ({
+    grammar: g.p, ko: g.ex.replace(/[.?!]$/, ''),
+    tokens: g.ex.replace(/[.?!]$/, '').split(' '), distractors: ['그리고', '하지만'], hint: g.ko
+  }));
+  if (state.builderIdx >= list.length) state.builderIdx = 0;
+  const item = list[state.builderIdx];
+  document.getElementById('builderCounter').textContent = `${state.builderLesson}과 · ${state.builderIdx+1} / ${list.length}`;
+  document.getElementById('builderGrammarTag').textContent = item.grammar;
+  document.getElementById('builderNativeText').textContent = item.hint;
+  state.selectedChips = [];
+  state._tokens = [...item.tokens, ...item.distractors].map((t, i) => ({ id: i, text: t })).sort(() => Math.random()-0.5);
+  state._item = item;
+  document.getElementById('builderFeedback').classList.add('hidden');
+  renderChips();
+}
+function renderChips() {
+  document.getElementById('answerZone').innerHTML = state.selectedChips.map(c =>
+    `<button class="chip selected" onclick="removeChip(${c.id})">${c.text}</button>`
+  ).join('') || '<span style="font-size:12px;color:var(--muted);">아래 블록을 눌러 문장을 완성하세요</span>';
+  const used = new Set(state.selectedChips.map(c => c.id));
+  document.getElementById('chipBank').innerHTML = state._tokens.map(c =>
+    `<button class="chip ${used.has(c.id)?'used':''}" onclick="addChip(${c.id})">${c.text}</button>`
+  ).join('');
+}
+function addChip(id) { const f = state._tokens.find(c => c.id===id); if (f) { state.selectedChips.push(f); renderChips(); } }
+function removeChip(id) { state.selectedChips = state.selectedChips.filter(c => c.id!==id); renderChips(); }
+function clearAnswerZone() { state.selectedChips = []; renderChips(); }
+function checkSentence() {
+  const ans = state.selectedChips.map(c => c.text).join(' ').trim();
+  const fb = document.getElementById('builderFeedback');
+  fb.classList.remove('hidden','ok','no');
+  if (ans === state._item.tokens.join(' ').trim()) {
+    fb.classList.add('ok'); fb.innerHTML = `정답입니다! <strong>${state._item.ko}</strong>`; speakKo(state._item.ko);
+  } else {
+    fb.classList.add('no'); fb.innerHTML = `다시 확인해 보세요. 정답: <strong>${state._item.ko}</strong>`;
+  }
+}
+function nextSentence() { state.builderIdx++; renderSentenceBuilder(); }
 
-    // Exact Official SKKU Yusaeng Filenames (7 Selectable User Avatars)
-    const SELECTABLE_AVATARS = [
-      { filename: '성균관대_33.jpg', label: '반짝 남유생' },
-      { filename: '성균관대_35_2.jpg', label: '반짝 여유생' },
-      { filename: '성균관대_34.jpg', label: '뿌듯 유생' },
-      { filename: '성균관대_36_2.jpg', label: '자신감 유생' },
-      { filename: '성균관대_01_2.jpg', label: '꽃길 유생' },
-      { filename: '성균관대_02_2.jpg', label: '저요 유생' },
-      { filename: '성균관대_37.jpg', label: '인사 유생' }
-    ];
-
-    // Reaction Images
-    const REACTION_IMAGES = {
-      cheer: { filename: '성균관대_04.jpg', label: '힘내 유생' },
-      wrong: { filename: '성균관대_03.jpg', label: '깜짝 유생' },
-      celebrate: { filename: '성균관대_01_2.jpg', label: '꽃길 유생' }
-    };
-
-    // Fallback aliases if user uploads original names without _2 suffix
-    const FILENAME_ALIASES = {
-      '성균관대_35.jpg': '성균관대_35_2.jpg',
-      '성균관대_36.jpg': '성균관대_36_2.jpg',
-      '성균관대_01.jpg': '성균관대_01_2.jpg',
-      '성균관대_02.jpg': '성균관대_02_2.jpg'
-    };
-
-    const ALL_KNOWN_FILENAMES = [
-      ...SELECTABLE_AVATARS.map((a) => a.filename),
-      REACTION_IMAGES.cheer.filename,
-      REACTION_IMAGES.wrong.filename
-    ];
-
-    const DEFAULT_WORDS = [
-      { id: 'w1', ko: '경험하다', native: 'to experience', example: '한국 문화를 직접 경험했어요.', mastered: false },
-      { id: 'w2', ko: '해결하다', native: 'to solve / resolve', example: '어려운 문제를 잘 해결했어요.', mastered: false },
-      { id: 'w3', ko: '익숙하다', native: 'to be familiar with', example: '이제 서울 생활에 익숙해요.', mastered: false },
-      { id: 'w4', ko: '신청하다', native: 'to apply / register', example: '한국어 수업을 신청했어요.', mastered: false },
-      { id: 'w5', ko: '추천하다', native: 'to recommend', example: '맛있는 식당을 추천해 주세요.', mastered: false },
-      { id: 'w6', ko: '포기하다', native: 'to give up', example: '끝까지 포기하지 마세요.', mastered: false },
-      { id: 'w7', ko: '집중하다', native: 'to concentrate / focus', example: '수업 시간에 집중해요.', mastered: false },
-      { id: 'w8', ko: '표현하다', native: 'to express', example: '내 생각을 한국어로 표현해요.', mastered: false }
-    ];
-
-    let state = {
-      user: null, // { name, avatarFilename }
-      grapes: [], // array of 'YYYY-MM-DD' (KST)
-      completedBunches: 0,
-      words: JSON.parse(JSON.stringify(DEFAULT_WORDS)),
-      activeTab: 'grape',
-      vocabFilter: 'review', // 'review' | 'mastered' | 'all'
-      vocabDirection: 'ko-to-native'
-    };
-
-    let customImages = {}; // { '성균관대_33.jpg': 'data:image/jpeg;base64,...' }
-    let selectedAuthAvatar = SELECTABLE_AVATARS[0].filename;
-    let currentCardIndex = 0;
-    let isCardFlipped = false;
-
-    // =========================================================
-    // Silent KST Date Utility (NO clock shown on screen)
-    // =========================================================
-    function getKstDateString() {
-      return new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Asia/Seoul',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      }).format(new Date());
+/* ===== QUIZ ===== */
+function startDailyQuiz() {
+  const lid = Number(document.getElementById('quizLessonSelect').value);
+  const L = LESSONS.find(x => x.id === lid);
+  const lang = (state.user && state.user.lang) || 'en';
+  const q = [];
+  const vp = [...L.vocab].sort(() => Math.random()-0.5);
+  for (let i=0; i<10; i++) {
+    const v = vp[i % vp.length], tr = getTr(v, lang);
+    const dist = L.vocab.filter(x => x[0]!==v[0]).sort(() => Math.random()-0.5).slice(0,3).map(x => getTr(x, lang));
+    const opts = [tr, ...dist].sort(() => Math.random()-0.5);
+    q.push({ type:'vocab', ko:v[0], tr, tag:`어휘 ${i+1}/10`, question:`"${v[0]}"의 뜻은?`, options:opts, answer:opts.indexOf(tr), explanation:`${v[0]} = ${tr}` });
+  }
+  const cg = state.quizBank.filter(x => Number(x.lesson)===lid && x.type==='grammar');
+  for (let i=0; i<10; i++) {
+    if (cg[i]) q.push({ ...cg[i], tag:`문법 ${i+1}/10` });
+    else {
+      const g = L.grammars[i % L.grammars.length];
+      const opts = [g.p, ...L.grammars.filter(x => x.p!==g.p).map(x => x.p)].sort(() => Math.random()-0.5);
+      q.push({ type:'grammar', tag:`문법 ${i+1}/10`, question:`사용된 문법은?\n"${g.ex}"`, options:opts, answer:opts.indexOf(g.p), explanation:`${g.p}: ${g.ko}` });
     }
+  }
+  const cr = state.quizBank.filter(x => Number(x.lesson)===lid && x.type==='reading');
+  cr.slice(0,2).forEach((r, i) => q.push({ ...r, tag:`읽기 ${i+1}/2` }));
+  launchQuiz(q);
+}
 
-    // =========================================================
-    // Persistence
-    // =========================================================
-    function loadState() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed && typeof parsed === 'object') {
-            state = {
-              ...state,
-              ...parsed,
-              words: Array.isArray(parsed.words) && parsed.words.length > 0
-                ? parsed.words
-                : JSON.parse(JSON.stringify(DEFAULT_WORDS))
-            };
-          }
-        }
-        const imgRaw = localStorage.getItem(IMAGES_STORAGE_KEY);
-        if (imgRaw) {
-          const parsedImgs = JSON.parse(imgRaw);
-          if (parsedImgs && typeof parsedImgs === 'object') {
-            customImages = parsedImgs;
-          }
-        }
-      } catch (e) {
-        console.error(e);
-      }
+function startExamReview(mode) {
+  const minL = mode==='midterm' ? 1 : 8, maxL = mode==='midterm' ? 7 : 15;
+  const pool = state.quizBank.filter(x => Number(x.lesson)>=minL && Number(x.lesson)<=maxL).sort(() => Math.random()-0.5).slice(0,20);
+  if (!pool.length) return toast('문제은행 JSON 파일이 같은 폴더에 필요합니다.');
+  launchQuiz(pool.map((x, i) => ({ ...x, tag:`${mode==='midterm'?'중간':'기말'} ${i+1}/${pool.length}` })));
+}
+
+function launchQuiz(q) {
+  state.quizQueue = q; state.quizIdx = 0; state.quizScore = { vocab:0, grammar:0, reading:0 }; state.quizWrongs = [];
+  document.getElementById('quizSetup').classList.add('hidden');
+  document.getElementById('quizResult').classList.add('hidden');
+  document.getElementById('quizActive').classList.remove('hidden');
+  renderQuizQ();
+}
+
+function renderQuizQ() {
+  const q = state.quizQueue[state.quizIdx];
+  document.getElementById('quizSectionTag').textContent = q.tag;
+  document.getElementById('quizCounter').textContent = `${state.quizIdx+1} / ${state.quizQueue.length}`;
+  document.getElementById('quizProgress').style.width = `${((state.quizIdx+1)/state.quizQueue.length)*100}%`;
+  const p = document.getElementById('quizPassage');
+  if (q.passage) { p.textContent = q.passage; p.classList.remove('hidden'); } else p.classList.add('hidden');
+  document.getElementById('quizQuestion').textContent = q.question;
+  document.getElementById('quizOptions').innerHTML = q.options.map((o,i) => `<button class="opt-btn" id="opt_${i}" onclick="pickOpt(${i})">${i+1}. ${o}</button>`).join('');
+  document.getElementById('quizFeedback').classList.add('hidden');
+  document.getElementById('quizNextBtn').classList.add('hidden');
+}
+
+function pickOpt(idx) {
+  const q = state.quizQueue[state.quizIdx];
+  document.querySelectorAll('#quizOptions .opt-btn').forEach(b => b.disabled = true);
+  const fb = document.getElementById('quizFeedback'); fb.classList.remove('hidden','ok','no');
+  if (idx === q.answer) {
+    document.getElementById('opt_'+idx).classList.add('correct');
+    state.quizScore[q.type] = (state.quizScore[q.type]||0) + 1;
+    fb.classList.add('ok'); fb.innerHTML = `정답입니다! ${q.explanation}`;
+  } else {
+    document.getElementById('opt_'+idx).classList.add('wrong');
+    document.getElementById('opt_'+q.answer).classList.add('correct');
+    state.quizWrongs.push({ q: q.question, a: q.options[q.answer] });
+    if (q.type === 'vocab' && q.ko && !state.flashcards.some(f => f.ko === q.ko)) {
+      state.flashcards.push({ ko: q.ko, tr: q.tr });
+      localStorage.setItem('skku3_fc', JSON.stringify(state.flashcards));
     }
-
-    function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    function saveCustomImages() {
-      try {
-        localStorage.setItem(IMAGES_STORAGE_KEY, JSON.stringify(customImages));
-      } catch (e) {
-        showToast('저장 공간이 부족해요');
-      }
-    }
-
-    // =========================================================
-    // Real Yusaeng Image Resolver & Multi-File Uploader
-    // =========================================================
-    function getImageSrc(filename) {
-      const normalized = filename.normalize('NFC');
-      return customImages[normalized] || normalized;
-    }
-
-    function renderYusaengImageInto(container, filename, label, showUploadPrompt = false) {
-      container.innerHTML = '';
-      const img = document.createElement('img');
-      img.src = getImageSrc(filename);
-      img.alt = label;
-      img.className = 'yusaeng-img';
-
-      img.onerror = () => {
-        container.innerHTML = `
-          <div class="w-full h-full bg-violet-soft flex flex-col items-center justify-center text-center p-1.5 select-none">
-            <span class="text-[11px] font-extrabold text-violet leading-tight break-keep">${label}</span>
-            ${showUploadPrompt ? '<span class="text-[9px] font-bold text-muted mt-0.5 leading-tight">이미지 불러오기</span>' : ''}
-          </div>
-        `;
-      };
-
-      container.appendChild(img);
-    }
-
-    function triggerImageUpload() {
-      const input = document.getElementById('yusaeng-file-input');
-      input.value = '';
-      input.click();
-    }
-
-    function compressImageToDataUrl(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const img = new Image();
-          img.onload = () => {
-            const maxDim = 260;
-            let w = img.width;
-            let h = img.height;
-            if (w > maxDim || h > maxDim) {
-              if (w >= h) {
-                h = Math.round((h * maxDim) / w);
-                w = maxDim;
-              } else {
-                w = Math.round((w * maxDim) / h);
-                h = maxDim;
-              }
-            }
-            const canvas = document.createElement('canvas');
-            canvas.width = w;
-            canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(0, 0, w, h);
-            ctx.drawImage(img, 0, 0, w, h);
-            resolve(canvas.toDataURL('image/jpeg', 0.85));
-          };
-          img.onerror = reject;
-          img.src = ev.target.result;
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    document.getElementById('yusaeng-file-input').addEventListener('change', async (e) => {
-      const files = Array.from(e.target.files || []);
-      if (files.length === 0) return;
-
-      let matchedCount = 0;
-
-      for (const file of files) {
-        const cleanName = file.name.normalize('NFC');
-        let targetKey = null;
-
-        if (ALL_KNOWN_FILENAMES.includes(cleanName)) {
-          targetKey = cleanName;
-        } else if (FILENAME_ALIASES[cleanName]) {
-          targetKey = FILENAME_ALIASES[cleanName];
-        }
-
-        if (targetKey) {
-          try {
-            const dataUrl = await compressImageToDataUrl(file);
-            customImages[targetKey] = dataUrl;
-            matchedCount++;
-          } catch (err) {
-            console.error(err);
-          }
-        }
-      }
-
-      if (matchedCount > 0) {
-        saveCustomImages();
-        refreshAllImages();
-        showToast(`유생 이미지 ${matchedCount}개 연결 완료!`);
-      } else {
-        showToast('파일명이 일치하는 유생 이미지가 없어요');
-      }
-    });
-
-    function refreshAllImages() {
-      renderAvatarGrid('auth-avatar-grid', selectedAuthAvatar, handleAuthAvatarSelect);
-      if (state.user) {
-        renderHeader();
-        renderCheerWidget();
-        if (!document.getElementById('profile-modal').classList.contains('hidden')) {
-          renderAvatarGrid('profile-avatar-grid', state.user.avatarFilename, handleProfileAvatarSelect);
-        }
-        if (!document.getElementById('celebration-modal').classList.contains('hidden')) {
-          renderCelebrationAvatars();
-        }
-      }
-    }
-
-    // =========================================================
-    // Auth & Avatar Selection
-    // =========================================================
-    function handleAuthAvatarSelect(filename) {
-      selectedAuthAvatar = filename;
-      renderAvatarGrid('auth-avatar-grid', selectedAuthAvatar, handleAuthAvatarSelect);
-    }
-
-    function handleProfileAvatarSelect(filename) {
-      if (!state.user) return;
-      state.user.avatarFilename = filename;
-      saveState();
-      renderHeader();
-      renderAvatarGrid('profile-avatar-grid', state.user.avatarFilename, handleProfileAvatarSelect);
-    }
-
-    function renderAvatarGrid(containerId, activeFilename, onSelect) {
-      const container = document.getElementById(containerId);
-      container.innerHTML = '';
-
-      SELECTABLE_AVATARS.forEach((av) => {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = `avatar-card p-2.5 flex flex-col items-center gap-1.5 ${av.filename === activeFilename ? 'selected' : ''}`;
-        card.onclick = () => onSelect(av.filename);
-
-        const imgWrap = document.createElement('div');
-        imgWrap.className = 'w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-violet-border bg-white overflow-hidden flex items-center justify-center p-0.5';
-        renderYusaengImageInto(imgWrap, av.filename, av.label, true);
-
-        const labelEl = document.createElement('span');
-        labelEl.className = 'text-[11px] font-extrabold text-espresso truncate max-w-full';
-        labelEl.textContent = av.label;
-
-        card.appendChild(imgWrap);
-        card.appendChild(labelEl);
-        container.appendChild(card);
-      });
-    }
-
-    document.getElementById('auth-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('user-name-input').value.trim();
-      if (!name) return;
-
-      state.user = { name, avatarFilename: selectedAuthAvatar };
-      saveState();
-      renderApp();
-    });
-
-    function openProfileModal() {
-      if (!state.user) return;
-      renderAvatarGrid('profile-avatar-grid', state.user.avatarFilename, handleProfileAvatarSelect);
-      document.getElementById('profile-modal').classList.remove('hidden');
-    }
-
-    function closeProfileModal() {
-      document.getElementById('profile-modal').classList.add('hidden');
-    }
-
-    function logoutUser() {
-      state.user = null;
-      saveState();
-      closeProfileModal();
-      closeCelebrationModal();
-      renderApp();
-    }
-
-    // =========================================================
-    // Main Navigation & Render
-    // =========================================================
-    function renderApp() {
-      const authScreen = document.getElementById('auth-screen');
-      const appScreen = document.getElementById('app-screen');
-
-      if (!state.user) {
-        authScreen.classList.remove('hidden');
-        appScreen.classList.add('hidden');
-        renderAvatarGrid('auth-avatar-grid', selectedAuthAvatar, handleAuthAvatarSelect);
-      } else {
-        authScreen.classList.add('hidden');
-        appScreen.classList.remove('hidden');
-        renderHeader();
-        renderCheerWidget();
-        switchMainTab(state.activeTab || 'grape');
-      }
-    }
-
-    function renderHeader() {
-      if (!state.user) return;
-      const meta = SELECTABLE_AVATARS.find((a) => a.filename === state.user.avatarFilename) || SELECTABLE_AVATARS[0];
-      renderYusaengImageInto(document.getElementById('header-avatar-box'), meta.filename, meta.label, false);
-      document.getElementById('header-name').textContent = state.user.name;
-    }
-
-    function renderCheerWidget() {
-      renderYusaengImageInto(
-        document.getElementById('cheer-image-box'),
-        REACTION_IMAGES.cheer.filename,
-        REACTION_IMAGES.cheer.label,
-        true
-      );
-    }
-
-    function switchMainTab(tab) {
-      state.activeTab = tab;
-      saveState();
-
-      const grapeTab = document.getElementById('nav-tab-grape');
-      const vocabTab = document.getElementById('nav-tab-vocab');
-      const grapePanel = document.getElementById('panel-grape');
-      const vocabPanel = document.getElementById('panel-vocab');
-
-      if (tab === 'grape') {
-        grapeTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-violet bg-violet-soft text-violet transition cursor-pointer';
-        vocabTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-line bg-white text-muted hover:text-ink transition cursor-pointer';
-        grapePanel.classList.remove('hidden');
-        vocabPanel.classList.add('hidden');
-        renderGrapeBoard();
-      } else {
-        vocabTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-violet bg-violet-soft text-violet transition cursor-pointer';
-        grapeTab.className = 'flex-1 sm:flex-none px-5 py-2 rounded-full text-sm font-extrabold border-2 border-line bg-white text-muted hover:text-ink transition cursor-pointer';
-        vocabPanel.classList.remove('hidden');
-        grapePanel.classList.add('hidden');
-        renderVocabView();
-      }
-    }
-
-    // =========================================================
-    // TAB 1: 20-Grape Tracker (Silent KST 1/day)
-    // =========================================================
-    function renderGrapeBoard(animatedIndex = -1) {
-      const count = state.grapes.length;
-      const todayKst = getKstDateString();
-      const claimedToday = state.grapes.includes(todayKst);
-      const isComplete = count >= 20;
-
-      document.getElementById('grape-count-badge').textContent = `${count} / 20`;
-      document.getElementById('grape-progress-bar').style.width = `${(count / 20) * 100}%`;
-
-      const bunchesBadge = document.getElementById('grape-bunches-badge');
-      if (state.completedBunches > 0) {
-        bunchesBadge.classList.remove('hidden');
-        bunchesBadge.textContent = `${state.completedBunches}송이 완성`;
-      } else {
-        bunchesBadge.classList.add('hidden');
-      }
-
-      const bubble = document.getElementById('cheer-bubble-text');
-      if (isComplete) {
-        bubble.textContent = '20알 완성! 최고예요!';
-      } else if (claimedToday) {
-        bubble.textContent = '오늘도 잘했어요!';
-      } else {
-        bubble.textContent = count % 2 === 0 ? '힘내!' : '오늘도 파이팅!';
-      }
-
-      const clusterEl = document.getElementById('grape-cluster');
-      clusterEl.innerHTML = '';
-
-      let idx = 0;
-      GRAPE_ROWS.forEach((rowCount) => {
-        const row = document.createElement('div');
-        row.className = 'flex items-center justify-center gap-1.5 sm:gap-2';
-
-        for (let i = 0; i < rowCount; i++) {
-          const grapeIndex = idx++;
-          const isFilled = grapeIndex < count;
-          const isNext = !isComplete && !claimedToday && grapeIndex === count;
-
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = `grape-btn ${isFilled ? 'filled' : ''} ${isNext ? 'next-target' : ''} ${grapeIndex === animatedIndex ? 'grape-pop' : ''}`;
-          btn.textContent = String(grapeIndex + 1);
-          btn.onclick = () => {
-            if (isComplete) {
-              openCelebrationModal();
-            } else if (!isFilled) {
-              claimTodayGrape();
-            }
-          };
-          row.appendChild(btn);
-        }
-        clusterEl.appendChild(row);
-      });
-
-      const claimBtn = document.getElementById('claim-grape-btn');
-      const celebBtn = document.getElementById('show-celebration-btn');
-
-      if (isComplete) {
-        claimBtn.classList.add('hidden');
-        celebBtn.classList.remove('hidden');
-      } else {
-        celebBtn.classList.add('hidden');
-        claimBtn.classList.remove('hidden');
-        if (claimedToday) {
-          claimBtn.disabled = true;
-          claimBtn.textContent = '오늘 완료';
-        } else {
-          claimBtn.disabled = false;
-          claimBtn.textContent = '오늘의 포도알 받기';
-        }
-      }
-    }
-
-    function claimTodayGrape() {
-      if (state.grapes.length >= 20) {
-        openCelebrationModal();
-        return;
-      }
-
-      const todayKst = getKstDateString();
-      if (state.grapes.includes(todayKst)) {
-        showToast('오늘은 이미 받았어요');
-        return;
-      }
-
-      const newIdx = state.grapes.length;
-      state.grapes.push(todayKst);
-      saveState();
-      renderGrapeBoard(newIdx);
-
-      if (state.grapes.length >= 20) {
-        setTimeout(() => openCelebrationModal(), 360);
-      } else {
-        showToast(`${state.grapes.length}번째 포도알 완료!`);
-      }
-    }
-
-    // =========================================================
-    // TAB 2: Flashcards ("단어 카드")
-    // =========================================================
-    function getFilteredWords() {
-      if (state.vocabFilter === 'review') return state.words.filter((w) => !w.mastered);
-      if (state.vocabFilter === 'mastered') return state.words.filter((w) => w.mastered);
-      return state.words;
-    }
-
-    function setVocabFilter(filter) {
-      state.vocabFilter = filter;
-      currentCardIndex = 0;
-      isCardFlipped = false;
-      saveState();
-      renderVocabView();
-    }
-
-    function toggleVocabDirection() {
-      state.vocabDirection = state.vocabDirection === 'ko-to-native' ? 'native-to-ko' : 'ko-to-native';
-      isCardFlipped = false;
-      saveState();
-      renderVocabView();
-    }
-
-    function flipFlashcard() {
-      isCardFlipped = !isCardFlipped;
-      document.getElementById('flashcard-inner').classList.toggle('is-flipped', isCardFlipped);
-    }
-
-    function renderVocabView() {
-      const filters = { review: 'filter-review', mastered: 'filter-mastered', all: 'filter-all' };
-      Object.entries(filters).forEach(([key, elId]) => {
-        const el = document.getElementById(elId);
-        if (key === state.vocabFilter) {
-          el.className = key === 'review'
-            ? 'px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 border-pinky bg-pinky-soft text-pinky transition cursor-pointer'
-            : 'px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 border-violet bg-violet-soft text-violet transition cursor-pointer';
-        } else {
-          el.className = 'px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-extrabold border-2 border-line bg-white text-muted hover:text-ink transition cursor-pointer';
-        }
-      });
-
-      document.getElementById('direction-label').textContent =
-        state.vocabDirection === 'ko-to-native' ? '한국어 → 모국어' : '모국어 → 한국어';
-
-      const list = getFilteredWords();
-      const stage = document.getElementById('flashcard-stage');
-      const actions = document.getElementById('vocab-action-bar');
-      const empty = document.getElementById('vocab-empty-state');
-      const counter = document.getElementById('vocab-counter');
-
-      if (list.length === 0) {
-        stage.classList.add('hidden');
-        actions.classList.add('hidden');
-        empty.classList.remove('hidden');
-        counter.textContent = '0 / 0';
-        document.getElementById('vocab-empty-text').textContent =
-          state.vocabFilter === 'review' ? '복습할 단어를 모두 외웠어요!' : '단어가 없어요';
-        return;
-      }
-
-      if (currentCardIndex >= list.length) currentCardIndex = 0;
-
-      stage.classList.remove('hidden');
-      actions.classList.remove('hidden');
-      empty.classList.add('hidden');
-      counter.textContent = `${currentCardIndex + 1} / ${list.length}`;
-
-      const word = list[currentCardIndex];
-      document.getElementById('flashcard-inner').classList.toggle('is-flipped', isCardFlipped);
-
-      const tag = document.getElementById('card-status-tag');
-      if (word.mastered) {
-        tag.className = 'px-3 py-1 rounded-full text-xs font-extrabold mb-4 bg-violet-soft text-violet';
-        tag.textContent = '외운 단어';
-      } else {
-        tag.className = 'px-3 py-1 rounded-full text-xs font-extrabold mb-4 bg-pinky-soft text-pinky';
-        tag.textContent = '복습할 단어';
-      }
-
-      if (state.vocabDirection === 'ko-to-native') {
-        document.getElementById('card-front-text').textContent = word.ko;
-        document.getElementById('card-back-meaning').textContent = word.native;
-      } else {
-        document.getElementById('card-front-text').textContent = word.native;
-        document.getElementById('card-back-meaning').textContent = word.ko;
-      }
-      document.getElementById('card-back-example').textContent = word.example || '';
-    }
-
-    function markCurrentWord(mastered) {
-      const list = getFilteredWords();
-      if (list.length === 0) return;
-
-      const word = list[currentCardIndex];
-      const target = state.words.find((w) => w.id === word.id);
-      if (target) target.mastered = mastered;
-      saveState();
-
-      isCardFlipped = false;
-      const nextList = getFilteredWords();
-      if (nextList.length > 0) {
-        if (state.vocabFilter === 'all' || (state.vocabFilter === 'review' && !mastered) || (state.vocabFilter === 'mastered' && mastered)) {
-          currentCardIndex = (currentCardIndex + 1) % nextList.length;
-        } else if (currentCardIndex >= nextList.length) {
-          currentCardIndex = 0;
-        }
-      } else {
-        currentCardIndex = 0;
-      }
-
-      renderVocabView();
-
-      if (mastered) {
-        showToast('외웠어요!');
-      } else {
-        showToast('다시 한 번 외워봐요!', REACTION_IMAGES.wrong.filename, REACTION_IMAGES.wrong.label);
-      }
-    }
-
-    // Add Word Modal
-    function openAddWordModal() {
-      document.getElementById('add-word-modal').classList.remove('hidden');
-      document.getElementById('new-word-ko').focus();
-    }
-
-    function closeAddWordModal() {
-      document.getElementById('add-word-modal').classList.add('hidden');
-    }
-
-    document.getElementById('add-word-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const ko = document.getElementById('new-word-ko').value.trim();
-      const native = document.getElementById('new-word-native').value.trim();
-      const example = document.getElementById('new-word-example').value.trim();
-      if (!ko || !native) return;
-
-      state.words.unshift({
-        id: 'w_' + Date.now(),
-        ko,
-        native,
-        example,
-        mastered: false
-      });
-      saveState();
-
-      document.getElementById('new-word-ko').value = '';
-      document.getElementById('new-word-native').value = '';
-      document.getElementById('new-word-example').value = '';
-      closeAddWordModal();
-      currentCardIndex = 0;
-      isCardFlipped = false;
-      renderVocabView();
-      showToast('단어가 추가되었어요');
-    });
-
-    // Word List Modal
-    function openWordListModal() {
-      renderWordListModal();
-      document.getElementById('word-list-modal').classList.remove('hidden');
-    }
-
-    function closeWordListModal() {
-      document.getElementById('word-list-modal').classList.add('hidden');
-    }
-
-    function renderWordListModal() {
-      const container = document.getElementById('word-list-container');
-      container.innerHTML = '';
-
-      if (state.words.length === 0) {
-        container.innerHTML = '<p class="text-center text-sm font-bold text-muted py-6">등록된 단어가 없어요</p>';
-        return;
-      }
-
-      state.words.forEach((w) => {
-        const row = document.createElement('div');
-        row.className = 'flex items-center justify-between gap-2 p-3 rounded-2xl bg-page border border-line';
-        row.innerHTML = `
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5">
-              <span class="font-extrabold text-sm text-ink">${w.ko}</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold ${w.mastered ? 'bg-violet-soft text-violet' : 'bg-pinky-soft text-pinky'}">
-                ${w.mastered ? '외움' : '복습'}
-              </span>
-            </div>
-            <p class="text-xs font-bold text-muted truncate">${w.native}</p>
-          </div>
-          <button type="button" onclick="deleteWord('${w.id}')"
-            class="px-2.5 py-1 rounded-xl bg-white border border-line text-xs font-extrabold text-pinky hover:border-pinky cursor-pointer shrink-0">
-            삭제
-          </button>
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    function deleteWord(id) {
-      state.words = state.words.filter((w) => w.id !== id);
-      saveState();
-      renderWordListModal();
-      renderVocabView();
-    }
-
-    // =========================================================
-    // GEAR ICON ADMIN MODE (PIN: 0000)
-    // =========================================================
-    function openAdminModal() {
-      document.getElementById('admin-pin-input').value = '';
-      document.getElementById('admin-pin-panel').classList.remove('hidden');
-      document.getElementById('admin-controls-panel').classList.add('hidden');
-      document.getElementById('admin-modal').classList.remove('hidden');
-      setTimeout(() => document.getElementById('admin-pin-input').focus(), 50);
-    }
-
-    function closeAdminModal() {
-      document.getElementById('admin-modal').classList.add('hidden');
-    }
-
-    function unlockAdmin() {
-      const pin = document.getElementById('admin-pin-input').value.trim();
-      if (pin === '0000') {
-        document.getElementById('admin-pin-panel').classList.add('hidden');
-        document.getElementById('admin-controls-panel').classList.remove('hidden');
-      } else {
-        showToast('PIN이 올바르지 않아요 (0000)');
-      }
-    }
-
-    document.getElementById('admin-pin-input').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') unlockAdmin();
-    });
-
-    function adminUnlockToday() {
-      const todayKst = getKstDateString();
-      state.grapes = state.grapes.map((d, i) => (d === todayKst ? `unlocked_${Date.now()}_${i}` : d));
-      saveState();
-      renderGrapeBoard();
-      showToast('오늘 제한이 해제되었어요');
-    }
-
-    function adminAddGrape() {
-      if (state.grapes.length >= 20) return;
-      state.grapes.push(`admin_${Date.now()}`);
-      saveState();
-      renderGrapeBoard(state.grapes.length - 1);
-      if (state.grapes.length >= 20) {
-        closeAdminModal();
-        openCelebrationModal();
-      }
-    }
-
-    function adminRemoveGrape() {
-      if (state.grapes.length === 0) return;
-      state.grapes.pop();
-      saveState();
-      renderGrapeBoard();
-    }
-
-    function adminFillAllGrapes() {
-      while (state.grapes.length < 20) {
-        state.grapes.push(`test_${state.grapes.length}`);
-      }
-      saveState();
-      renderGrapeBoard();
-      closeAdminModal();
-      openCelebrationModal();
-    }
-
-    function adminResetAllData() {
-      localStorage.removeItem(STORAGE_KEY);
-      state = {
-        user: null,
-        grapes: [],
-        completedBunches: 0,
-        words: JSON.parse(JSON.stringify(DEFAULT_WORDS)),
-        activeTab: 'grape',
-        vocabFilter: 'review',
-        vocabDirection: 'ko-to-native'
-      };
-      closeAdminModal();
-      closeCelebrationModal();
-      renderApp();
-      showToast('전체 초기화 완료');
-    }
-
-    // =========================================================
-    // 20-GRAPE CELEBRATION CANVAS (Purple / Pink / Gold)
-    // =========================================================
-    let celebAnimId = null;
-    let fireworks = [];
-    let confetti = [];
-    let lastBurst = 0;
-
-    function renderCelebrationAvatars() {
-      if (state.user) {
-        const meta = SELECTABLE_AVATARS.find((a) => a.filename === state.user.avatarFilename) || SELECTABLE_AVATARS[0];
-        renderYusaengImageInto(document.getElementById('celebration-user-avatar'), meta.filename, meta.label, false);
-        document.getElementById('celebration-name').textContent = state.user.name;
-      }
-      renderYusaengImageInto(
-        document.getElementById('celebration-jump-avatar'),
-        REACTION_IMAGES.celebrate.filename,
-        REACTION_IMAGES.celebrate.label,
-        false
-      );
-    }
-
-    function openCelebrationModal() {
-      renderCelebrationAvatars();
-      document.getElementById('celebration-modal').classList.remove('hidden');
-      startCelebration();
-    }
-
-    function closeCelebrationModal() {
-      document.getElementById('celebration-modal').classList.add('hidden');
-      stopCelebration();
-    }
-
-    function spawnBurst(x, y) {
-      const colors = ['#8B5CF6', '#EC4899', '#F472B6', '#C4B5FD', '#FBBF24', '#FDE047'];
-      for (let i = 0; i < 34; i++) {
-        const angle = (Math.PI * 2 * i) / 34;
-        const speed = 2.2 + Math.random() * 4.2;
-        fireworks.push({
-          x,
-          y,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          size: 2.5 + Math.random() * 2.5,
-          alpha: 1
-        });
-      }
-    }
-
-    function startCelebration() {
-      const canvas = document.getElementById('celebration-canvas');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const colors = ['#8B5CF6', '#EC4899', '#F472B6', '#C4B5FD', '#FBBF24'];
-      fireworks = [];
-      confetti = Array.from({ length: 95 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        w: 7 + Math.random() * 6,
-        h: 4 + Math.random() * 4,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        vy: 2 + Math.random() * 3,
-        vx: (Math.random() - 0.5) * 1.6,
-        rot: Math.random() * 360,
-        vRot: (Math.random() - 0.5) * 9
-      }));
-
-      spawnBurst(canvas.width * 0.28, canvas.height * 0.26);
-      spawnBurst(canvas.width * 0.72, canvas.height * 0.26);
-      lastBurst = performance.now();
-
-      if (celebAnimId) cancelAnimationFrame(celebAnimId);
-      animateCelebration(performance.now());
-    }
-
-    function animateCelebration(now) {
-      const canvas = document.getElementById('celebration-canvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (now - lastBurst > 850) {
-        spawnBurst(canvas.width * (0.2 + Math.random() * 0.6), canvas.height * (0.15 + Math.random() * 0.35));
-        lastBurst = now;
-      }
-
-      confetti.forEach((c) => {
-        c.y += c.vy;
-        c.x += c.vx;
-        c.rot += c.vRot;
-        if (c.y > canvas.height + 20) {
-          c.y = -15;
-          c.x = Math.random() * canvas.width;
-        }
-        ctx.save();
-        ctx.translate(c.x, c.y);
-        ctx.rotate((c.rot * Math.PI) / 180);
-        ctx.fillStyle = c.color;
-        ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
-        ctx.restore();
-      });
-
-      for (let i = fireworks.length - 1; i >= 0; i--) {
-        const p = fireworks[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.06;
-        p.alpha -= 0.018;
-        if (p.alpha <= 0) {
-          fireworks.splice(i, 1);
-          continue;
-        }
-        ctx.save();
-        ctx.globalAlpha = p.alpha;
-        ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-
-      celebAnimId = requestAnimationFrame(animateCelebration);
-    }
-
-    function stopCelebration() {
-      if (celebAnimId) {
-        cancelAnimationFrame(celebAnimId);
-        celebAnimId = null;
-      }
-    }
-
-    // =========================================================
-    // Clean Inline Toast (Supports Reaction Yusaeng Image)
-    // =========================================================
-    function showToast(msg, reactionFilename = null, reactionLabel = '') {
-      const container = document.getElementById('toast-container');
-      const el = document.createElement('div');
-      el.className = 'flex items-center gap-2.5 bg-white text-ink text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-2xl shadow-lg border-2 border-pinky soft-appear';
-
-      if (reactionFilename) {
-        const thumb = document.createElement('div');
-        thumb.className = 'w-9 h-9 rounded-full border border-pinky-border bg-white overflow-hidden shrink-0 flex items-center justify-center';
-        renderYusaengImageInto(thumb, reactionFilename, reactionLabel, false);
-        el.appendChild(thumb);
-      }
-
-      const text = document.createElement('span');
-      text.textContent = msg;
-      el.appendChild(text);
-
-      container.appendChild(el);
-      setTimeout(() => el.remove(), 2200);
-    }
-
-    // =========================================================
-    // Init
-    // =========================================================
-    window.addEventListener('resize', () => {
-      if (!document.getElementById('celebration-modal').classList.contains('hidden')) {
-        const canvas = document.getElementById('celebration-canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-    });
-
-    window.onload = function () {
-      loadState();
-      renderApp();
-    };
-  </script>
+    fb.classList.add('no');
+    fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:44px;height:44px;object-fit:contain;"><div>오답! 정답: <strong>${q.options[q.answer]}</strong><br>${q.explanation}</div></div>`;
+  }
+  document.getElementById('quizNextBtn').classList.remove('hidden');
+}
+
+function nextQuizQuestion() {
+  if (++state.quizIdx < state.quizQueue.length) renderQuizQ();
+  else {
+    const total = (state.quizScore.vocab||0)+(state.quizScore.grammar||0)+(state.quizScore.reading||0);
+    const pct = Math.round((total/state.quizQueue.length)*100);
+    document.getElementById('quizActive').classList.add('hidden');
+    document.getElementById('quizResult').classList.remove('hidden');
+    document.getElementById('resScoreText').textContent = `${total} / ${state.quizQueue.length} (${pct}점)`;
+    document.getElementById('resBreakdown').textContent = '틀린 어휘는 단어 카드에 자동 저장되었습니다.';
+    document.getElementById('wrongReviewList').innerHTML = state.quizWrongs.map(w =>
+      `<div style="background:var(--surface2);padding:10px;border-radius:12px;margin-bottom:6px;font-size:12px;"><strong>Q.</strong> ${w.q}<br><strong style="color:var(--purple);">정답:</strong> ${w.a}</div>`
+    ).join('');
+    if (state.user.lastGrapeDate !== getKstDate()) claimDailyGrape();
+  }
+}
+function resetQuizUI() { document.getElementById('quizResult').classList.add('hidden'); document.getElementById('quizSetup').classList.remove('hidden'); }
+
+/* ===== ADMIN (PW: 1225) ===== */
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openAdminAuth() { document.getElementById('adminPwInput').value = ''; openModal('adminAuthModal'); }
+function verifyAdmin() {
+  if (document.getElementById('adminPwInput').value === '1225') {
+    closeModal('adminAuthModal');
+    document.getElementById('gasUrlInput').value = state.gasUrl;
+    document.getElementById('adminStudentsTbody').innerHTML = state.students.map(s =>
+      `<tr><td>${s.id}</td><td>${s.name}</td><td>${s.grapes||0}</td><td>${s.avgScore||0}점</td></tr>`
+    ).join('') || '<tr><td colspan="4" style="text-align:center;">학생 없음</td></tr>';
+    openModal('adminModal');
+  } else toast('비밀번호가 틀렸습니다.');
+}
+function adminUnlockToday() { state.user.lastGrapeDate = ''; saveUser(); renderHome(); toast('오늘 포도알 제한 해제됨'); }
+function adminTestCeleb() { closeModal('adminModal'); triggerCelebration(); }
+function adminAddGrape(n) { state.user.grapes = Math.max(0, Number(state.user.grapes||0) + n); saveUser(); renderHome(); toast(`포도알 ${state.user.grapes}개`); }
+function saveGasUrl() { state.gasUrl = document.getElementById('gasUrlInput').value.trim(); localStorage.setItem('skku3_gas_url', state.gasUrl); toast('URL 저장 완료'); }
+
+init();
+</script>
 </body>
 </html>
