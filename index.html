@@ -21,7 +21,6 @@
   input, select, textarea { font-family: inherit; background: #FFF; color: var(--text); border: 2px solid var(--border); border-radius: 14px; padding: 10px 14px; width: 100%; font-size: 14px; font-weight: 600; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--purple); }
 
-  /* 3D Buttons */
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 16px; border-radius: 16px; font-weight: 800; font-size: 14px; transition: transform 0.08s; user-select: none; }
   .btn:active { transform: translateY(3px); box-shadow: none !important; }
   .btn-primary { background: var(--purple); color: #FFF; box-shadow: 0 4px 0 var(--purple-dark); }
@@ -32,7 +31,6 @@
   .btn-full { width: 100%; }
   .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 12px; }
 
-  /* Header */
   .topbar { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 2px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
   .brand { font-weight: 900; font-size: 15px; display: flex; align-items: center; gap: 8px; color: var(--brown); }
   .avatar-mini { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--purple); background: #FFF; cursor: pointer; }
@@ -54,6 +52,7 @@
   .avatar-opt { border: 2px solid var(--border); border-radius: 14px; padding: 4px; background: #FFF; display: flex; justify-content: center; }
   .avatar-opt img { width: 48px; height: 48px; object-fit: contain; }
   .avatar-opt.selected { border-color: var(--pink); background: var(--pink-soft); transform: scale(1.06); }
+  .auth-footer { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 700; }
 
   /* Bottom Nav */
   .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(255,255,255,0.97); border-top: 2px solid var(--border); display: flex; justify-content: space-around; padding: 8px 4px calc(8px + env(safe-area-inset-bottom)); }
@@ -61,25 +60,18 @@
   .nav-btn.active { color: var(--purple); background: var(--purple-soft); }
   .nav-icon { font-size: 19px; }
 
-  /* Home: Grape & Mission Stepper */
+  /* Home */
   .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
   .stat-box { background: #FFF; border: 2px solid var(--border); border-radius: 18px; padding: 12px; text-align: center; }
   .stat-val { font-size: 22px; font-weight: 900; color: var(--purple); font-family: "Nunito", sans-serif; }
   .stat-lbl { font-size: 11px; color: var(--muted); font-weight: 800; }
-
   .grape-wrap { display: flex; align-items: flex-end; justify-content: center; gap: 14px; flex-wrap: wrap; }
   .cheer-box { display: flex; flex-direction: column; align-items: center; max-width: 135px; }
   .bubble { background: var(--pink-soft); border: 2px solid var(--pink); color: var(--brown); padding: 7px 11px; border-radius: 14px; font-size: 12px; font-weight: 800; text-align: center; margin-bottom: 6px; }
   .cheer-img { width: 84px; height: 84px; object-fit: contain; }
 
-  /* 3-Step Mission Path */
   .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
-  .mission-card {
-    background: var(--surface2); border: 2px solid var(--border); border-radius: 18px;
-    padding: 14px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px;
-    transition: transform 0.1s;
-  }
-  .mission-card:active { transform: scale(0.97); }
+  .mission-card { background: var(--surface2); border: 2px solid var(--border); border-radius: 18px; padding: 14px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .mission-card.done { background: var(--purple-soft); border-color: var(--purple); }
   .m-step { font-size: 11px; font-weight: 900; color: var(--muted); font-family: "Nunito", sans-serif; }
   .mission-card.done .m-step { color: var(--purple); }
@@ -88,13 +80,12 @@
   .m-badge { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 99px; background: #FFF; color: var(--muted); }
   .mission-card.done .m-badge { background: var(--purple); color: #FFF; }
 
-  /* Lesson Pills (1~16과 모두 표시) */
+  /* Pills, Vocab, Quiz, Builder */
   .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
   .pill { padding: 6px 11px; border-radius: 14px; font-size: 12px; font-weight: 800; background: #FFF; color: var(--muted); border: 2px solid var(--border); }
   .pill.active { background: var(--purple); color: #FFF; border-color: var(--purple); }
   .pill.pink.active { background: var(--pink); border-color: var(--pink); }
 
-  /* Vocab & Flashcard */
   .vocab-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--border); }
   .vocab-row:last-child { border-bottom: none; }
   .vocab-ko { font-size: 15px; font-weight: 800; color: var(--brown); }
@@ -103,7 +94,6 @@
   .fc-card { border-radius: 22px; padding: 28px 18px; text-align: center; border: 2px solid var(--purple); background: linear-gradient(180deg, #FFF 0%, #F5F3FF 100%); box-shadow: 0 6px 0 var(--purple-soft); margin-bottom: 14px; }
   .fc-native { font-size: 24px; font-weight: 900; color: var(--brown); }
 
-  /* Builder & Quiz */
   .duo-prompt { background: var(--surface2); border: 2px solid var(--border); border-radius: 16px; padding: 15px; margin-bottom: 14px; }
   .duo-tag { font-size: 11px; font-weight: 900; color: var(--pink); margin-bottom: 5px; display: inline-block; }
   .duo-text { font-size: 16px; font-weight: 800; color: var(--brown); line-height: 1.5; white-space: pre-line; }
@@ -122,18 +112,17 @@
   .feedback-bar.ok { background: var(--purple-soft); border: 2px solid var(--purple); color: var(--purple-dark); }
   .feedback-bar.no { background: #FEE2E2; border: 2px solid var(--danger); color: #991B1B; }
 
-  /* Footer & Modals */
   .app-footer { text-align: center; padding: 18px 12px 90px; font-size: 12px; color: var(--muted); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .gear-btn { font-size: 16px; color: var(--muted); padding: 4px 6px; }
-  .modal-bg { position: fixed; inset: 0; z-index: 120; background: rgba(59,35,34,0.55); display: none; align-items: center; justify-content: center; padding: 16px; }
+  .modal-bg { position: fixed; inset: 0; z-index: 150; background: rgba(59,35,34,0.55); display: none; align-items: center; justify-content: center; padding: 16px; }
   .modal-bg.open { display: flex; }
   .modal-card { background: #FFF; border: 2px solid var(--border); border-radius: 24px; max-width: 520px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 20px; }
-  .toast { position: fixed; top: 68px; left: 50%; transform: translateX(-50%); z-index: 200; background: var(--brown); color: #FFF; padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 800; display: none; }
+  .toast { position: fixed; top: 68px; left: 50%; transform: translateX(-50%); z-index: 250; background: var(--brown); color: #FFF; padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 800; display: none; }
   .toast.show { display: block; }
   .hidden { display: none !important; }
   .celeb-modal { text-align: center; background: linear-gradient(180deg, #FFF 0%, #FDF2F8 100%); border: 3px solid var(--pink); }
   .celeb-banner { background: linear-gradient(90deg, var(--purple), var(--pink)); color: #FFF; padding: 12px 18px; border-radius: 16px; font-size: 18px; font-weight: 900; margin: 12px 0; }
-  #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 250; }
+  #confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 260; }
 </style>
 </head>
 <body>
@@ -141,7 +130,7 @@
 <canvas id="confettiCanvas"></canvas>
 <div id="toast" class="toast"></div>
 
-<!-- AUTH -->
+<!-- AUTH SCREEN -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-box">
     <div style="text-align:center; margin-bottom:14px;">
@@ -165,7 +154,8 @@
       <div class="field"><div class="avatar-grid" id="regAvatarGrid"></div></div>
       <button class="btn btn-pink btn-full" onclick="doRegister()">START</button>
     </div>
-    <div style="margin-top:18px; padding-top:12px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:center; gap:6px; font-size:12px; color:var(--muted); font-weight:700;">
+    <!-- 로그인/회원가입 화면 하단 이름 + 관리자 버튼 -->
+    <div class="auth-footer">
       <span>Developed and styled by Choi Jeehyun</span>
       <button class="gear-btn" onclick="openAdminAuth()" title="관리자 모드">⚙</button>
     </div>
@@ -192,7 +182,6 @@
       <div class="stat-box"><div class="stat-val" id="statGrapes">0 / 20</div><div class="stat-lbl">🍇 GRAPES</div></div>
     </div>
 
-    <!-- 오늘의 진도 선택 + 3단계 미션 -->
     <div class="card">
       <div class="card-hdr">
         <span>📌 TODAY'S LESSON</span>
@@ -202,27 +191,17 @@
 
       <div class="mission-grid">
         <button class="mission-card" id="ms-vocab" onclick="startTodayMission('vocab')">
-          <span class="m-step">STEP 1</span>
-          <span class="m-icon">🃏</span>
-          <span class="m-name">어휘</span>
-          <span class="m-badge">GO</span>
+          <span class="m-step">STEP 1</span><span class="m-icon">🃏</span><span class="m-name">어휘</span><span class="m-badge">GO</span>
         </button>
         <button class="mission-card" id="ms-quiz" onclick="startTodayMission('quiz')">
-          <span class="m-step">STEP 2</span>
-          <span class="m-icon">✅</span>
-          <span class="m-name">문법</span>
-          <span class="m-badge">GO</span>
+          <span class="m-step">STEP 2</span><span class="m-icon">✅</span><span class="m-name">문법</span><span class="m-badge">GO</span>
         </button>
         <button class="mission-card" id="ms-builder" onclick="startTodayMission('builder')">
-          <span class="m-step">STEP 3</span>
-          <span class="m-icon">🧩</span>
-          <span class="m-name">문장</span>
-          <span class="m-badge">GO</span>
+          <span class="m-step">STEP 3</span><span class="m-icon">🧩</span><span class="m-name">문장</span><span class="m-badge">GO</span>
         </button>
       </div>
     </div>
 
-    <!-- 포도송이 보드 -->
     <div class="card">
       <div class="card-hdr">
         <span>🍇 GRAPE BOARD</span>
@@ -251,23 +230,21 @@
     </div>
   </section>
 
-  <!-- FLASHCARD QUIZ TAB (모국어 → 한국어 4지선다) -->
+  <!-- FLASHCARD QUIZ TAB -->
   <section id="tab-flashcard" class="hidden">
     <div class="card">
       <div class="card-hdr">
         <span>🃏 VOCAB QUIZ (<span id="fcProgressTxt">0/3</span>)</span>
         <button class="btn btn-secondary btn-sm" onclick="goTab('vocab')">★ LIST</button>
       </div>
-      <div class="fc-card">
-        <div class="fc-native" id="fcNativeWord"></div>
-      </div>
+      <div class="fc-card"><div class="fc-native" id="fcNativeWord"></div></div>
       <div id="fcOptions"></div>
       <div id="fcFeedback" class="feedback-bar hidden"></div>
       <button id="fcNextBtn" class="btn btn-primary btn-full hidden" style="margin-top:10px;" onclick="nextFcQuestion()">NEXT →</button>
     </div>
   </section>
 
-  <!-- GRAMMAR & FOCUS QUIZ TAB -->
+  <!-- GRAMMAR QUIZ TAB -->
   <section id="tab-quiz" class="hidden">
     <div id="quizSetup">
       <div class="card">
@@ -276,11 +253,9 @@
         <button class="btn btn-primary btn-full" onclick="startQuiz()">START</button>
       </div>
     </div>
-
     <div id="quizActive" class="card hidden">
       <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--muted); font-weight:800; margin-bottom:6px;">
-        <span id="quizSectionTag">GRAMMAR</span>
-        <span id="quizCounter">1 / 5</span>
+        <span id="quizSectionTag">GRAMMAR</span><span id="quizCounter">1 / 5</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="quizProgress"></div></div>
       <div id="quizPassage" class="duo-prompt hidden"><div class="duo-text" id="quizPassageText" style="font-size:14px;"></div></div>
@@ -289,7 +264,6 @@
       <div id="quizFeedback" class="feedback-bar hidden"></div>
       <button id="quizNextBtn" class="btn btn-primary btn-full hidden" style="margin-top:12px;" onclick="nextQuizQuestion()">NEXT →</button>
     </div>
-
     <div id="quizResult" class="card hidden" style="text-align:center;">
       <img src="성균관대_01_2.jpg" style="width:90px; height:90px; object-fit:contain;">
       <div style="font-size:22px; font-weight:900; color:var(--purple);" id="resScoreText"></div>
@@ -313,7 +287,6 @@
       <div class="answer-zone" id="answerZone"></div>
       <div class="chip-bank" id="chipBank"></div>
       <div style="display:flex; gap:10px;">
-        <!-- 초기화 글자 대신 깔끔한 화살표 아이콘 -->
         <button class="btn btn-icon" onclick="clearAnswerZone()" title="Reset">↺</button>
         <button class="btn btn-primary" style="flex:1;" onclick="checkSentence()">CHECK</button>
       </div>
@@ -368,55 +341,61 @@
   </div>
 </div>
 
-<!-- ADMIN QUESTION FACTORY MODAL -->
+<!-- ADMIN LIVE MANAGER MODAL (Google Sheets 실시간 저장) -->
 <div id="adminModal" class="modal-bg">
   <div class="modal-card">
-    <div class="card-hdr"><span>⚙ 관리자 · 문제 공장</span><button class="btn btn-secondary btn-sm" onclick="closeModal('adminModal')">✕</button></div>
+    <div class="card-hdr">
+      <span>⚙ 관리자 · 실시간 문제 관리</span>
+      <button class="btn btn-secondary btn-sm" onclick="closeModal('adminModal')">✕</button>
+    </div>
 
-    <!-- 테스트 도구 -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
       <button class="btn btn-secondary btn-sm" onclick="adminResetMission()">오늘 미션 초기화</button>
       <button class="btn btn-pink btn-sm" onclick="closeModal('adminModal');triggerCelebration();">20알 축하 테스트</button>
       <button class="btn btn-primary btn-sm" onclick="adminAddGrape(1)">포도알 +1</button>
       <button class="btn btn-secondary btn-sm" onclick="adminAddGrape(-1)">포도알 -1</button>
     </div>
 
-    <!-- AI 출제 프롬프트 생성기 -->
-    <div style="background:var(--surface2); padding:14px; border-radius:16px; margin-bottom:14px;">
-      <div style="font-size:13px; font-weight:900; color:var(--purple); margin-bottom:8px;">1. AI 변형 문제 프롬프트 자동 복사</div>
+    <!-- 1. AI 프롬프트 생성 -->
+    <div style="background:var(--surface2); padding:14px; border-radius:16px; margin-bottom:12px;">
+      <div style="font-size:13px; font-weight:900; color:var(--purple); margin-bottom:8px;">1. AI 변형 문제 프롬프트 복사</div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
         <select id="admTargetType">
-          <option value="quiz">문법·읽기 객관식 (Quiz)</option>
-          <option value="builder">문장 만들기 배열 (Builder)</option>
+          <option value="quiz">문법·읽기 객관식</option>
+          <option value="builder">문장 만들기 배열</option>
         </select>
         <select id="admCatSelect">
           <option value="간접화법-평서">간접화법-평서</option>
           <option value="간접화법-의문">간접화법-의문</option>
+          <option value="간접화법-명령">간접화법-명령</option>
+          <option value="간접화법-청유">간접화법-청유</option>
           <option value="간접화법-축약">간접화법-축약</option>
           <option value="피동사">피동사</option>
           <option value="사동사">사동사</option>
+          <option value="더니/았었더니">더니/았었더니</option>
           <option value="대화빈칸">대화빈칸</option>
-          <option value="틀린곳찾기">틀린곳찾기</option>
         </select>
       </div>
-      <button class="btn btn-brown btn-sm btn-full" onclick="copyAiPrompt()">📋 AI 출제 프롬프트 복사 (Gemini에 붙여넣기)</button>
+      <button class="btn btn-brown btn-sm btn-full" onclick="copyAiPrompt()">📋 AI 프롬프트 복사</button>
     </div>
 
-    <!-- JSON 탑재 & 다운로드 -->
+    <!-- 2. JSON 붙여넣기 → 시트 바로 저장 -->
     <div style="background:var(--surface2); padding:14px; border-radius:16px;">
-      <div style="font-size:13px; font-weight:900; color:var(--pink); margin-bottom:8px;">2. 생성된 JSON 붙여넣기 & GitHub용 저장</div>
-      <textarea id="admJsonInput" rows="4" placeholder="Gemini가 만들어 준 JSON 배열 [...] 을 여기에 붙여넣으세요"></textarea>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
-        <button class="btn btn-primary btn-sm" onclick="importAdminJson('quiz')">문법 퀴즈에 추가</button>
-        <button class="btn btn-pink btn-sm" onclick="importAdminJson('builder')">문장 만들기에 추가</button>
-        <button class="btn btn-secondary btn-sm" onclick="downloadJson('quiz')">⬇ skku3_quiz.json</button>
-        <button class="btn btn-secondary btn-sm" onclick="downloadJson('builder')">⬇ skku3_builder.json</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:13px; font-weight:900; color:var(--pink);">2. JSON 바로 반영 (구글 시트 저장)</span>
+        <span id="admCountInfo" style="font-size:11px; color:var(--muted); font-weight:800;"></span>
+      </div>
+      <textarea id="admJsonInput" rows="5" placeholder="JSON 배열 [...] 을 붙여넣고 아래 버튼을 누르세요"></textarea>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+        <button class="btn btn-primary btn-sm" onclick="saveToSheet('quiz')">☁️ 문법 퀴즈 저장</button>
+        <button class="btn btn-pink btn-sm" onclick="saveToSheet('builder')">☁️ 문장 만들기 저장</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwj1ORQctq6plSpZKCfC8AQheVaG4fekEgcCH-94csQ3Wbm7DdV9f1VtnyUfmYdxM6-Yg/exec';
 const AVATARS = ['성균관대_33.jpg','성균관대_34.jpg','성균관대_35_2.jpg','성균관대_36_2.jpg','성균관대_37.jpg','성균관대_01_2.jpg','성균관대_02_2.jpg'];
 const LANGUAGES = [
   {code:'en',label:'English'},{code:'zh-CN',label:'中文'},{code:'ja',label:'日本語'},{code:'vi',label:'Tiếng Việt'},
@@ -442,32 +421,28 @@ const LESSONS = [
   {id:16,title:"문화 차이",vocab:[["손이 크다","generous","出手大方","hào phóng","気前がいい"],["발이 넓다","wide network","人脉广","quen biết rộng","顔が広い"],["눈이 높다","high standards","眼光高","mắt cao","目が高い"],["편견","prejudice","偏见","định kiến","偏見"],["인심","generosity","人情味","tình người","人情"]]}
 ];
 
-/* 신규 생성 변형 문제 (유인물 원문과 겹치지 않는 오리지널 3급 문제) */
 const DEFAULT_QUIZ = [
-  {lesson:1, category:"간접화법-평서", question:"가: 지훈 씨가 이번 주말에 뭐 한대요?\n나: 친구들과 사진 동아리 출사를 (   ) 했어요.", options:["간다고","가다고","가는다고","갔는다고"], answer:0, explanation:"받침 없는 동사 '가다' + '-ㄴ다고 하다' → 간다고."},
-  {lesson:2, category:"간접화법-의문", question:"면접관이 저에게 이 회사에 왜 (   ) 물었어요.", options:["지원했냐고","지원했다고","지원하라고","지원하자고"], answer:0, explanation:"질문 간접화법 과거형은 '-았/었냐고 묻다'."},
-  {lesson:7, category:"피동사", question:"공사장 소리가 너무 커서 안내 방송이 잘 안 (   ).", options:["들려요","들어요","들려줘요","듣혀요"], answer:0, explanation:"'듣다'의 피동사는 '들리다'입니다."},
-  {lesson:7, category:"피동사", question:"다음 중 문법적으로 틀린 문장을 고르세요.", options:["갑자기 문이 저절로 닫혔어요.","저 멀리 남산 타워가 잘 보여요.","오늘 새 신발이 아주 잘 팔아요.","프린터에 종이가 걸렸어요."], answer:2, explanation:"'팔아요'가 아니라 피동사 '팔려요'가 맞습니다."},
-  {lesson:8, category:"간접화법-축약", question:"가: 내일 등산 모임에 다들 온대요?\n나: 아니요, 비가 올 것 같아서 다음 주로 (   ).", options:["미루재요","미루냬요","미루대요","미루래요"], answer:0, explanation:"청유('-자고 해요')의 축약형은 '-재요'입니다."},
-  {lesson:11, category:"사동사", question:"추운 날에는 아이에게 두꺼운 외투를 꼭 (   ).", options:["입히세요","입으세요","입기세요","입이세요"], answer:0, explanation:"'입다'의 사동사는 '입히다'입니다."},
-  {lesson:11, category:"사동사", question:"강아지가 목이 마른 것 같아서 시원한 물을 (   ).", options:["마시게 했어요","마셔졌어요","먹혔어요","마시웠어요"], answer:0, explanation:"다른 대상에게 행동을 시킬 때 '-게 하다' 또는 사동사를 씁니다."},
-  {lesson:6, category:"대화빈칸", question:"가: 어제 왜 그렇게 일찍 잤어요?\n나: 아르바이트를 (   ) 너무 피곤했거든요.", options:["하느라고","하거든","하더니","할 뿐이라서"], answer:0, explanation:"앞 행동 때문에 피곤해진 부정적 결과의 원인은 '-느라고'입니다."}
+  {lesson:1,category:"간접화법-평서",question:"가: 지훈 씨가 이번 주말에 뭐 한대요?\n나: 친구들과 사진 동아리 출사를 (   ) 했어요.",options:["간다고","가다고","가는다고","갔는다고"],answer:0,explanation:"받침 없는 동사 '가다' + '-ㄴ다고 하다' → 간다고."},
+  {lesson:2,category:"간접화법-의문",question:"면접관이 저에게 이 회사에 왜 (   ) 물었어요.",options:["지원했냐고","지원했다고","지원하라고","지원하자고"],answer:0,explanation:"질문 간접화법 과거형은 '-았/었냐고 묻다'."},
+  {lesson:7,category:"피동사",question:"공사장 소리가 너무 커서 안내 방송이 잘 안 (   ).",options:["들려요","들어요","들려줘요","듣혀요"],answer:0,explanation:"'듣다'의 피동사는 '들리다'입니다."},
+  {lesson:8,category:"간접화법-축약",question:"가: 내일 등산 모임에 다들 온대요?\n나: 아니요, 비가 올 것 같아서 다음 주로 (   ).",options:["미루재요","미루냬요","미루대요","미루래요"],answer:0,explanation:"청유('-자고 해요')의 축약형은 '-재요'입니다."},
+  {lesson:11,category:"사동사",question:"추운 날에는 아이에게 두꺼운 외투를 꼭 (   ).",options:["입히세요","입으세요","입기세요","입이세요"],answer:0,explanation:"'입다'의 사동사는 '입히다'입니다."}
 ];
 
 const DEFAULT_BUILDER = [
-  {lesson:1, category:"간접화법-평서", prompt:'(지민 → 수진)\n"다음 주부터 봉사 동아리에 나가요."', tokens:["지민 씨가","수진 씨에게","다음 주부터","봉사 동아리에","나간다고","했어요."], dist:["나가다고","나가는다고","수진 씨가","봉사 동아리를"]},
-  {lesson:2, category:"간접화법-의문", prompt:'(선생님 → 학생)\n"적성검사 결과가 마음에 들어요?"', tokens:["선생님께서","학생에게","적성검사 결과가","마음에 드냐고","물으셨어요."], dist:["마음에 든다고","마음에 들으냐고","학생이","적성검사 결과를"]},
-  {lesson:7, category:"피동사", prompt:'능동 → 피동 바꾸기\n"시력이 좋아져서 칠판 글씨를 잘 봐요."', tokens:["시력이 좋아져서","칠판 글씨가","잘","보여요."], dist:["칠판 글씨를","봐요.","보아져요.","보여줘요."]},
-  {lesson:8, category:"간접화법-축약", prompt:'(민수 → 나)\n"내일 오후에 눈이 많이 올 거예요."', tokens:["민수 씨가","내일 오후에","눈이 많이","올 거래요."], dist:["온대요.","올 거냬요.","올 거재요.","눈을 많이"]},
-  {lesson:11, category:"사동사", prompt:'사동 표현으로 바꾸기\n"동생이 웃다" (내가 재미있는 이야기를 했다)', tokens:["내가","재미있는 이야기를 해서","동생을","웃겼어요."], dist:["동생이","웃었어요.","웃혔어요.","웃어졌어요."]}
+  {lesson:1,category:"간접화법-평서",prompt:'(지민 → 수진)\n"다음 주부터 봉사 동아리에 나가요."',tokens:["지민 씨가","수진 씨에게","다음 주부터","봉사 동아리에","나간다고","했어요."],dist:["나가다고","나가는다고","수진 씨가","봉사 동아리를"]},
+  {lesson:2,category:"간접화법-의문",prompt:'(선생님 → 학생)\n"적성검사 결과가 마음에 들어요?"',tokens:["선생님께서","학생에게","적성검사 결과가","마음에 드냐고","물으셨어요."],dist:["마음에 든다고","마음에 들으냐고","학생이","적성검사 결과를"]},
+  {lesson:7,category:"피동사",prompt:'능동 → 피동 바꾸기\n"시력이 좋아져서 칠판 글씨를 잘 봐요."',tokens:["시력이 좋아져서","칠판 글씨가","잘","보여요."],dist:["칠판 글씨를","봐요.","보아져요.","보여줘요."]},
+  {lesson:8,category:"간접화법-축약",prompt:'(민수 → 나)\n"내일 오후에 눈이 많이 올 거예요."',tokens:["민수 씨가","내일 오후에","눈이 많이","올 거래요."],dist:["온대요.","올 거냬요.","올 거재요.","눈을 많이"]},
+  {lesson:11,category:"사동사",prompt:'사동 표현으로 바꾸기\n"동생이 웃다" (내가 재미있는 이야기를 했다)',tokens:["내가","재미있는 이야기를 해서","동생을","웃겼어요."],dist:["동생이","웃었어요.","웃혔어요.","웃어졌어요."]}
 ];
 
 let state = {
   user: JSON.parse(localStorage.getItem('skku3_user') || 'null'),
   students: JSON.parse(localStorage.getItem('skku3_students') || '[]'),
   flashcards: JSON.parse(localStorage.getItem('skku3_fc') || '[]'),
-  quizBank: JSON.parse(localStorage.getItem('skku3_quiz_custom') || 'null') || [...DEFAULT_QUIZ],
-  builderBank: JSON.parse(localStorage.getItem('skku3_builder_custom') || 'null') || [...DEFAULT_BUILDER],
+  quizBank: [...DEFAULT_QUIZ],
+  builderBank: [...DEFAULT_BUILDER],
   regAvatar: AVATARS[0],
   todayLesson: 1, vocabLesson: 1, focusCat: 'ALL', builderCat: 'ALL',
   builderIdx: 0, selectedChips: [],
@@ -476,7 +451,7 @@ let state = {
 };
 
 function getKstDate() { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date()); }
-function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2200); }
+function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2400); }
 
 async function init() {
   const lh = LANGUAGES.map(l => `<option value="${l.code}">${l.label}</option>`).join('');
@@ -484,9 +459,7 @@ async function init() {
   document.getElementById('langPicker').innerHTML = lh;
   renderAvatarGrid('regAvatarGrid', state.regAvatar, a => { state.regAvatar = a; document.getElementById('authHeroImg').src = a; renderAvatarGrid('regAvatarGrid', a, arguments.callee); });
 
-  // GitHub에 별도 JSON 파일이 올라와 있으면 자동 로드
-  try { const r1 = await fetch('./skku3_quiz.json'); if (r1.ok) state.quizBank = await r1.json(); } catch(e){}
-  try { const r2 = await fetch('./skku3_builder.json'); if (r2.ok) state.builderBank = await r2.json(); } catch(e){}
+  await loadFromSheet();
 
   if (state.user) {
     document.getElementById('authScreen').classList.add('hidden');
@@ -495,6 +468,16 @@ async function init() {
     state.vocabLesson = state.todayLesson;
     renderAll();
   }
+}
+
+async function loadFromSheet() {
+  try {
+    const res = await fetch(GAS_URL).then(r => r.json());
+    if (res.ok && res.data) {
+      if (Array.isArray(res.data.quiz) && res.data.quiz.length) state.quizBank = res.data.quiz;
+      if (Array.isArray(res.data.builder) && res.data.builder.length) state.builderBank = res.data.builder;
+    }
+  } catch (e) {}
 }
 
 function renderAvatarGrid(elId, sel, onPick) {
@@ -514,6 +497,7 @@ function switchAuthTab(m) {
   document.getElementById('registerForm').classList.toggle('hidden', m!=='register');
 }
 function saveUser() {
+  if (!state.user) return;
   localStorage.setItem('skku3_user', JSON.stringify(state.user));
   const i = state.students.findIndex(s => s.id === state.user.id);
   if (i >= 0) state.students[i] = state.user;
@@ -557,48 +541,39 @@ function renderAll() {
   renderHome(); renderPills(); renderVocabList(); renderFocusPills(); renderBuilderPills();
 }
 
-/* ===== TODAY LESSON & 3-STEP MISSION LOGIC ===== */
-function selectTodayLesson(id) {
-  state.todayLesson = id;
-  state.vocabLesson = id;
-  state.user.todayLesson = id;
-  saveUser();
-  renderHome(); renderPills();
-}
+/* ===== TODAY LESSON & MISSIONS ===== */
+function selectTodayLesson(id) { state.todayLesson = id; state.vocabLesson = id; state.user.todayLesson = id; saveUser(); renderHome(); renderPills(); }
 function startTodayMission(step) {
   if (step === 'vocab') { state.vocabLesson = state.todayLesson; goTab('flashcard'); }
   else if (step === 'quiz') { state.focusCat = 'TODAY'; goTab('quiz'); startQuiz(); }
   else if (step === 'builder') { state.builderCat = 'ALL'; goTab('builder'); }
 }
 function ensureTodayMissions() {
+  if (!state.user) return;
   const today = getKstDate();
   if (state.user.missionDate !== today) {
     state.user.missionDate = today;
     state.user.missions = { vocab: false, quiz: false, builder: false };
-    state.fcDone = 0; state.builderDone = 0;
-    saveUser();
+    state.fcDone = 0; state.builderDone = 0; saveUser();
   }
 }
 function completeMission(key) {
   ensureTodayMissions();
   if (state.user.missions[key]) return;
-  state.user.missions[key] = true;
-  saveUser();
+  state.user.missions[key] = true; saveUser();
   const m = state.user.missions;
   if (m.vocab && m.quiz && m.builder && state.user.lastGrapeDate !== getKstDate()) {
     state.user.lastGrapeDate = getKstDate();
     state.user.streak = Number(state.user.streak || 0) + 1;
     state.user.grapes = Number(state.user.grapes || 0) + 1;
-    saveUser();
-    toast('🎉 MISSION CLEAR! 🍇 +1');
+    saveUser(); toast('🎉 MISSION CLEAR! 🍇 +1');
     if (state.user.grapes % 20 === 0) triggerCelebration();
-  } else {
-    toast(`STEP CLEAR! ✓`);
-  }
+  } else toast('STEP CLEAR! ✓');
   renderHome();
 }
 
 function renderHome() {
+  if (!state.user) return;
   ensureTodayMissions();
   const g = Number(state.user.grapes || 0), inB = g % 20, b = Math.floor(g / 20);
   document.getElementById('statStreak').textContent = state.user.streak || 0;
@@ -606,10 +581,7 @@ function renderHome() {
   document.getElementById('bunchCount').textContent = `${b} BUNCH`;
   const curL = LESSONS.find(l => l.id === state.todayLesson);
   document.getElementById('todayLessonBadge').textContent = `${curL.id}과 ${curL.title}`;
-
-  document.getElementById('homeLessonPills').innerHTML = LESSONS.map(l =>
-    `<button class="pill ${l.id===state.todayLesson?'active':''}" onclick="selectTodayLesson(${l.id})">${l.id}과</button>`
-  ).join('');
+  document.getElementById('homeLessonPills').innerHTML = LESSONS.map(l => `<button class="pill ${l.id===state.todayLesson?'active':''}" onclick="selectTodayLesson(${l.id})">${l.id}과</button>`).join('');
 
   const m = state.user.missions;
   ['vocab','quiz','builder'].forEach(k => {
@@ -629,7 +601,7 @@ function renderHome() {
 }
 
 function triggerCelebration() {
-  document.getElementById('celebUser').textContent = `${state.user.name} · 20 GRAPES`;
+  document.getElementById('celebUser').textContent = `${state.user ? state.user.name : 'Student'} · 20 GRAPES`;
   openModal('celebModal');
   const c = document.getElementById('confettiCanvas'), ctx = c.getContext('2d');
   c.width = window.innerWidth; c.height = window.innerHeight;
@@ -639,17 +611,9 @@ function triggerCelebration() {
   (function draw(){ ctx.clearRect(0,0,c.width,c.height); ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,p.r,p.r*1.4);}); if(++f<140) requestAnimationFrame(draw); else ctx.clearRect(0,0,c.width,c.height); })();
 }
 
-/* ===== VOCAB & FLASHCARD (모국어 → 한국어 4지선다) ===== */
-function renderPills() {
-  document.getElementById('vocabLessonPills').innerHTML = LESSONS.map(l => `<button class="pill ${l.id===state.vocabLesson?'active':''}" onclick="state.vocabLesson=${l.id};renderPills();renderVocabList();">${l.id}과</button>`).join('');
-}
-function getTr(v, lang) {
-  if (lang==='ko') return v[0];
-  if (lang==='zh-CN') return v[2]||v[1];
-  if (lang==='vi') return v[3]||v[1];
-  if (lang==='ja') return v[4]||v[1];
-  return v[1];
-}
+/* ===== VOCAB & FLASHCARD ===== */
+function renderPills() { document.getElementById('vocabLessonPills').innerHTML = LESSONS.map(l => `<button class="pill ${l.id===state.vocabLesson?'active':''}" onclick="state.vocabLesson=${l.id};renderPills();renderVocabList();">${l.id}과</button>`).join(''); }
+function getTr(v, lang) { return lang==='ko'?v[0]:lang==='zh-CN'?(v[2]||v[1]):lang==='vi'?(v[3]||v[1]):lang==='ja'?(v[4]||v[1]):v[1]; }
 function renderVocabList() {
   const L = LESSONS.find(x => x.id === state.vocabLesson);
   document.getElementById('vocabTitle').textContent = `${L.id}과 ${L.title}`;
@@ -658,22 +622,13 @@ function renderVocabList() {
   const list = L.vocab.filter(v => !q || v[0].includes(q) || getTr(v, lang).toLowerCase().includes(q));
   document.getElementById('vocabList').innerHTML = list.map(v => {
     const tr = getTr(v, lang), saved = state.flashcards.some(f => f.ko === v[0]);
-    return `<div class="vocab-row">
-      <div><div class="vocab-ko">${v[0]}</div><div class="vocab-tr">${tr}</div></div>
-      <div style="display:flex;gap:6px;">
-        <button class="btn btn-secondary btn-sm" onclick="toggleStar('${v[0].replace(/'/g,'')}', ${L.id})">${saved?'★':'☆'}</button>
-        <button class="btn btn-secondary btn-sm" onclick="speakKo('${v[0].replace(/'/g,'')}')">🔊</button>
-      </div>
-    </div>`;
+    return `<div class="vocab-row"><div><div class="vocab-ko">${v[0]}</div><div class="vocab-tr">${tr}</div></div><div style="display:flex;gap:6px;"><button class="btn btn-secondary btn-sm" onclick="toggleStar('${v[0].replace(/'/g,'')}', ${L.id})">${saved?'★':'☆'}</button><button class="btn btn-secondary btn-sm" onclick="speakKo('${v[0].replace(/'/g,'')}')">🔊</button></div></div>`;
   }).join('');
 }
 function toggleStar(ko, lessonId) {
   const i = state.flashcards.findIndex(f => f.ko === ko);
   if (i >= 0) state.flashcards.splice(i, 1);
-  else {
-    const v = LESSONS.find(l => l.id===lessonId).vocab.find(x => x[0]===ko);
-    state.flashcards.push({ ko, v });
-  }
+  else state.flashcards.push({ ko, v: LESSONS.find(l => l.id===lessonId).vocab.find(x => x[0]===ko) });
   localStorage.setItem('skku3_fc', JSON.stringify(state.flashcards));
   renderVocabList();
 }
@@ -681,17 +636,14 @@ function speakKo(t) { if (!('speechSynthesis' in window)) return; speechSynthesi
 
 function renderFlashcardQuiz() {
   document.getElementById('fcProgressTxt').textContent = `${Math.min(state.fcDone, 3)}/3`;
-  // 별표 단어가 있으면 우선 출제, 없으면 오늘의 과 어휘 출제
   const todayL = LESSONS.find(l => l.id === state.todayLesson);
   const pool = state.flashcards.length ? state.flashcards : todayL.vocab.map(v => ({ ko: v[0], v }));
   const item = pool[Math.floor(Math.random() * pool.length)];
   const lang = (state.user && state.user.lang) || 'en';
   document.getElementById('fcNativeWord').textContent = getTr(item.v, lang);
-
   const allKo = LESSONS.flatMap(l => l.vocab.map(x => x[0])).filter(k => k !== item.ko);
   const opts = [item.ko, ...allKo.sort(() => Math.random()-0.5).slice(0, 3)].sort(() => Math.random()-0.5);
   state._fcOpts = opts; state._fcAns = opts.indexOf(item.ko);
-
   document.getElementById('fcOptions').innerHTML = opts.map((o, i) => `<button class="opt-btn" id="fcopt_${i}" onclick="pickFcOpt(${i})">${i+1}. ${o}</button>`).join('');
   document.getElementById('fcFeedback').classList.add('hidden');
   document.getElementById('fcNextBtn').classList.add('hidden');
@@ -701,16 +653,12 @@ function pickFcOpt(idx) {
   const fb = document.getElementById('fcFeedback'); fb.classList.remove('hidden','ok','no');
   if (idx === state._fcAns) {
     document.getElementById('fcopt_'+idx).classList.add('correct');
-    fb.classList.add('ok'); fb.innerHTML = `⭕ ${state._fcOpts[idx]}`;
-    speakKo(state._fcOpts[idx]);
-    state.fcDone++;
-    document.getElementById('fcProgressTxt').textContent = `${Math.min(state.fcDone, 3)}/3`;
+    fb.classList.add('ok'); fb.innerHTML = `⭕ ${state._fcOpts[idx]}`; speakKo(state._fcOpts[idx]);
+    state.fcDone++; document.getElementById('fcProgressTxt').textContent = `${Math.min(state.fcDone, 3)}/3`;
     if (state.fcDone >= 3) completeMission('vocab');
   } else {
-    document.getElementById('fcopt_'+idx).classList.add('wrong');
-    document.getElementById('fcopt_'+state._fcAns).classList.add('correct');
-    fb.classList.add('no');
-    fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ → <strong>${state._fcOpts[state._fcAns]}</strong></div></div>`;
+    document.getElementById('fcopt_'+idx).classList.add('wrong'); document.getElementById('fcopt_'+state._fcAns).classList.add('correct');
+    fb.classList.add('no'); fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ → <strong>${state._fcOpts[state._fcAns]}</strong></div></div>`;
   }
   document.getElementById('fcNextBtn').classList.remove('hidden');
 }
@@ -719,23 +667,15 @@ function nextFcQuestion() { renderFlashcardQuiz(); }
 /* ===== FOCUS GRAMMAR QUIZ ===== */
 function renderFocusPills() {
   const cats = ['ALL', 'TODAY', ...new Set(state.quizBank.map(q => q.category).filter(Boolean))];
-  document.getElementById('focusCatPills').innerHTML = cats.map(c =>
-    `<button class="pill pink ${c===state.focusCat?'active':''}" onclick="state.focusCat='${c}';renderFocusPills();">${c==='TODAY'?state.todayLesson+'과':c}</button>`
-  ).join('');
+  document.getElementById('focusCatPills').innerHTML = cats.map(c => `<button class="pill pink ${c===state.focusCat?'active':''}" onclick="state.focusCat='${c}';renderFocusPills();">${c==='TODAY'?state.todayLesson+'과':c}</button>`).join('');
 }
 function startQuiz() {
   let pool = state.quizBank;
-  if (state.focusCat === 'TODAY') {
-    const byL = state.quizBank.filter(q => Number(q.lesson) === state.todayLesson);
-    pool = byL.length ? byL : state.quizBank;
-  } else if (state.focusCat !== 'ALL') {
-    pool = state.quizBank.filter(q => q.category === state.focusCat);
-  }
+  if (state.focusCat === 'TODAY') { const byL = state.quizBank.filter(q => Number(q.lesson) === state.todayLesson); pool = byL.length ? byL : state.quizBank; }
+  else if (state.focusCat !== 'ALL') pool = state.quizBank.filter(q => q.category === state.focusCat);
   state.quizQueue = [...pool].sort(() => Math.random()-0.5).slice(0, 8);
   state.quizIdx = 0; state.quizCorrect = 0; state.quizWrongs = [];
-  document.getElementById('quizSetup').classList.add('hidden');
-  document.getElementById('quizResult').classList.add('hidden');
-  document.getElementById('quizActive').classList.remove('hidden');
+  document.getElementById('quizSetup').classList.add('hidden'); document.getElementById('quizResult').classList.add('hidden'); document.getElementById('quizActive').classList.remove('hidden');
   renderQuizQ();
 }
 function renderQuizQ() {
@@ -747,31 +687,26 @@ function renderQuizQ() {
   if (q.passage) { document.getElementById('quizPassageText').textContent = q.passage; p.classList.remove('hidden'); } else p.classList.add('hidden');
   document.getElementById('quizQuestion').textContent = q.question;
   document.getElementById('quizOptions').innerHTML = q.options.map((o,i) => `<button class="opt-btn" id="opt_${i}" onclick="pickOpt(${i})">${i+1}. ${o}</button>`).join('');
-  document.getElementById('quizFeedback').classList.add('hidden');
-  document.getElementById('quizNextBtn').classList.add('hidden');
+  document.getElementById('quizFeedback').classList.add('hidden'); document.getElementById('quizNextBtn').classList.add('hidden');
 }
 function pickOpt(idx) {
   const q = state.quizQueue[state.quizIdx];
   document.querySelectorAll('#quizOptions .opt-btn').forEach(b => b.disabled = true);
   const fb = document.getElementById('quizFeedback'); fb.classList.remove('hidden','ok','no');
   if (idx === q.answer) {
-    document.getElementById('opt_'+idx).classList.add('correct');
-    state.quizCorrect++;
+    document.getElementById('opt_'+idx).classList.add('correct'); state.quizCorrect++;
     fb.classList.add('ok'); fb.innerHTML = `⭕ ${q.explanation || ''}`;
   } else {
-    document.getElementById('opt_'+idx).classList.add('wrong');
-    document.getElementById('opt_'+q.answer).classList.add('correct');
+    document.getElementById('opt_'+idx).classList.add('wrong'); document.getElementById('opt_'+q.answer).classList.add('correct');
     state.quizWrongs.push({ q: q.question, a: q.options[q.answer] });
-    fb.classList.add('no');
-    fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ <strong>${q.options[q.answer]}</strong><br>${q.explanation || ''}</div></div>`;
+    fb.classList.add('no'); fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ <strong>${q.options[q.answer]}</strong><br>${q.explanation || ''}</div></div>`;
   }
   document.getElementById('quizNextBtn').classList.remove('hidden');
 }
 function nextQuizQuestion() {
   if (++state.quizIdx < state.quizQueue.length) renderQuizQ();
   else {
-    document.getElementById('quizActive').classList.add('hidden');
-    document.getElementById('quizResult').classList.remove('hidden');
+    document.getElementById('quizActive').classList.add('hidden'); document.getElementById('quizResult').classList.remove('hidden');
     document.getElementById('resScoreText').textContent = `${state.quizCorrect} / ${state.quizQueue.length}`;
     document.getElementById('wrongReviewList').innerHTML = state.quizWrongs.map(w => `<div style="background:var(--surface2);padding:10px;border-radius:12px;margin-bottom:6px;font-size:12px;"><strong>Q.</strong> ${w.q}<br><strong style="color:var(--purple);">→ ${w.a}</strong></div>`).join('');
     completeMission('quiz');
@@ -782,9 +717,7 @@ function resetQuizUI() { document.getElementById('quizResult').classList.add('hi
 /* ===== SENTENCE BUILDER ===== */
 function renderBuilderPills() {
   const cats = ['ALL', ...new Set(state.builderBank.map(b => b.category).filter(Boolean))];
-  document.getElementById('builderCatPills').innerHTML = cats.map(c =>
-    `<button class="pill ${c===state.builderCat?'active':''}" onclick="state.builderCat='${c}';state.builderIdx=0;renderBuilderPills();renderSentenceBuilder();">${c}</button>`
-  ).join('');
+  document.getElementById('builderCatPills').innerHTML = cats.map(c => `<button class="pill ${c===state.builderCat?'active':''}" onclick="state.builderCat='${c}';state.builderIdx=0;renderBuilderPills();renderSentenceBuilder();">${c}</button>`).join('');
 }
 function renderSentenceBuilder() {
   const list = state.builderCat === 'ALL' ? state.builderBank : state.builderBank.filter(b => b.category === state.builderCat);
@@ -809,64 +742,64 @@ function addChip(id) { const f = state._tokens.find(c => c.id===id); if (f) { st
 function removeChip(id) { state.selectedChips = state.selectedChips.filter(c => c.id!==id); renderChips(); }
 function clearAnswerZone() { state.selectedChips = []; renderChips(); }
 function checkSentence() {
-  const ans = state.selectedChips.map(c => c.text).join(' ').trim();
-  const target = state._item.tokens.join(' ').trim();
+  const ans = state.selectedChips.map(c => c.text).join(' ').trim(), target = state._item.tokens.join(' ').trim();
   const fb = document.getElementById('builderFeedback'); fb.classList.remove('hidden','ok','no');
   if (ans === target) {
-    fb.classList.add('ok'); fb.innerHTML = `⭕ ${target}`;
-    speakKo(target);
-    state.builderDone++;
-    if (state.builderDone >= 2) completeMission('builder');
+    fb.classList.add('ok'); fb.innerHTML = `⭕ ${target}`; speakKo(target);
+    state.builderDone++; if (state.builderDone >= 2) completeMission('builder');
   } else {
-    fb.classList.add('no');
-    fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ → <strong>${target}</strong></div></div>`;
+    fb.classList.add('no'); fb.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><img src="성균관대_03.jpg" style="width:40px;height:40px;object-fit:contain;"><div>❌ → <strong>${target}</strong></div></div>`;
   }
 }
 function nextSentence() { state.builderIdx++; renderSentenceBuilder(); }
 
-/* ===== ADMIN QUESTION FACTORY (PW: 1225) ===== */
+/* ===== ADMIN LIVE MANAGER (Google Sheets) ===== */
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function openAdminAuth() { document.getElementById('adminPwInput').value = ''; openModal('adminAuthModal'); }
-function verifyAdmin() { if (document.getElementById('adminPwInput').value === '1225') { closeModal('adminAuthModal'); openModal('adminModal'); } else toast('PIN 오류'); }
-function adminResetMission() { state.user.missionDate=''; state.user.lastGrapeDate=''; state.fcDone=0; state.builderDone=0; saveUser(); renderHome(); toast('미션 초기화 완료'); }
-function adminAddGrape(n) { state.user.grapes = Math.max(0, Number(state.user.grapes||0)+n); saveUser(); renderHome(); toast(`🍇 ${state.user.grapes}`); }
+function verifyAdmin() {
+  if (document.getElementById('adminPwInput').value === '1225') {
+    closeModal('adminAuthModal');
+    document.getElementById('admCountInfo').textContent = `문법 ${state.quizBank.length} · 문장 ${state.builderBank.length}`;
+    openModal('adminModal');
+  } else toast('PIN 오류');
+}
+function adminResetMission() { if(!state.user) return toast('로그인 후 사용'); state.user.missionDate=''; state.user.lastGrapeDate=''; state.fcDone=0; state.builderDone=0; saveUser(); renderHome(); toast('미션 초기화 완료'); }
+function adminAddGrape(n) { if(!state.user) return toast('로그인 후 사용'); state.user.grapes = Math.max(0, Number(state.user.grapes||0)+n); saveUser(); renderHome(); toast(`🍇 ${state.user.grapes}`); }
 
 function copyAiPrompt() {
   const type = document.getElementById('admTargetType').value;
   const cat = document.getElementById('admCatSelect').value;
   const prompt = type === 'quiz'
-    ? `성균어학원 한국어 3급 [${cat}] 집중 훈련용 새로운 변형 객관식 문제 10개를 만들어 줘. 기존 유인물과 겹치지 않는 자연스러운 대화문/문장으로 작성하고, 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","question":"...","options":["보기1","보기2","보기3","보기4"],"answer":0,"explanation":"짧은 해설"}]`
-    : `성균어학원 한국어 3급 [${cat}] 문장 만들기 배열 문제 10개를 만들어 줘. 학생들이 헷갈릴 만한 불필요한 오답 블록(dist)을 문항당 4개씩 꼭 포함하고, 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","prompt":"(화자 → 청자)\\n\\"직접화법 문장\\"","tokens":["정답","어절","배열"],"dist":["오답1","오답2","오답3","오답4"]}]`;
+    ? `성균어학원 한국어 3급 [${cat}] 집중 훈련용 새로운 변형 객관식 문제 10개를 만들어 줘. 기존 유인물과 겹치지 않게 작성하고 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","question":"...","options":["보기1","보기2","보기3","보기4"],"answer":0,"explanation":"짧은 해설"}]`
+    : `성균어학원 한국어 3급 [${cat}] 문장 만들기 배열 문제 10개를 만들어 줘. 불필요한 오답 블록(dist) 4개씩 포함해서 아래 JSON 배열 형식만 출력해 줘:\n[{"lesson":1,"category":"${cat}","prompt":"(화자 → 청자)\\n\\"직접화법 문장\\"","tokens":["정답","어절","배열"],"dist":["오답1","오답2","오답3","오답4"]}]`;
   navigator.clipboard.writeText(prompt);
-  toast('AI 프롬프트 복사 완료! Gemini에 붙여넣으세요.');
+  toast('AI 프롬프트 복사 완료!');
 }
 
-function importAdminJson(target) {
+async function saveToSheet(key) {
+  let added;
   try {
-    const arr = JSON.parse(document.getElementById('admJsonInput').value.trim());
-    if (!Array.isArray(arr)) throw new Error();
-    if (target === 'quiz') {
-      state.quizBank = state.quizBank.concat(arr);
-      localStorage.setItem('skku3_quiz_custom', JSON.stringify(state.quizBank));
-      renderFocusPills();
-    } else {
-      state.builderBank = state.builderBank.concat(arr);
-      localStorage.setItem('skku3_builder_custom', JSON.stringify(state.builderBank));
-      renderBuilderPills();
-    }
-    document.getElementById('admJsonInput').value = '';
-    toast(`${arr.length}개 문제 추가 완료!`);
-  } catch(e) { toast('JSON 형식을 확인해 주세요.'); }
-}
+    added = JSON.parse(document.getElementById('admJsonInput').value.trim());
+    if (!Array.isArray(added)) throw new Error();
+  } catch (e) { return toast('JSON 배열 형식을 확인하세요.'); }
 
-function downloadJson(target) {
-  const data = target === 'quiz' ? state.quizBank : state.builderBank;
-  const name = target === 'quiz' ? 'skku3_quiz.json' : 'skku3_builder.json';
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type:'application/json'}));
-  a.download = name; a.click();
-  toast(`${name} 다운로드 완료`);
+  const merged = key === 'quiz' ? state.quizBank.concat(added) : state.builderBank.concat(added);
+  toast('구글 시트에 저장 중...');
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ pin: '1225', key, items: merged })
+    }).then(r => r.json());
+    if (!res.ok) return toast(res.error || '저장 실패');
+
+    if (key === 'quiz') { state.quizBank = merged; renderFocusPills(); }
+    else { state.builderBank = merged; renderBuilderPills(); }
+    document.getElementById('admJsonInput').value = '';
+    document.getElementById('admCountInfo').textContent = `문법 ${state.quizBank.length} · 문장 ${state.builderBank.length}`;
+    toast(`☁️ ${added.length}개 저장 & 전체 반영 완료!`);
+  } catch (e) { toast('시트 연결 오류 (배포 권한 확인)'); }
 }
 
 init();
