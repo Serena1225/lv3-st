@@ -31,14 +31,14 @@
   .btn-full { width: 100%; }
   .btn-sm { padding: 7px 12px; font-size: 12px; border-radius: 12px; }
 
-  .topbar { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 2px solid var(--border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+  .topbar { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 2px solid var(--border); padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; }
   .brand { font-weight: 900; font-size: 14px; display: flex; align-items: center; gap: 8px; color: var(--brown); }
-  .avatar-mini { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--purple); background: #FFF; cursor: pointer; }
-  .lang-select { width: auto; padding: 6px 10px; font-size: 12px; border-radius: 10px; }
+  .avatar-mini { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--purple); background: #FFF; cursor: pointer; }
+  .lang-select { width: auto; padding: 5px 9px; font-size: 12px; border-radius: 10px; }
 
-  .container { max-width: 680px; width: 100%; margin: 0 auto; padding: 16px 16px 96px; flex: 1; }
-  .card { background: var(--surface); border: 2px solid var(--border); border-radius: 24px; padding: 18px; margin-bottom: 14px; box-shadow: 0 6px 18px rgba(74,44,42,0.04); }
-  .card-hdr { font-size: 15px; font-weight: 900; margin: 0 0 12px; display: flex; justify-content: space-between; align-items: center; color: var(--brown); }
+  .container { max-width: 680px; width: 100%; margin: 0 auto; padding: 10px 12px 86px; flex: 1; }
+  .card { background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 12px 14px; margin-bottom: 10px; box-shadow: 0 4px 14px rgba(74,44,42,0.04); }
+  .card-hdr { font-size: 14px; font-weight: 900; margin: 0 0 8px; display: flex; justify-content: space-between; align-items: center; color: var(--brown); }
 
   /* Auth */
   .auth-screen { position: fixed; inset: 0; z-index: 100; background: linear-gradient(155deg, #FDF2F8 0%, #F5F3FF 100%); display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
@@ -55,50 +55,59 @@
   .auth-footer { margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 700; }
 
   /* Bottom Nav */
-  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(255,255,255,0.97); border-top: 2px solid var(--border); display: flex; justify-content: space-around; padding: 8px 2px calc(8px + env(safe-area-inset-bottom)); }
-  .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--muted); padding: 5px 6px; border-radius: 14px; font-weight: 800; min-width: 50px; }
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(255,255,255,0.97); border-top: 2px solid var(--border); display: flex; justify-content: space-around; padding: 6px 2px calc(6px + env(safe-area-inset-bottom)); }
+  .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--muted); padding: 4px 6px; border-radius: 12px; font-weight: 800; min-width: 48px; }
   .nav-btn.active { color: var(--purple); background: var(--purple-soft); }
-  .nav-icon { font-size: 18px; }
+  .nav-icon { font-size: 17px; }
 
-  /* Home Stats & Class Coop Vineyard */
-  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-  .stat-box { background: #FFF; border: 2px solid var(--border); border-radius: 18px; padding: 10px 6px; text-align: center; }
-  .stat-val { font-size: 19px; font-weight: 900; color: var(--purple); font-family: "Nunito", sans-serif; }
-  .stat-lbl { font-size: 10px; color: var(--muted); font-weight: 800; margin-top: 2px; }
-
-  .coop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .coop-box { background: var(--surface2); border: 2px solid var(--border); border-radius: 16px; padding: 10px 12px; }
+  /* Compact Home Top Strip (Stats + Class Battle) */
+  .top-strip { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; }
+  .mini-stat { flex: 1; background: var(--surface2); border-radius: 12px; padding: 6px 4px; text-align: center; font-size: 12px; font-weight: 900; color: var(--brown); font-family: "Nunito", sans-serif; }
+  .mini-stat span { color: var(--purple); }
+  .coop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .coop-box { background: var(--surface2); border: 2px solid transparent; border-radius: 12px; padding: 6px 9px; }
   .coop-box.my-class { border-color: var(--purple); background: var(--purple-soft); }
-  .coop-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 900; color: var(--brown); margin-bottom: 6px; }
-  .coop-bar { height: 8px; background: #FFF; border-radius: 99px; overflow: hidden; }
+  .coop-top { display: flex; justify-content: space-between; font-size: 11px; font-weight: 900; color: var(--brown); margin-bottom: 4px; }
+  .coop-bar { height: 6px; background: #FFF; border-radius: 99px; overflow: hidden; }
   .coop-fill { height: 100%; background: var(--purple); border-radius: 99px; transition: width 0.3s; }
   .coop-fill.c2 { background: var(--pink); }
 
-  /* 4 Core Grammar Cards (2x2 Grid) */
-  .g4-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 14px; }
-  .g4-card { background: #FFF; border: 2px solid var(--border); border-bottom-width: 4px; border-radius: 16px; padding: 11px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; transition: border-color 0.15s; }
+  /* Lesson Selector Dropdown (Replaces 16 Pills) */
+  .lesson-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .lesson-select {
+    flex: 1; padding: 8px 12px; font-size: 13px; font-weight: 900;
+    color: #FFF; background: var(--purple); border: none; border-radius: 14px;
+    box-shadow: 0 3px 0 var(--purple-dark); cursor: pointer;
+  }
+  .lesson-select option { background: #FFF; color: var(--brown); font-weight: 700; }
+
+  /* Compact 4 Core Grammar Cards (2x2 Grid) */
+  .g4-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+  .g4-card { background: #FFF; border: 2px solid var(--border); border-bottom-width: 3px; border-radius: 14px; padding: 8px 9px; display: flex; flex-direction: column; justify-content: space-between; gap: 4px; }
   .g4-card.open { border-color: var(--purple); background: #FAF8FF; }
-  .g4-title { font-size: 13px; font-weight: 900; color: var(--purple-dark); line-height: 1.3; cursor: pointer; }
-  .g4-ko { font-size: 11px; font-weight: 700; color: var(--muted); line-height: 1.35; cursor: pointer; }
-  .g4-ex { font-size: 12px; font-weight: 700; color: var(--brown); background: var(--surface2); padding: 7px 9px; border-radius: 10px; margin-top: 4px; line-height: 1.4; }
-  .g4-lights { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; padding-top: 6px; border-top: 1px dashed var(--border); }
-  .light-btn { font-size: 14px; padding: 3px 6px; border-radius: 8px; opacity: 0.35; transition: 0.15s; }
-  .light-btn.active { opacity: 1; background: var(--surface2); transform: scale(1.12); }
+  .g4-title { font-size: 12px; font-weight: 900; color: var(--purple-dark); line-height: 1.25; cursor: pointer; }
+  .g4-ko { font-size: 10.5px; font-weight: 700; color: var(--muted); line-height: 1.25; cursor: pointer; }
+  .g4-ex { font-size: 11px; font-weight: 700; color: var(--brown); background: var(--surface2); padding: 5px 7px; border-radius: 8px; margin-top: 2px; line-height: 1.35; }
+  .g4-lights { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; border-top: 1px dashed var(--border); }
+  .light-btn { font-size: 12px; padding: 1px 5px; border-radius: 6px; opacity: 0.35; }
+  .light-btn.active { opacity: 1; background: var(--surface2); transform: scale(1.1); }
 
-  .grape-wrap { display: flex; align-items: flex-end; justify-content: center; gap: 14px; flex-wrap: wrap; }
-  .cheer-box { display: flex; flex-direction: column; align-items: center; max-width: 135px; }
-  .bubble { background: var(--pink-soft); border: 2px solid var(--pink); color: var(--brown); padding: 7px 11px; border-radius: 14px; font-size: 12px; font-weight: 800; text-align: center; margin-bottom: 6px; }
-  .cheer-img { width: 84px; height: 84px; object-fit: contain; }
-
-  .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-  .mission-card { background: var(--surface2); border: 2px solid var(--border); border-radius: 18px; padding: 12px 6px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  /* Compact 3-Step Mission Row */
+  .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .mission-card { background: var(--surface2); border: 2px solid var(--border); border-radius: 14px; padding: 8px 4px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; }
   .mission-card.done { background: var(--purple-soft); border-color: var(--purple); }
-  .m-step { font-size: 10px; font-weight: 900; color: var(--muted); font-family: "Nunito", sans-serif; }
+  .m-step { font-size: 9px; font-weight: 900; color: var(--muted); font-family: "Nunito", sans-serif; }
   .mission-card.done .m-step { color: var(--purple); }
-  .m-icon { font-size: 22px; }
-  .m-name { font-size: 13px; font-weight: 800; color: var(--brown); }
-  .m-badge { font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 99px; background: #FFF; color: var(--muted); }
+  .m-icon { font-size: 18px; }
+  .m-name { font-size: 12px; font-weight: 800; color: var(--brown); }
+  .m-badge { font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 99px; background: #FFF; color: var(--muted); }
   .mission-card.done .m-badge { background: var(--purple); color: #FFF; }
+
+  /* Compact Grape Board */
+  .grape-wrap { display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .cheer-box { display: flex; flex-direction: column; align-items: center; max-width: 120px; }
+  .bubble { background: var(--pink-soft); border: 2px solid var(--pink); color: var(--brown); padding: 5px 9px; border-radius: 12px; font-size: 11px; font-weight: 800; text-align: center; margin-bottom: 4px; }
+  .cheer-img { width: 64px; height: 64px; object-fit: contain; }
 
   /* Pills, Vocab, Quiz, Builder, Dialogue */
   .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
@@ -149,12 +158,12 @@
   .feedback-bar.ok { background: var(--purple-soft); border: 2px solid var(--purple); color: var(--purple-dark); }
   .feedback-bar.no { background: #FEE2E2; border: 2px solid var(--danger); color: #991B1B; }
 
-  .app-footer { text-align: center; padding: 18px 12px 90px; font-size: 12px; color: var(--muted); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .gear-btn { font-size: 16px; color: var(--muted); padding: 4px 6px; }
+  .app-footer { text-align: center; padding: 8px 12px 74px; font-size: 11px; color: var(--muted); font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .gear-btn { font-size: 15px; color: var(--muted); padding: 2px 5px; }
   .modal-bg { position: fixed; inset: 0; z-index: 150; background: rgba(59,35,34,0.55); display: none; align-items: center; justify-content: center; padding: 16px; }
   .modal-bg.open { display: flex; }
   .modal-card { background: #FFF; border: 2px solid var(--border); border-radius: 24px; max-width: 520px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 20px; }
-  .toast { position: fixed; top: 68px; left: 50%; transform: translateX(-50%); z-index: 250; background: var(--brown); color: #FFF; padding: 10px 18px; border-radius: 99px; font-size: 13px; font-weight: 800; display: none; }
+  .toast { position: fixed; top: 64px; left: 50%; transform: translateX(-50%); z-index: 250; background: var(--brown); color: #FFF; padding: 9px 16px; border-radius: 99px; font-size: 12px; font-weight: 800; display: none; }
   .toast.show { display: block; }
   .hidden { display: none !important; }
   .celeb-modal { text-align: center; background: linear-gradient(180deg, #FFF 0%, #FDF2F8 100%); border: 3px solid var(--pink); }
@@ -209,49 +218,39 @@
   </div>
   <div style="display:flex; align-items:center; gap:6px;">
     <select id="langPicker" class="lang-select" onchange="changeLang(this.value)"></select>
-    <button class="btn btn-secondary btn-sm" onclick="logout()">⎋</button>
+    <button class="btn btn-secondary btn-sm" style="padding:5px 9px;" onclick="logout()">⎋</button>
   </div>
 </header>
 
 <main class="container">
-  <!-- HOME TAB -->
+  <!-- COMPACT 1-SCREEN HOME TAB -->
   <section id="tab-home">
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-val" id="statStreak">0</div><div class="stat-lbl">🔥 STREAK</div></div>
-      <div class="stat-box"><div class="stat-val" id="statGrapes">0 / 35</div><div class="stat-lbl">🍇 GRAPES</div></div>
-      <div class="stat-box"><div class="stat-val" id="statShields">0</div><div class="stat-lbl">🛡️ SHIELD</div></div>
-    </div>
-
-    <!-- 반별 협동 대결 (350개 먼저 얻기) -->
-    <div class="card" style="padding:14px 16px;">
-      <div class="card-hdr" style="margin-bottom:8px;">
-        <span>🏆 CLASS BATTLE</span>
-        <span style="font-size:11px; color:var(--pink);">FIRST TO 350 🍇</span>
+    <!-- 1. 상단 통합 바 (통계 + 반별 350알 대결) -->
+    <div class="card" style="padding:10px 12px;">
+      <div class="top-strip">
+        <div class="mini-stat">🔥 <span id="statStreak">0</span></div>
+        <div class="mini-stat">🍇 <span id="statGrapes">0/35</span></div>
+        <div class="mini-stat">🛡️ <span id="statShields">0</span></div>
       </div>
       <div class="coop-grid">
         <div class="coop-box" id="coopC1">
-          <div class="coop-top"><span id="coopC1Name">F반</span><span id="coopC1Val">0 / 350</span></div>
+          <div class="coop-top"><span id="coopC1Name">F반</span><span id="coopC1Val">0/350</span></div>
           <div class="coop-bar"><div class="coop-fill" id="coopC1Bar" style="width:0%"></div></div>
         </div>
         <div class="coop-box" id="coopC2">
-          <div class="coop-top"><span id="coopC2Name">G반</span><span id="coopC2Val">0 / 350</span></div>
+          <div class="coop-top"><span id="coopC2Name">G반</span><span id="coopC2Val">0/350</span></div>
           <div class="coop-bar"><div class="coop-fill c2" id="coopC2Bar" style="width:0%"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- 오늘의 진도 + 핵심 문법 4개 + 3단계 미션 -->
+    <!-- 2. 단원 선택 버튼 + 핵심 문법 4 + 3단계 미션 -->
     <div class="card">
-      <div class="card-hdr">
-        <span>📌 TODAY'S LESSON</span>
-        <span id="todayLessonBadge" style="font-size:12px; color:var(--purple);">1과</span>
+      <div class="lesson-bar">
+        <select id="homeLessonSelect" class="lesson-select" onchange="selectTodayLesson(Number(this.value))"></select>
+        <button class="btn btn-pink btn-sm" style="padding:8px 11px; white-space:nowrap;" onclick="startQuick4Quiz()">⚡ 4문제</button>
       </div>
-      <div class="pill-row" id="homeLessonPills"></div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-        <span style="font-size:12px; font-weight:900; color:var(--brown);">✨ 핵심 문법 4</span>
-        <button class="btn btn-pink btn-sm" style="padding:5px 10px; font-size:11px;" onclick="startQuick4Quiz()">⚡ 3분 컷 (4문제)</button>
-      </div>
       <div class="g4-grid" id="homeGrammar4"></div>
 
       <div class="mission-grid">
@@ -267,14 +266,14 @@
       </div>
     </div>
 
-    <!-- 개인 35알 포도송이 보드 -->
-    <div class="card">
-      <div class="card-hdr">
-        <span>🍇 MY GRAPE BOARD (35)</span>
-        <span id="bunchCount" style="font-size:12px; color:var(--pink);">0 BUNCH</span>
+    <!-- 3. 컴팩트 35알 포도송이 보드 -->
+    <div class="card" style="padding:10px 14px;">
+      <div class="card-hdr" style="margin-bottom:4px;">
+        <span>🍇 MY GRAPE (35)</span>
+        <span id="bunchCount" style="font-size:11px; color:var(--pink);">0 BUNCH</span>
       </div>
       <div class="grape-wrap">
-        <svg id="grapeSvg" viewBox="0 0 240 232" width="205" height="198"></svg>
+        <svg id="grapeSvg" viewBox="0 0 240 232" width="152" height="146"></svg>
         <div class="cheer-box">
           <div class="bubble" id="cheerMsg">STEP 1→2→3<br>CLEAR = 🍇+1</div>
           <img src="성균관대_04.jpg" alt="유생" class="cheer-img">
@@ -415,7 +414,7 @@
   <button class="nav-btn" data-tab="dialogue" onclick="goTab('dialogue')"><span class="nav-icon">💬</span>대화</button>
 </nav>
 
-<!-- CELEBRATION MODAL (35 GRAPES) -->
+<!-- CELEBRATION MODAL -->
 <div id="celebModal" class="modal-bg">
   <div class="modal-card celeb-modal">
     <img src="성균관대_01_2.jpg" style="width:120px; height:120px; object-fit:contain;">
@@ -455,7 +454,6 @@
       <button class="btn btn-secondary btn-sm" onclick="closeModal('adminModal')">✕</button>
     </div>
 
-    <!-- 반 이름 실시간 설정 (F반 / G반 등) -->
     <div style="background:var(--surface2); padding:12px; border-radius:16px; margin-bottom:12px;">
       <div style="font-size:12px; font-weight:900; color:var(--brown); margin-bottom:6px;">🏫 대결 반 이름 설정 (목표 350알)</div>
       <div style="display:grid; grid-template-columns:1fr 1fr auto; gap:6px;">
@@ -465,7 +463,6 @@
       </div>
     </div>
 
-    <!-- 우리 반 어려운 문법(🔴) & 오답 TOP 5 -->
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
       <div style="background:#FFF5FA; border:2px solid var(--pink-soft); padding:10px; border-radius:16px;">
         <div style="font-size:12px; font-weight:900; color:var(--pink); margin-bottom:4px;">🔴 어려운 문법 TOP 5</div>
@@ -534,7 +531,7 @@ const LANGUAGES = [
 
 const LESSONS = [
   {id:1,title:"동아리 문화",grammars:[
-    {p:"V+(느)ㄴ다고 하다 / A+다고 하다",ko:"들은 내용 전달",ex:"안나 씨가 경복궁이 멋있다고 했어요."},
+    {p:"V+(느)ㄴ다고 / A+다고 하다",ko:"들은 내용 전달",ex:"안나 씨가 경복궁이 멋있다고 했어요."},
     {p:"V+고 나서",ko:"앞 행동 끝낸 뒤",ex:"수업이 끝나고 나서 동아리 모임에 갈 거예요."},
     {p:"V+지 그래요?",ko:"상대방에게 권유",ex:"피곤하면 집에 가서 쉬지 그래요?"},
     {p:"N+에 대해(서)",ko:"말하거나 생각하는 대상",ex:"한국 동아리 문화에 대해서 발표하려고 해요."}
@@ -547,7 +544,7 @@ const LESSONS = [
   ],vocab:[["적성검사","aptitude test","职业倾向测试","kiểm tra năng khiếu","適性検査","진로를 정하기 전에 (   )를 받아 보세요."],["진로","career path","前途","con đường sự nghiệp","進路","졸업 후 (   )에 대해 고민하고 있어요."],["지원하다","to apply","申请","ứng tuyển","志願する","이번에 한국 대기업에 (   )."],["꼼꼼하다","meticulous","细心","tỉ mỉ","几帳面だ","성격이 (   )아서 실수가 없어요."],["면접","interview","面试","phỏng vấn","面接","내일 회사 (   )을 보러 가요."],["장학금","scholarship","奖学金","học bổng","奨学金","성적이 좋아서 (   )을 받았어요."],["전공하다","to major in","主修","học chuyên ngành","専攻する","대학에서 경영학을 (   )."]]},
   {id:3,title:"방 구하기",grammars:[
     {p:"V+(으)라고 하다",ko:"명령·요청 전달",ex:"엄마가 집에 일찍 오라고 하셨어요."},
-    {p:"V+는 편이다 / A+(으)ㄴ 편이다",ko:"완곡한 경향 표현",ex:"기숙사 방이 깨끗한 편이에요."},
+    {p:"V+는 / A+(으)ㄴ 편이다",ko:"완곡한 경향 표현",ex:"기숙사 방이 깨끗한 편이에요."},
     {p:"V/A+기는 하다",ko:"인정 후 반대·보류",ex:"한국어가 어렵기는 하지만 재미있어요."},
     {p:"A+아/어 보이다",ko:"겉모습 보고 추측",ex:"오늘 무척 피곤해 보이네요."}
   ],vocab:[["기숙사","dormitory","宿舍","ký túc xá","寮","학교 안에 있는 (   )에서 살아요."],["원룸","studio","单间公寓","phòng trọ","ワンルーム","학교 근처에 작은 (   )을 구했어요."],["월세","monthly rent","月租","tiền thuê tháng","家賃","매달 50만 원씩 (   )를 내요."],["보증금","deposit","押金","tiền đặt cọc","保証金","계약할 때 (   ) 1,000만 원을 냈어요."],["관리비","maintenance fee","物业费","phí quản lý","管理費","월세 외에 (   )도 따로 내야 해요."],["부동산","real estate","房产中介","bất động sản","不動産","방을 알아보려고 (   )에 갔어요."]]},
@@ -600,10 +597,10 @@ const LESSONS = [
     {p:"N+만에",ko:"다시 일어나기까지의 기간",ex:"일 년 만에 고향에 가요."}
   ],vocab:[["설날","Lunar New Year","春节","Tết","旧正月","음력 1월 1일은 한국의 (   )이에요."],["추석","Chuseok","中秋节","Trung Thu","秋夕","(   )에는 송편을 먹고 보름달을 봐요."],["세배를 하다","New Year bow","拜年","lạy mừng tuổi","新年の挨拶","설날 아침에 어른들께 (   )."],["보답하다","repay","报答","báo đáp","報いる","선생님의 은혜에 꼭 (   ) 싶어요."],["혼잡하다","congested","拥挤","đông đúc","混雑している","명절에는 고속도로가 매우 (   )."]]},
   {id:12,title:"사랑과 결혼",grammars:[
-    {p:"V+는 척하다 / A+(으)ㄴ 척하다",ko:"사실 아닌데 꾸밈",ex:"모르는 척하고 지나갔어요."},
+    {p:"V+는 / A+(으)ㄴ 척하다",ko:"사실 아닌데 꾸밈",ex:"모르는 척하고 지나갔어요."},
     {p:"V/A+더라고요",ko:"직접 보고 경험한 사실",ex:"전통 결혼식이 정말 멋있더라고요."},
     {p:"-(으)면 -(으)ㄹ수록",ko:"정도가 더해질수록 심해짐",ex:"만나면 만날수록 좋아졌어요."},
-    {p:"V+는 만큼 / A+(으)ㄴ 만큼",ko:"비슷한 정도·수량",ex:"노력한 만큼 좋은 결과가 있을 거예요."}
+    {p:"V+는 / A+(으)ㄴ 만큼",ko:"비슷한 정도·수량",ex:"노력한 만큼 좋은 결과가 있을 거예요."}
   ],vocab:[["세련되다","sophisticated","时尚","sành điệu","洗練されている","옷 입는 스타일이 아주 (   )."],["다정하다","affectionate","体贴","dịu dàng","優しい","성격이 (   )아서 인기가 많아요."],["고백하다","confess","表白","tỏ tình","告白する","좋아하는 사람에게 용기 내어 (   )."],["청첩장","invitation","请柬","thiệp cưới","招待状","친구에게 결혼식 (   )을 받았어요."],["축의금","wedding money","份子钱","tiền mừng","ご祝儀","결혼식에 가서 (   )을 냈어요."]]},
   {id:13,title:"유행",grammars:[
     {p:"V+나요? / A+(으)ㄴ가요?",ko:"부드러운 질문",ex:"요즘 한국에서 무슨 노래가 유행인가요?"},
@@ -625,7 +622,7 @@ const LESSONS = [
   ],vocab:[["역사 드라마","historical drama","历史剧","phim cổ trang","歴史ドラマ","조선 시대를 배경으로 한 (   )를 봐요."],["긴장감이 있다","suspenseful","有紧张感","hồi hộp","緊張感がある","스토리가 (   )아서 재미있어요."],["통쾌하다","exhilarating","痛快","sảng khoái","痛快だ","나쁜 사람이 벌을 받아서 정말 (   )."],["화려하다","splendid","华丽","lộng lẫy","華やかだ","무대 의상이 아주 (   )."],["관람객","audience","观众","khán giả","観覧客","공연장에 (   )이 가득 찼어요."]]},
   {id:16,title:"문화 차이",grammars:[
     {p:"V+고 말다",ko:"원치 않던 결과 발생",ex:"긴장해서 결국 실수하고 말았어요."},
-    {p:"V+나 보다 / A+(으)ㄴ가 보다",ko:"상황 보고 짐작",ex:"입이 귀에 걸린 걸 보니 좋은 일이 있나 봐요."},
+    {p:"V+나 / A+(으)ㄴ가 보다",ko:"상황 보고 짐작",ex:"입이 귀에 걸린 걸 보니 좋은 일이 있나 봐요."},
     {p:"V+곤 하다",ko:"반복되는 습관",ex:"설날에는 가족들과 윷놀이를 하곤 해요."},
     {p:"V+는 대로",ko:"똑같이 또는 곧바로",ex:"제가 하는 대로 따라 해 보세요."}
   ],vocab:[["손이 크다","generous","出手大方","hào phóng","気前がいい","어머니께서 음식을 많이 만드시는 걸 보니 (   )."],["발이 넓다","wide network","人脉广","quen biết rộng","顔が広い","아는 사람이 많은 걸 보니 정말 (   )."],["눈이 높다","high standards","眼光高","mắt cao","目が高い","물건을 고를 때 기준이 까다로워서 (   )."],["편견","prejudice","偏见","định kiến","偏見","다른 나라 문화에 대해 (   )을 가지면 안 돼요."],["인심","generosity","人情味","tình người","人情","시골에 가니까 사람들 (   )이 참 좋았어요."]]}
@@ -706,6 +703,7 @@ async function init() {
   const lh = LANGUAGES.map(l => `<option value="${l.code}">${l.label}</option>`).join('');
   document.getElementById('regLang').innerHTML = lh;
   document.getElementById('langPicker').innerHTML = lh;
+  document.getElementById('homeLessonSelect').innerHTML = LESSONS.map(l => `<option value="${l.id}">📌 ${l.id}과 · ${l.title}</option>`).join('');
   renderAvatarGrid('regAvatarGrid', state.regAvatar, a => { state.regAvatar = a; document.getElementById('authHeroImg').src = a; renderAvatarGrid('regAvatarGrid', a, arguments.callee); });
 
   await loadFromSheet();
@@ -866,7 +864,7 @@ function renderAll() {
   renderHome(); renderPills(); renderVocabList(); renderQuizPills(); renderBuilderPills(); renderDlgPills();
 }
 
-/* ===== TODAY LESSON, 4 GRAMMAR CARDS, 35 GRAPES & 350 BATTLE ===== */
+/* ===== COMPACT 1-SCREEN HOME ===== */
 function selectTodayLesson(id) {
   state.todayLesson = id; state.vocabLesson = id; state.openGIdx = -1;
   state.quizFilter = 'L' + id; state.builderFilter = 'L' + id; state.dlgLesson = id;
@@ -945,25 +943,22 @@ function renderHome() {
   ensureTodayMissions();
   const g = Number(state.user.grapes || 0), inB = g % BUNCH_GOAL, b = Math.floor(g / BUNCH_GOAL);
   document.getElementById('statStreak').textContent = state.user.streak || 0;
-  document.getElementById('statGrapes').textContent = `${inB} / ${BUNCH_GOAL}`;
+  document.getElementById('statGrapes').textContent = `${inB}/${BUNCH_GOAL}`;
   document.getElementById('statShields').textContent = state.user.shields || 0;
   document.getElementById('bunchCount').textContent = `${b} BUNCH`;
 
-  // 반별 350알 먼저 얻기 대결
   const [c1, c2] = state.classNames;
   const v1 = Number(state.classStats[c1] || 0), v2 = Number(state.classStats[c2] || 0);
   document.getElementById('coopC1Name').textContent = c1;
   document.getElementById('coopC2Name').textContent = c2;
-  document.getElementById('coopC1Val').textContent = `${v1} / ${BATTLE_GOAL}`;
-  document.getElementById('coopC2Val').textContent = `${v2} / ${BATTLE_GOAL}`;
+  document.getElementById('coopC1Val').textContent = `${v1}/${BATTLE_GOAL}`;
+  document.getElementById('coopC2Val').textContent = `${v2}/${BATTLE_GOAL}`;
   document.getElementById('coopC1Bar').style.width = `${Math.min(100, (v1 / BATTLE_GOAL) * 100)}%`;
   document.getElementById('coopC2Bar').style.width = `${Math.min(100, (v2 / BATTLE_GOAL) * 100)}%`;
   document.getElementById('coopC1').classList.toggle('my-class', (state.user.className || c1) === c1);
   document.getElementById('coopC2').classList.toggle('my-class', state.user.className === c2);
 
-  const curL = LESSONS.find(l => l.id === state.todayLesson);
-  document.getElementById('todayLessonBadge').textContent = `${curL.id}과 ${curL.title}`;
-  document.getElementById('homeLessonPills').innerHTML = LESSONS.map(l => `<button class="pill ${l.id===state.todayLesson?'active':''}" onclick="selectTodayLesson(${l.id})">${l.id}과</button>`).join('');
+  document.getElementById('homeLessonSelect').value = state.todayLesson;
   renderHomeGrammar4();
 
   const m = state.user.missions;
@@ -973,7 +968,6 @@ function renderHome() {
     el.querySelector('.m-badge').textContent = m[k] ? 'CLEAR ✓' : 'GO';
   });
 
-  // 35알 포도송이 좌표 (6 + 7 + 7 + 5 + 4 + 3 + 2 + 1 = 35)
   const coords = [
     [50,42],[78,42],[106,42],[134,42],[162,42],[190,42],
     [36,66],[64,66],[92,66],[120,66],[148,66],[176,66],[204,66],
