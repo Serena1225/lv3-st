@@ -72,15 +72,11 @@
   .coop-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 900; color: var(--brown); margin-bottom: 6px; }
   .coop-bar { height: 8px; background: #FFF; border-radius: 99px; overflow: hidden; }
   .coop-fill { height: 100%; background: var(--purple); border-radius: 99px; transition: width 0.3s; }
-  .coop-fill.pm { background: var(--pink); }
+  .coop-fill.c2 { background: var(--pink); }
 
   /* 4 Core Grammar Cards (2x2 Grid) */
   .g4-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 14px; }
-  .g4-card {
-    background: #FFF; border: 2px solid var(--border); border-bottom-width: 4px;
-    border-radius: 16px; padding: 11px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px;
-    transition: border-color 0.15s;
-  }
+  .g4-card { background: #FFF; border: 2px solid var(--border); border-bottom-width: 4px; border-radius: 16px; padding: 11px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; transition: border-color 0.15s; }
   .g4-card.open { border-color: var(--purple); background: #FAF8FF; }
   .g4-title { font-size: 13px; font-weight: 900; color: var(--purple-dark); line-height: 1.3; cursor: pointer; }
   .g4-ko { font-size: 11px; font-weight: 700; color: var(--muted); line-height: 1.35; cursor: pointer; }
@@ -122,12 +118,7 @@
   .duo-prompt { background: var(--surface2); border: 2px solid var(--border); border-radius: 16px; padding: 15px; margin-bottom: 14px; }
   .duo-tag { font-size: 11px; font-weight: 900; color: var(--pink); margin-bottom: 5px; display: inline-block; }
   .duo-text { font-size: 16px; font-weight: 800; color: var(--brown); line-height: 1.65; white-space: pre-line; }
-  .blank-box {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-width: 78px; height: 30px; margin: 0 5px; padding: 0 10px; vertical-align: middle;
-    background: #FFFFFF; border: 2px solid var(--purple); border-bottom-width: 4px;
-    border-radius: 10px; box-shadow: inset 0 2px 4px rgba(139, 92, 246, 0.12);
-  }
+  .blank-box { display: inline-flex; align-items: center; justify-content: center; min-width: 78px; height: 30px; margin: 0 5px; padding: 0 10px; vertical-align: middle; background: #FFFFFF; border: 2px solid var(--purple); border-bottom-width: 4px; border-radius: 10px; box-shadow: inset 0 2px 4px rgba(139, 92, 246, 0.12); }
   .answer-zone { min-height: 64px; border: 2px dashed var(--purple); border-radius: 16px; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; background: #FFF; }
   .chip-bank { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 14px; }
   .chip { background: #FFF; border: 2px solid var(--border); border-bottom-width: 4px; padding: 8px 13px; border-radius: 14px; font-size: 14px; font-weight: 800; color: var(--brown); }
@@ -197,10 +188,7 @@
       <div class="field"><input id="regId" placeholder="ID"></div>
       <div class="field"><input id="regPw" type="password" placeholder="Password"></div>
       <div class="field" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-        <select id="regClass">
-          <option value="오전반">오전반 (AM)</option>
-          <option value="오후반">오후반 (PM)</option>
-        </select>
+        <select id="regClass"></select>
         <select id="regLang"></select>
       </div>
       <div class="field"><div class="avatar-grid" id="regAvatarGrid"></div></div>
@@ -230,29 +218,29 @@
   <section id="tab-home">
     <div class="stats-row">
       <div class="stat-box"><div class="stat-val" id="statStreak">0</div><div class="stat-lbl">🔥 STREAK</div></div>
-      <div class="stat-box"><div class="stat-val" id="statGrapes">0 / 20</div><div class="stat-lbl">🍇 GRAPES</div></div>
+      <div class="stat-box"><div class="stat-val" id="statGrapes">0 / 35</div><div class="stat-lbl">🍇 GRAPES</div></div>
       <div class="stat-box"><div class="stat-val" id="statShields">0</div><div class="stat-lbl">🛡️ SHIELD</div></div>
     </div>
 
-    <!-- 반별 협동 포도밭 (오전반 vs 오후반) -->
+    <!-- 반별 협동 대결 (350개 먼저 얻기) -->
     <div class="card" style="padding:14px 16px;">
       <div class="card-hdr" style="margin-bottom:8px;">
-        <span>🍇 CLASS VINEYARD</span>
-        <span style="font-size:11px; color:var(--pink);">GOAL 100 🍇</span>
+        <span>🏆 CLASS BATTLE</span>
+        <span style="font-size:11px; color:var(--pink);">FIRST TO 350 🍇</span>
       </div>
       <div class="coop-grid">
-        <div class="coop-box" id="coopAM">
-          <div class="coop-top"><span>오전반</span><span id="coopAMVal">0 🍇</span></div>
-          <div class="coop-bar"><div class="coop-fill" id="coopAMBar" style="width:0%"></div></div>
+        <div class="coop-box" id="coopC1">
+          <div class="coop-top"><span id="coopC1Name">F반</span><span id="coopC1Val">0 / 350</span></div>
+          <div class="coop-bar"><div class="coop-fill" id="coopC1Bar" style="width:0%"></div></div>
         </div>
-        <div class="coop-box" id="coopPM">
-          <div class="coop-top"><span>오후반</span><span id="coopPMVal">0 🍇</span></div>
-          <div class="coop-bar"><div class="coop-fill pm" id="coopPMBar" style="width:0%"></div></div>
+        <div class="coop-box" id="coopC2">
+          <div class="coop-top"><span id="coopC2Name">G반</span><span id="coopC2Val">0 / 350</span></div>
+          <div class="coop-bar"><div class="coop-fill c2" id="coopC2Bar" style="width:0%"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- 오늘의 진도 + 핵심 문법 4개 카드 + 3단계 미션 -->
+    <!-- 오늘의 진도 + 핵심 문법 4개 + 3단계 미션 -->
     <div class="card">
       <div class="card-hdr">
         <span>📌 TODAY'S LESSON</span>
@@ -260,7 +248,6 @@
       </div>
       <div class="pill-row" id="homeLessonPills"></div>
 
-      <!-- 선택한 과의 핵심 문법 4개 (2x2 카드 + 신호등 체크) -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
         <span style="font-size:12px; font-weight:900; color:var(--brown);">✨ 핵심 문법 4</span>
         <button class="btn btn-pink btn-sm" style="padding:5px 10px; font-size:11px;" onclick="startQuick4Quiz()">⚡ 3분 컷 (4문제)</button>
@@ -280,14 +267,14 @@
       </div>
     </div>
 
-    <!-- 개인 포도송이 보드 -->
+    <!-- 개인 35알 포도송이 보드 -->
     <div class="card">
       <div class="card-hdr">
-        <span>🍇 MY GRAPE BOARD</span>
+        <span>🍇 MY GRAPE BOARD (35)</span>
         <span id="bunchCount" style="font-size:12px; color:var(--pink);">0 BUNCH</span>
       </div>
       <div class="grape-wrap">
-        <svg id="grapeSvg" viewBox="0 0 220 220" width="185" height="185"></svg>
+        <svg id="grapeSvg" viewBox="0 0 240 232" width="205" height="198"></svg>
         <div class="cheer-box">
           <div class="bubble" id="cheerMsg">STEP 1→2→3<br>CLEAR = 🍇+1</div>
           <img src="성균관대_04.jpg" alt="유생" class="cheer-img">
@@ -428,11 +415,11 @@
   <button class="nav-btn" data-tab="dialogue" onclick="goTab('dialogue')"><span class="nav-icon">💬</span>대화</button>
 </nav>
 
-<!-- CELEBRATION MODAL -->
+<!-- CELEBRATION MODAL (35 GRAPES) -->
 <div id="celebModal" class="modal-bg">
   <div class="modal-card celeb-modal">
     <img src="성균관대_01_2.jpg" style="width:120px; height:120px; object-fit:contain;">
-    <div style="font-size:24px; font-weight:900; color:var(--brown); margin-top:6px;">🎉 20 GRAPES! 🎉</div>
+    <div style="font-size:24px; font-weight:900; color:var(--brown); margin-top:6px;">🎉 35 GRAPES! 🎉</div>
     <div class="celeb-banner">선생님께 보여주세요!</div>
     <div id="celebUser" style="font-size:15px; font-weight:800; color:var(--purple); margin-bottom:16px;"></div>
     <button class="btn btn-primary btn-full" onclick="closeModal('celebModal')">OK</button>
@@ -468,8 +455,18 @@
       <button class="btn btn-secondary btn-sm" onclick="closeModal('adminModal')">✕</button>
     </div>
 
+    <!-- 반 이름 실시간 설정 (F반 / G반 등) -->
+    <div style="background:var(--surface2); padding:12px; border-radius:16px; margin-bottom:12px;">
+      <div style="font-size:12px; font-weight:900; color:var(--brown); margin-bottom:6px;">🏫 대결 반 이름 설정 (목표 350알)</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr auto; gap:6px;">
+        <input id="admClass1" placeholder="1반 이름 (예: F반)">
+        <input id="admClass2" placeholder="2반 이름 (예: G반)">
+        <button class="btn btn-primary btn-sm" onclick="saveClassNames()">☁️ 저장</button>
+      </div>
+    </div>
+
     <!-- 우리 반 어려운 문법(🔴) & 오답 TOP 5 -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
       <div style="background:#FFF5FA; border:2px solid var(--pink-soft); padding:10px; border-radius:16px;">
         <div style="font-size:12px; font-weight:900; color:var(--pink); margin-bottom:4px;">🔴 어려운 문법 TOP 5</div>
         <div id="topHardsList" style="font-size:11px; font-weight:700; color:var(--brown);">집계 중...</div>
@@ -480,9 +477,9 @@
       </div>
     </div>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
       <button class="btn btn-secondary btn-sm" onclick="adminResetMission()">오늘 미션 초기화</button>
-      <button class="btn btn-pink btn-sm" onclick="closeModal('adminModal');triggerCelebration();">20알 축하 테스트</button>
+      <button class="btn btn-pink btn-sm" onclick="closeModal('adminModal');triggerCelebration();">35알 축하 테스트</button>
       <button class="btn btn-primary btn-sm" onclick="adminAddGrape(1)">포도알 +1</button>
       <button class="btn btn-secondary btn-sm" onclick="adminAddGrape(-1)">포도알 -1</button>
     </div>
@@ -527,13 +524,14 @@
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwj1ORQctq6plSpZKCfC8AQheVaG4fekEgcCH-94csQ3Wbm7DdV9f1VtnyUfmYdxM6-Yg/exec';
+const BUNCH_GOAL = 35;
+const BATTLE_GOAL = 350;
 const AVATARS = ['성균관대_33.jpg','성균관대_34.jpg','성균관대_35_2.jpg','성균관대_36_2.jpg','성균관대_37.jpg','성균관대_01_2.jpg','성균관대_02_2.jpg'];
 const LANGUAGES = [
   {code:'en',label:'English'},{code:'zh-CN',label:'中文'},{code:'ja',label:'日本語'},{code:'vi',label:'Tiếng Việt'},
   {code:'th',label:'ภาษาไทย'},{code:'mn',label:'Монгол'},{code:'my',label:'မြန်မာ'},{code:'ko',label:'한국어'}
 ];
 
-/* 1~16과 전체 핵심 문법 4개 + 어휘 */
 const LESSONS = [
   {id:1,title:"동아리 문화",grammars:[
     {p:"V+(느)ㄴ다고 하다 / A+다고 하다",ko:"들은 내용 전달",ex:"안나 씨가 경복궁이 멋있다고 했어요."},
@@ -678,10 +676,11 @@ let state = {
   students: JSON.parse(localStorage.getItem('skku3_students') || '[]'),
   flashcards: JSON.parse(localStorage.getItem('skku3_fc') || '[]'),
   confidence: JSON.parse(localStorage.getItem('skku3_conf') || '{}'),
+  classNames: ['F반', 'G반'],
   quizBank: [...DEFAULT_QUIZ],
   builderBank: [...DEFAULT_BUILDER],
   dialogueBank: [...DEFAULT_DIALOGUES],
-  classStats: { '오전반': 0, '오후반': 0 },
+  classStats: {},
   topWrongs: [], topHards: [],
   regAvatar: AVATARS[0],
   todayLesson: 1, vocabLesson: 1, openGIdx: -1,
@@ -699,6 +698,10 @@ const expCache = JSON.parse(localStorage.getItem('skku3_exp_cache') || '{}');
 function getKstDate() { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date()); }
 function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2400); }
 
+function renderClassSelect() {
+  document.getElementById('regClass').innerHTML = state.classNames.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
 async function init() {
   const lh = LANGUAGES.map(l => `<option value="${l.code}">${l.label}</option>`).join('');
   document.getElementById('regLang').innerHTML = lh;
@@ -706,6 +709,7 @@ async function init() {
   renderAvatarGrid('regAvatarGrid', state.regAvatar, a => { state.regAvatar = a; document.getElementById('authHeroImg').src = a; renderAvatarGrid('regAvatarGrid', a, arguments.callee); });
 
   await loadFromSheet();
+  renderClassSelect();
 
   if (state.user) {
     document.getElementById('authScreen').classList.add('hidden');
@@ -724,6 +728,7 @@ async function loadFromSheet() {
     const res = await fetch(GAS_URL).then(r => r.json());
     if (res.ok) {
       if (res.data) {
+        if (Array.isArray(res.data.classNames) && res.data.classNames.length >= 2) state.classNames = res.data.classNames;
         if (Array.isArray(res.data.quiz) && res.data.quiz.length) state.quizBank = res.data.quiz;
         if (Array.isArray(res.data.builder) && res.data.builder.length) state.builderBank = res.data.builder;
         if (Array.isArray(res.data.dialogue) && res.data.dialogue.length) state.dialogueBank = res.data.dialogue;
@@ -856,12 +861,12 @@ function goTab(tab) {
 function renderAll() {
   if (!state.user) return;
   ensureTodayMissions();
-  document.getElementById('hdrUserName').textContent = `${state.user.name} · ${state.user.className || '오전반'}`;
+  document.getElementById('hdrUserName').textContent = `${state.user.name} · ${state.user.className || state.classNames[0]}`;
   document.getElementById('hdrAvatar').src = state.user.avatar || AVATARS[0];
   renderHome(); renderPills(); renderVocabList(); renderQuizPills(); renderBuilderPills(); renderDlgPills();
 }
 
-/* ===== TODAY LESSON, 4 GRAMMAR CARDS, & CLASS VINEYARD ===== */
+/* ===== TODAY LESSON, 4 GRAMMAR CARDS, 35 GRAPES & 350 BATTLE ===== */
 function selectTodayLesson(id) {
   state.todayLesson = id; state.vocabLesson = id; state.openGIdx = -1;
   state.quizFilter = 'L' + id; state.builderFilter = 'L' + id; state.dlgLesson = id;
@@ -873,27 +878,22 @@ function startTodayMission(step) {
   else if (step === 'quiz') { state.quizFilter = 'L' + state.todayLesson; goTab('quiz'); startQuiz(); }
   else if (step === 'builder') { state.builderFilter = 'L' + state.todayLesson; goTab('builder'); }
 }
-function startQuick4Quiz() {
-  state.quizFilter = 'L' + state.todayLesson;
-  goTab('quiz');
-  startQuiz(4);
-}
+function startQuick4Quiz() { state.quizFilter = 'L' + state.todayLesson; goTab('quiz'); startQuiz(4); }
+
 function setConfidence(lessonId, idx, level, pattern) {
   const key = `${lessonId}_${idx}`;
   state.confidence[key] = level;
   localStorage.setItem('skku3_conf', JSON.stringify(state.confidence));
   if (level === 'red') {
     logStatToSheet('logHardGrammar', key, `[${lessonId}과] ${pattern}`);
-    toast('🔴 어려운 문법으로 체크됨 (복습 우선 출제)');
+    toast('🔴 어려운 문법으로 체크됨');
   }
   renderHomeGrammar4();
 }
 function renderHomeGrammar4() {
   const L = LESSONS.find(l => l.id === state.todayLesson);
   document.getElementById('homeGrammar4').innerHTML = L.grammars.map((g, i) => {
-    const key = `${L.id}_${i}`;
-    const lv = state.confidence[key] || '';
-    const isOpen = state.openGIdx === i;
+    const key = `${L.id}_${i}`, lv = state.confidence[key] || '', isOpen = state.openGIdx === i;
     return `<div class="g4-card ${isOpen?'open':''}">
       <div onclick="state.openGIdx=(state.openGIdx===${i}?-1:${i}); renderHomeGrammar4();">
         <div class="g4-title">${i+1}. ${g.p}</div>
@@ -927,16 +927,15 @@ function completeMission(key) {
     state.user.lastGrapeDate = getKstDate();
     state.user.streak = Number(state.user.streak || 0) + 1;
     state.user.grapes = Number(state.user.grapes || 0) + 1;
-    // 포도알 10개마다 스트릭 보호권(🛡️) 1개 자동 지급
     if (state.user.grapes % 10 === 0) {
       state.user.shields = Number(state.user.shields || 0) + 1;
       toast('🛡️ 스트릭 보호권 +1 획득!');
     }
-    const cls = state.user.className || '오전반';
+    const cls = state.user.className || state.classNames[0];
     state.classStats[cls] = Number(state.classStats[cls] || 0) + 1;
     saveUser();
     toast('🎉 MISSION CLEAR! 🍇 +1');
-    if (state.user.grapes % 20 === 0) triggerCelebration();
+    if (state.user.grapes % BUNCH_GOAL === 0) triggerCelebration();
   } else toast('STEP CLEAR! ✓');
   renderHome();
 }
@@ -944,21 +943,23 @@ function completeMission(key) {
 function renderHome() {
   if (!state.user) return;
   ensureTodayMissions();
-  const g = Number(state.user.grapes || 0), inB = g % 20, b = Math.floor(g / 20);
+  const g = Number(state.user.grapes || 0), inB = g % BUNCH_GOAL, b = Math.floor(g / BUNCH_GOAL);
   document.getElementById('statStreak').textContent = state.user.streak || 0;
-  document.getElementById('statGrapes').textContent = `${inB} / 20`;
+  document.getElementById('statGrapes').textContent = `${inB} / ${BUNCH_GOAL}`;
   document.getElementById('statShields').textContent = state.user.shields || 0;
   document.getElementById('bunchCount').textContent = `${b} BUNCH`;
 
-  // 반별 협동 포도밭
-  const am = Number(state.classStats['오전반'] || 0);
-  const pm = Number(state.classStats['오후반'] || 0);
-  document.getElementById('coopAMVal').textContent = `${am} 🍇`;
-  document.getElementById('coopPMVal').textContent = `${pm} 🍇`;
-  document.getElementById('coopAMBar').style.width = `${Math.min(100, am)}%`;
-  document.getElementById('coopPMBar').style.width = `${Math.min(100, pm)}%`;
-  document.getElementById('coopAM').classList.toggle('my-class', (state.user.className || '오전반') === '오전반');
-  document.getElementById('coopPM').classList.toggle('my-class', state.user.className === '오후반');
+  // 반별 350알 먼저 얻기 대결
+  const [c1, c2] = state.classNames;
+  const v1 = Number(state.classStats[c1] || 0), v2 = Number(state.classStats[c2] || 0);
+  document.getElementById('coopC1Name').textContent = c1;
+  document.getElementById('coopC2Name').textContent = c2;
+  document.getElementById('coopC1Val').textContent = `${v1} / ${BATTLE_GOAL}`;
+  document.getElementById('coopC2Val').textContent = `${v2} / ${BATTLE_GOAL}`;
+  document.getElementById('coopC1Bar').style.width = `${Math.min(100, (v1 / BATTLE_GOAL) * 100)}%`;
+  document.getElementById('coopC2Bar').style.width = `${Math.min(100, (v2 / BATTLE_GOAL) * 100)}%`;
+  document.getElementById('coopC1').classList.toggle('my-class', (state.user.className || c1) === c1);
+  document.getElementById('coopC2').classList.toggle('my-class', state.user.className === c2);
 
   const curL = LESSONS.find(l => l.id === state.todayLesson);
   document.getElementById('todayLessonBadge').textContent = `${curL.id}과 ${curL.title}`;
@@ -972,18 +973,28 @@ function renderHome() {
     el.querySelector('.m-badge').textContent = m[k] ? 'CLEAR ✓' : 'GO';
   });
 
-  const coords = [[55,48],[85,48],[115,48],[145,48],[175,48],[70,76],[100,76],[130,76],[160,76],[55,104],[85,104],[115,104],[145,104],[175,104],[85,132],[115,132],[145,132],[100,160],[130,160],[115,188]];
-  let svg = `<path d="M115 26 Q122 10 140 16" stroke="#4A2C2A" stroke-width="5" fill="none" stroke-linecap="round"/>`;
-  for (let i=0; i<20; i++) {
+  // 35알 포도송이 좌표 (6 + 7 + 7 + 5 + 4 + 3 + 2 + 1 = 35)
+  const coords = [
+    [50,42],[78,42],[106,42],[134,42],[162,42],[190,42],
+    [36,66],[64,66],[92,66],[120,66],[148,66],[176,66],[204,66],
+    [36,90],[64,90],[92,90],[120,90],[148,90],[176,90],[204,90],
+    [64,114],[92,114],[120,114],[148,114],[176,114],
+    [78,138],[106,138],[134,138],[162,138],
+    [92,162],[120,162],[148,162],
+    [106,186],[134,186],
+    [120,210]
+  ];
+  let svg = `<path d="M120 26 Q128 8 148 14" stroke="#4A2C2A" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  for (let i=0; i<BUNCH_GOAL; i++) {
     const f = i < inB, [cx,cy] = coords[i];
-    svg += `<circle cx="${cx}" cy="${cy}" r="13" fill="${f?(i%2?'#8B5CF6':'#EC4899'):'#F3EFFA'}" stroke="${f?'#4A2C2A':'#E6DFEE'}" stroke-width="2"/>`;
+    svg += `<circle cx="${cx}" cy="${cy}" r="11.5" fill="${f?(i%2?'#8B5CF6':'#EC4899'):'#F3EFFA'}" stroke="${f?'#4A2C2A':'#E6DFEE'}" stroke-width="1.8"/>`;
   }
   document.getElementById('grapeSvg').innerHTML = svg;
   document.getElementById('cheerMsg').innerHTML = state.user.lastGrapeDate === getKstDate() ? 'TODAY CLEAR! 🍇' : 'STEP 1→2→3<br>CLEAR = 🍇+1';
 }
 
 function triggerCelebration() {
-  document.getElementById('celebUser').textContent = `${state.user ? state.user.name : 'Student'} · 20 GRAPES`;
+  document.getElementById('celebUser').textContent = `${state.user ? state.user.name : 'Student'} · 35 GRAPES`;
   openModal('celebModal');
   const c = document.getElementById('confettiCanvas'), ctx = c.getContext('2d');
   c.width = window.innerWidth; c.height = window.innerHeight;
@@ -1232,6 +1243,8 @@ function openAdminAuth() { document.getElementById('adminPwInput').value = ''; o
 async function verifyAdmin() {
   if (document.getElementById('adminPwInput').value === '1225') {
     closeModal('adminAuthModal');
+    document.getElementById('admClass1').value = state.classNames[0];
+    document.getElementById('admClass2').value = state.classNames[1];
     document.getElementById('admCountInfo').textContent = `문법 ${state.quizBank.length} · 문장 ${state.builderBank.length} · 대화 ${state.dialogueBank.length}`;
     openModal('adminModal');
     await loadFromSheet();
@@ -1243,6 +1256,26 @@ async function verifyAdmin() {
       : '기록 없음';
   } else toast('PIN 오류');
 }
+
+async function saveClassNames() {
+  const c1 = document.getElementById('admClass1').value.trim();
+  const c2 = document.getElementById('admClass2').value.trim();
+  if (!c1 || !c2) return toast('두 반 이름을 모두 입력하세요.');
+  toast('반 이름 저장 중...');
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ pin: '1225', key: 'classNames', items: [c1, c2] })
+    }).then(r => r.json());
+    if (!res.ok) return toast(res.error || '저장 실패');
+    state.classNames = [c1, c2];
+    renderClassSelect();
+    renderHome();
+    toast(`🏫 ${c1} vs ${c2} 저장 완료!`);
+  } catch (e) { toast('시트 연결 오류'); }
+}
+
 function adminResetMission() { if(!state.user) return toast('로그인 후 사용'); state.user.missionDate=''; state.user.lastGrapeDate=''; state.fcCorrect=0; state.builderCorrect=0; saveUser(); renderHome(); toast('미션 초기화 완료'); }
 function adminAddGrape(n) { if(!state.user) return toast('로그인 후 사용'); state.user.grapes = Math.max(0, Number(state.user.grapes||0)+n); saveUser(); renderHome(); toast(`🍇 ${state.user.grapes}`); }
 
